@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
 
 const base = {
   axios: axios,
-  baseUrl: 'http://localhost:8080'
+  baseUrl: 'https://api.openai.com'
 }
 
 export default base

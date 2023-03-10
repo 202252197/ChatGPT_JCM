@@ -36,7 +36,7 @@
       <div class="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== '1001'">
-            <div class="chat-text" v-if="item.chatType == 0">
+            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre;">
               {{ item.msg }}
             </div>
             <div class="chat-img" v-if="item.chatType == 1">
@@ -120,7 +120,7 @@
 
 <script>
 import { animation } from "@/util/util";
-import { getChatMsg } from "@/api/getData";
+import { getChatMsg,getCompletion } from "@/api/getData";
 
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
@@ -132,6 +132,7 @@ export default {
     FileCard,
   },
   props: {
+    settingInfo: Object,
     frinedInfo: Object,
     default() {
       return {};
@@ -152,24 +153,26 @@ export default {
     };
   },
   mounted() {
+    console.log(this.settingInfo)
+    console.log(this.frinedInfo)
     this.getFriendChatMsg();
   },
   methods: {
     //获取聊天记录
     getFriendChatMsg() {
-      let params = {
-        frinedId: this.frinedInfo.id,
-      };
-      getChatMsg(params).then((res) => {
-        this.chatList = res;
-        this.chatList.forEach((item) => {
-          if (item.chatType == 2 && item.extend.imgType == 2) {
-            this.srcImgList.push(item.msg);
-          }
-        });
-    this.scrollBottom();
+    //   let params = {
+    //     frinedId: this.frinedInfo.id,
+    //   };
+    //   getChatMsg(params).then((res) => {
+    //     this.chatList = res;
+    //     this.chatList.forEach((item) => {
+    //       if (item.chatType == 2 && item.extend.imgType == 2) {
+    //         this.srcImgList.push(item.msg);
+    //       }
+    //     });
+    // this.scrollBottom();
 
-      });
+    //   });
     },
     //发送信息
     sendMsg(msgList) {
@@ -189,6 +192,7 @@ export default {
     },
     //发送文字信息
     sendText() {
+      console.log(this.settingInfo)
       if (this.inputMsg) {
         let chatMsg = {
           headImg: require("@/assets/img/head_portrait.jpg"),
@@ -199,6 +203,28 @@ export default {
           uid: "1001", //uid
         };
         this.sendMsg(chatMsg);
+        let params={
+          "model":this.frinedInfo.id,
+          "prompt":this.inputMsg,
+          "max_tokens":this.settingInfo.MaxTokens,
+          "temperature":this.settingInfo.Temperature,
+          "top_p":this.settingInfo.TopP,
+          "presence_penalty":this.settingInfo.PresencePenalty,
+          "frequency_penalty":this.settingInfo.FrequencyPenalty
+        }
+
+        getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+            let chatResMsg = {
+              headImg: require("@/assets/img/head_portrait1.jpg"),
+              name: this.frinedInfo.id,
+              time: "09：12 AM",
+              msg: data,
+              chatType: 0, //信息类型，0文字，1图片
+              uid: this.frinedInfo.id, //uid
+            };
+            this.sendMsg(chatResMsg);
+        })
+        
         this.$emit('personCardSort', this.frinedInfo.id)
         this.inputMsg = "";
       } else {

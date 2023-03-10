@@ -1,12 +1,12 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft">
+    <div class="chatLeft" style="width:31%">
       <div class="title">
         <h1>君尘陌AI聊天</h1>
       </div>
       <div class="online-person">
         <span class="onlin-text">模型列表</span>
-        <div class="person-cards-wrapper">
+        <div class="s-wrapper">
           <div
             class="personList"
             v-for="personInfo in personList"
@@ -26,6 +26,7 @@
       <div v-if="showChatWindow">
         <ChatWindow
           :frinedInfo="chatWindowInfo"
+          :settingInfo="SettingInfo"
           @personCardSort="personCardSort"
         ></ChatWindow>
       </div>
@@ -37,7 +38,7 @@
     <div class="chatLeft">
       <div class="online-person">
         <span class="onlin-text">参数设置</span>
-        <div class="person-cards-wrapper">
+        <div class="s-wrapper">
           <div>
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY"/>
           </div>
@@ -82,7 +83,7 @@
 import PersonCard from "@/components/PersonCard.vue";
 import ChatWindow from "./chatwindow.vue";
 
-import { getFriend } from "@/api/getData";
+import { getModels } from "@/api/getData";
 export default {
   name: "App",
   components: {
@@ -106,7 +107,7 @@ export default {
     };
   },
   mounted() {
-    getFriend().then((res) => {
+    getModels().then((res) => {
       console.log(res);
       this.personList = res;
     });
@@ -174,13 +175,13 @@ export default {
       padding-left: 10px;
     }
     .online-person {
-      margin-top: 100px;
+      margin-top: 10%;
       .onlin-text {
-        margin-left: 30%;
+        margin-left: 35%;
         padding-left: 10px;
         color: rgb(176, 178, 189);
       }
-      .person-cards-wrapper {
+      .s-wrapper {
         padding-left: 10px;
         height: 65vh;
         margin-top: 20px;

@@ -4,7 +4,7 @@
           <HeadPortrait :imgUrl="personInfo.headImg"></HeadPortrait>
           <div class="info-detail">
             <div class="name">{{ personInfo.name }}</div>
-            <div class="detail">{{ personInfo.detail }}</div>
+            <div class="detail">{{ personInfo.lastMsg }}</div>
           </div>
 
     </div>
@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .person-card {
-  width: 250px;
+  width: 100%;
   height: 80px;
   border-radius: 10px;
   background-color: rgb(50, 54, 68);
