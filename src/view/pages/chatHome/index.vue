@@ -107,12 +107,17 @@ export default {
     };
   },
   mounted() {
-    getModels().then((res) => {
-      console.log(res);
-      this.personList = res;
-    });
+    // 在Vue实例中添加监听函数
+    this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
+    
   },
   methods: {
+    // 监听KeyMsg属性的变化
+    watchKeyMsg: function(newVal, oldVal) {
+      getModels(newVal).then((res) => {
+        this.personList = res;
+      });
+    },
     clickPerson(info) {
       this.showChatWindow = true;
       this.chatWindowInfo = info;

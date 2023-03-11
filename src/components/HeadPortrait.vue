@@ -7,7 +7,7 @@
 <script>
 export default {
     props: {
-        imgUrl:{ default:require('@/assets/img/head_portrait.jpg')}
+        imgUrl:{ default:require('@/assets/img/head.jpg')}
     }
 }
 </script>

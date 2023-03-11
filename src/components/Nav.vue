@@ -33,7 +33,7 @@ export default {
         "icon-shezhi",
       ],
       current: 0,
-      imgUrl: require('@/assets/img/head_portrait.jpg')
+      imgUrl: require('@/assets/img/head.jpg')
     };
   },
   methods: {
@@ -45,7 +45,9 @@ export default {
           }, () => {});
           break;
         case 1:
-          this.$message("该功能还没有开发哦，敬请期待一下吧~🥳");
+          this.$router.push({
+            name: "Setting",
+          }, () => {});
           break;
         default:
           this.$router.push({

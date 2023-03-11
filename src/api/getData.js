@@ -1,7 +1,6 @@
 import base from './index'
 let axios = base.axios
 let baseUrl = base.baseUrl
-const apiKey="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";
 const statements = ["十五日得半卷诗稿，遇墨迹化魂水中。",
                     "—朝有悟，臻至化境。",
                   "神游千山外，化墨入深潭。",
@@ -18,12 +17,12 @@ const statements = ["十五日得半卷诗稿，遇墨迹化魂水中。",
 "席卷英豪天下来!"]
 
 // 获取模型列表
-export const getModels = params => {
+export const getModels = token => {
   return axios({
     method: 'get',
     baseURL: `${baseUrl}/v1/models`,
     headers: {
-      'Authorization': 'Bearer ' + apiKey,
+      'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     }
   }).then(res => {
@@ -37,7 +36,7 @@ export const getModels = params => {
         detail: statements[Math.floor(Math.random() * statements.length)],
         lastMsg: "我是"+model+"模型",
         id: model,
-        headImg: require("@/assets/img/head_portrait1.jpg")
+        headImg: require("@/assets/img/ai.png")
       }
       modelsObj.push(modelObj)
     });
@@ -45,13 +44,45 @@ export const getModels = params => {
   })
 }
 
+// 完成对话指令
+export const getChatCompletion = (params,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/chat/completions`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    data: params
+  }).then(res => {
+    console.log("chatgpt说")
+    return res.data.choices[0].message.content;
+  })
+}
 
-// 获取模型列表
+
+// 完成指令
 export const getCompletion = (params,token) => {
-  console.log(params)
   return axios({
     method: 'post',
     baseURL: `${baseUrl}/v1/completions`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    data: params
+  }).then(res => {
+    return res.data.choices[0].text;
+  })
+}
+
+
+// 根据提示创建图像
+export const createImage = (params,token) => {
+  console.log(params)
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/images/generations`,
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -62,6 +93,7 @@ export const getCompletion = (params,token) => {
     return res.data.choices[0].text;
   })
 }
+
 
 
   // 获取聊天信息

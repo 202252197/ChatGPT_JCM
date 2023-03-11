@@ -23,7 +23,7 @@ let friendList = Mock.mock(
             detail: "我是大毛",
             lastMsg: "to do",
             id: "1002",
-            headImg: require("@/assets/img/head_portrait1.jpg"),
+            headImg: require("@/assets/img/ai.png"),
 
         },
         {
@@ -32,7 +32,7 @@ let friendList = Mock.mock(
             detail: "我是小毛",
             lastMsg: "dada dw ertgthy j uy",
             id: "1003",
-            headImg: require("@/assets/img/head_portrait2.jpg"),
+            headImg: require("@/assets/img/ai.png"),
 
         },
         {
@@ -41,7 +41,7 @@ let friendList = Mock.mock(
             detail: "我是小王",
             lastMsg: "大萨达萨达所大大萨达",
             id: "1004",
-            headImg: require("@/assets/img/head_portrait3.jpg"),
+            headImg: require("@/assets/img/ai.png"),
 
         },
     ]
@@ -50,7 +50,7 @@ let friendList = Mock.mock(
 let chatMsg1002 = Mock.mock(
     [
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: " 在吗？",
@@ -59,7 +59,7 @@ let chatMsg1002 = Mock.mock(
         },
 
         {
-            headImg: require("@/assets/img/head_portrait1.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛",
             time: "09：12 AM",
             msg: " 怎么了？",
@@ -67,7 +67,7 @@ let chatMsg1002 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: "问你个问题",
@@ -75,7 +75,7 @@ let chatMsg1002 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait1.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛",
             time: "09：12 AM",
             msg: "别问",
@@ -83,7 +83,7 @@ let chatMsg1002 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: require("@/assets/img/emoji/slightly-smiling-face.png"),
@@ -98,7 +98,7 @@ let chatMsg1002 = Mock.mock(
 let chatMsg1003 = Mock.mock(
     [
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: "在干嘛呢",
@@ -106,7 +106,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1001", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: require("@/assets/img/emoji/slightly-smiling-face.png"),
@@ -117,7 +117,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait2.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小毛",
             time: "09：12 AM",
             msg: "吃饭",
@@ -125,7 +125,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: "吃的什么饭",
@@ -133,7 +133,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait2.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小毛",
             time: "09：12 AM",
             msg: "蛋炒饭",
@@ -141,7 +141,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: "加蛋了吗？",
@@ -149,7 +149,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait2.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小毛",
             time: "09：12 AM",
             msg: "你说呢",
@@ -157,7 +157,7 @@ let chatMsg1003 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait2.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小毛",
             time: "09：12 AM",
             msg: require("@/assets/img/emoji/slightly-smiling-face.png"),
@@ -172,7 +172,7 @@ let chatMsg1003 = Mock.mock(
 let chatMsg1004 = Mock.mock(
     [
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: " sadasdawdas sadsad sad sad as despite ofhaving so much to do",
@@ -180,7 +180,7 @@ let chatMsg1004 = Mock.mock(
             uid: "1001", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: require("@/assets/img/emoji/slightly-smiling-face.png"),
@@ -191,7 +191,7 @@ let chatMsg1004 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait3.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小王",
             time: "09：12 AM",
             msg: " 21312大萨达萨达",
@@ -199,7 +199,7 @@ let chatMsg1004 = Mock.mock(
             uid: "1002", //uid
         },
         {
-            headImg: require("@/assets/img/head_portrait.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "大毛是小白",
             time: "09：12 AM",
             msg: "111212",
@@ -207,7 +207,7 @@ let chatMsg1004 = Mock.mock(
             uid: "1001",
         },
         {
-            headImg: require("@/assets/img/head_portrait3.jpg"),
+            headImg: require("@/assets/img/ai.png"),
             name: "小王",
             time: "09：12 AM",
             msg: "大萨达萨达所大大萨达",

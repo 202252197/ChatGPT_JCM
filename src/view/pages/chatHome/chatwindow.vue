@@ -35,10 +35,8 @@
     <div class="botoom">
       <div class="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
-          <div class="chat-friend" v-if="item.uid !== '1001'">
-            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre;">
-              {{ item.msg }}
-            </div>
+          <div class="chat-friend" v-if="item.uid !== 'jcm'">
+            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre-wrap;" >{{ item.msg.trim() }}</div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
                 :src="item.msg"
@@ -110,8 +108,13 @@
           ></Emoji>
         </div>
         <input class="inputs" v-model="inputMsg" @keyup.enter="sendText" />
-        <div class="send boxinput" @click="sendText">
+        <div class="send boxinput" @click="sendText" v-if="!acquiringStatus">
           <img src="@/assets/img/emoji/rocket.png" alt="" />
+        </div>
+        <div class="send boxinput" @click="tishi"  v-else>
+          <div class="spinner">
+            <img src="@/assets/img/shuaxin.png" alt="AI回答中" />
+          </div>
         </div>
       </div>
     </div>
@@ -119,9 +122,8 @@
 </template>
 
 <script>
-import { animation } from "@/util/util";
-import { getChatMsg,getCompletion } from "@/api/getData";
-
+import { animation,getNowTime,JCMFormatDate } from "@/util/util";
+import { getChatMsg,getCompletion,getChatCompletion } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -150,14 +152,18 @@ export default {
       showEmoji: false,
       friendInfo: {},
       srcImgList: [],
+      acquiringStatus:false
     };
   },
   mounted() {
-    console.log(this.settingInfo)
-    console.log(this.frinedInfo)
     this.getFriendChatMsg();
   },
   methods: {
+    tishi(){
+      this.$message({
+        message: this.frinedInfo.id+":"+"客观稍等片刻，马上告诉您！~",
+      });
+    },
     //获取聊天记录
     getFriendChatMsg() {
     //   let params = {
@@ -192,39 +198,54 @@ export default {
     },
     //发送文字信息
     sendText() {
-      console.log(this.settingInfo)
+      this.acquiringStatus=true
+      const dateNow=JCMFormatDate(getNowTime());
       if (this.inputMsg) {
         let chatMsg = {
-          headImg: require("@/assets/img/head_portrait.jpg"),
-          name: "大毛是小白",
-          time: "09：12 AM",
+          headImg: require("@/assets/img/head.jpg"),
+          name: "君尘陌",
+          time: dateNow,
           msg: this.inputMsg,
           chatType: 0, //信息类型，0文字，1图片
-          uid: "1001", //uid
+          uid: "jcm", //uid
         };
         this.sendMsg(chatMsg);
         let params={
-          "model":this.frinedInfo.id,
-          "prompt":this.inputMsg,
-          "max_tokens":this.settingInfo.MaxTokens,
-          "temperature":this.settingInfo.Temperature,
-          "top_p":this.settingInfo.TopP,
-          "presence_penalty":this.settingInfo.PresencePenalty,
-          "frequency_penalty":this.settingInfo.FrequencyPenalty
+            "model":this.frinedInfo.id,
+            "max_tokens":this.settingInfo.MaxTokens,
+            "temperature":this.settingInfo.Temperature,
+            "top_p":this.settingInfo.TopP,
+            "presence_penalty":this.settingInfo.PresencePenalty,
+            "frequency_penalty":this.settingInfo.FrequencyPenalty
         }
-
-        getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+        if(this.frinedInfo.id==="gpt-3.5-turbo" || this.frinedInfo.id==="gpt-3.5-turbo-0301"){
+          params.messages=[{"role": "user", "content": this.inputMsg}]
+          getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
             let chatResMsg = {
-              headImg: require("@/assets/img/head_portrait1.jpg"),
+              headImg: require("@/assets/img/ai.png"),
               name: this.frinedInfo.id,
-              time: "09：12 AM",
+              time: JCMFormatDate(getNowTime()),
               msg: data,
               chatType: 0, //信息类型，0文字，1图片
               uid: this.frinedInfo.id, //uid
             };
             this.sendMsg(chatResMsg);
-        })
-        
+          })
+        }else{
+          params.prompt=this.inputMsg
+          getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+            let chatResMsg = {
+              headImg: require("@/assets/img/ai.png"),
+              name: this.frinedInfo.id,
+              time: JCMFormatDate(getNowTime()),
+              msg: data,
+              chatType: 0, //信息类型，0文字，1图片
+              uid: this.frinedInfo.id, //uid
+            };
+            this.sendMsg(chatResMsg);
+          })
+        }
+        this.acquiringStatus=false
         this.$emit('personCardSort', this.frinedInfo.id)
         this.inputMsg = "";
       } else {
@@ -236,34 +257,37 @@ export default {
     },
     //发送表情
     sendEmoji(msg) {
+      console.log(msg)
+      const dateNow=JCMFormatDate(getNowTime());
       let chatMsg = {
-        headImg: require("@/assets/img/head_portrait.jpg"),
-        name: "大毛是小白",
-        time: "09：12 AM",
+        headImg: require("@/assets/img/head.jpg"),
+        name: "君尘陌",
+        time: dateNow,
         msg: msg,
         chatType: 1, //信息类型，0文字，1图片
         extend: {
           imgType: 1, //(1表情，2本地图片)
         },
-        uid: "1001",
+        uid: "jcm",
       };
       this.sendMsg(chatMsg);
       this.clickEmoji();
     },
     //发送本地图片
     sendImg(e) {
+      const dateNow=JCMFormatDate(getNowTime());
       let _this = this;
       console.log(e.target.files);
       let chatMsg = {
-        headImg: require("@/assets/img/head_portrait.jpg"),
-        name: "大毛是小白",
-        time: "09：12 AM",
+        headImg: require("@/assets/img/head.jpg"),
+        name: "君尘陌",
+        time: dateNow,
         msg: "",
         chatType: 1, //信息类型，0文字，1图片, 2文件
         extend: {
           imgType: 2, //(1表情，2本地图片)
         },
-        uid: "1001",
+        uid: "jcm",
       };
       let files = e.target.files[0]; //图片文件名
       if (!e || !window.FileReader) return; // 看是否支持FileReader
@@ -278,16 +302,17 @@ export default {
     },
     //发送文件
     sendFile(e) {
+      const dateNow=JCMFormatDate(getNowTime());
       let chatMsg = {
-        headImg: require("@/assets/img/head_portrait.jpg"),
-        name: "大毛是小白",
-        time: "09：12 AM",
+        headImg: require("@/assets/img/head.jpg"),
+        name: "君尘陌",
+        time: dateNow,
         msg: "",
         chatType: 2, //信息类型，0文字，1图片, 2文件
         extend: {
           fileType: "", //(1word，2excel，3ppt，4pdf，5zpi, 6txt)
         },
-        uid: "1001",
+        uid: "jcm",
       };
       let files = e.target.files[0]; //图片文件名
       chatMsg.msg = files;
@@ -322,20 +347,23 @@ export default {
         this.sendMsg(chatMsg);
         e.target.files = null;
       }
-    },
-    // 发送语音
-    telephone() {
-      this.$message("该功能还没有开发哦，敬请期待一下吧~🥳");
-    },
-    //发送视频
-    video() {
-      this.$message("该功能还没有开发哦，敬请期待一下吧~🥳");
-    },
+    }
   },
 };
 </script>
 
+
 <style lang="scss" scoped>
+.spinner {
+  width: 50px;
+  height: 50px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .chat-window {
   width: 100%;
   height: 100%;
