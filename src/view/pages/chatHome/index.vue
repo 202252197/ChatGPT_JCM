@@ -37,7 +37,7 @@
     </div>
     <div class="chatLeft">
      
-        <el-card shadow="hover" id="jianbian" style="line-height: 120%;">
+        <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
             总余额：${{ this.moneryInfo.totalGranted | numFilterReservedTwo }}<br/>
             可用余额：${{ this.moneryInfo.totalAvailable | numFilterReservedSix }}<br/>
             消耗余额：${{ moneryInfo.totalUsed | numFilterReservedSix }}<br/>
@@ -162,12 +162,14 @@ export default {
   mounted() {
     // 在Vue实例中添加监听函数
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
-    
+    if(sessionStorage.getItem("OpenAI_key")){
+      this.SettingInfo.KeyMsg=sessionStorage.getItem("OpenAI_key")
+    }
   },
   filters: {
     numFilterReservedSix (value) {
       // 截取当前数据到小数点后两位
-      return parseFloat(value).toFixed(6)
+      return parseFloat(value).toFixed(4)
     },
     numFilterReservedTwo (value) {
       // 截取当前数据到小数点后两位
@@ -179,14 +181,21 @@ export default {
     watchKeyMsg: function(newVal, oldVal) {
       //获取模型列表
       getModels(newVal).then((res) => {
+        //保存OpenAI key到session中
+        sessionStorage.setItem('OpenAI_key', newVal)
         this.personList = res;
-      });
-      //获取余额信息
-      getMoneyInfo(newVal).then((res) => {
-        this.moneryInfo.totalGranted = res.total_granted;
-        this.moneryInfo.totalUsed = res.total_used;
-        this.moneryInfo.totalAvailable = res.total_available;
-      });
+         //获取余额信息
+        getMoneyInfo(newVal).then((res) => {
+          this.moneryInfo.totalGranted = res.total_granted;
+          this.moneryInfo.totalUsed = res.total_used;
+          this.moneryInfo.totalAvailable = res.total_available;
+        });
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
     },
     // 更新当前余额
     updateMoneyInfo(){
@@ -240,15 +249,15 @@ export default {
   }
   #jianbian{
     background-color:rgb(50, 54, 68);
+    border-color: #409EFF;
     color: #fff;
-    border-radius: 35px;
     border-width: 3px;
   }
   .astrict{
     width: 90%;
   }
   .block{
-    margin-top: 10%;
+    margin-top: 5%;
     .demonstration{
       color:aliceblue;
       text-align: center;

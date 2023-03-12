@@ -97,9 +97,15 @@
         </div>
       </div>
       <div class="chatInputs">
+        <!--表情-->
         <div class="emoji boxinput" @click="clickEmoji">
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
+        <!--录音-->
+        <div class="send boxinput" @click="tishi"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+          <i class="el-icon-microphone" style="margin-top: 17%;"></i>
+        </div>
+        <!--emo表情列表-->
         <div class="emoji-content">
           <Emoji
             v-show="showEmoji"
@@ -107,13 +113,15 @@
             @closeEmoji="clickEmoji"
           ></Emoji>
         </div>
+        <!--输入框-->
         <input class="inputs" v-model="inputMsg" @keyup.enter="sendText" />
-   
+        <!--发送-->
         <div v-if="acqStatus">
           <div class="send boxinput" @click="sendText" >
             <img src="@/assets/img/emoji/rocket.png" alt="" />
           </div>
         </div>
+        <!--等待-->
         <div v-else>
           <div class="send boxinput" @click="tishi"  >
             <div class="spinner">
@@ -390,10 +398,7 @@ export default {
 
 
 <style lang="scss" scoped>
-::v-deep .el-input__inner  {
-              background-color: transparent;
-              color: #fff;
-            }
+
 .spinner {
   width: 50px;
   height: 50px;
@@ -598,7 +603,7 @@ export default {
       }
 
       .inputs {
-        width: 90%;
+        width: 65%;
         height: 50px;
         background-color: rgb(66, 70, 86);
         border-radius: 15px;
