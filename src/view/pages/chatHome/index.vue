@@ -54,27 +54,41 @@
             <el-collapse-transition>
               <div v-show="SettingStatus==0">
                 <div class="block">
-                  <span class="demonstration" style="">Max_tokens</span>
+                  <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
+                    <span class="demonstration" style="">max_tokens</span>
+                  </el-tooltip>
+               
                   <el-slider class="astrict" v-model="SettingInfo.MaxTokens" :step="1" :min="0" :max="2048"></el-slider>
                 </div>
 
                 <div class="block">
-                  <span class="demonstration">temperature(0~1)</span>
+                  <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
+                    <span class="demonstration">temperature(0~1)</span>
+                  </el-tooltip>
+
                   <el-slider class="astrict" v-model="SettingInfo.Temperature" :step="0.1" :min="0" :max="1"></el-slider>
                 </div>
 
                 <div class="block">
-                  <span class="demonstration" s>Top_p(0~1)</span>
+                  <el-tooltip class="item" effect="dark" content="指定在每个步骤中保留概率最高的单词的比例，范围是0到1，与temperature类似，但更加灵活和稳健。" placement="top">
+                    <span class="demonstration" s>top_p(0~1)</span>
+                  </el-tooltip>  
+
                   <el-slider class="astrict" v-model="SettingInfo.TopP" :step="0.1" :min="0" :max="1"></el-slider>
                 </div>
 
                 <div class="block">
-                  <span class="demonstration">Frequency_penalty(-2~2)</span>
+                  <el-tooltip class="item" effect="dark" content="指定降低重复单词出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
+                    <span class="demonstration">frequency_penalty(-2~2)</span>
+                  </el-tooltip>  
+
                   <el-slider class="astrict" v-model="SettingInfo.FrequencyPenalty" :step="0.1" :min="-2" :max="2" ></el-slider>
                 </div>
 
                 <div class="block">
-                  <span class="demonstration">Presence_penalty(-2~2)</span>
+                  <el-tooltip class="item" effect="dark" content="指定降低重复话题出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
+                    <span class="demonstration">presence_penalty(-2~2)</span>
+                  </el-tooltip>
                   <el-slider class="astrict" v-model="SettingInfo.PresencePenalty" :step="0.1" :min="-2" :max="2"></el-slider>
                 </div>
                 <div style="height: 30px;"></div>
@@ -86,19 +100,25 @@
               <div v-show="SettingStatus==1">
 
                 <div class="block">
-                  <span class="demonstration">n(1~10)</span>
+                  <el-tooltip class="item" effect="dark" content="生成图片的数量。" placement="top">
+                    <span class="demonstration">n(1~10)</span>
+                  </el-tooltip>  
                   <el-slider class="astrict" v-model="SettingInfo.n" :step="1" :min="-1" :max="10"></el-slider>
                 </div>
 
                 <div class="block">
-                  <span class="demonstration">size</span>
-                  <el-select v-model="SettingInfo.size" placeholder="请选择" style="margin-top: 10px;">
-                    <el-option
-                      v-for="item in imgSizes"
-                      :key="item.value"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <el-tooltip class="item" effect="dark" content="图片的大小。" placement="top">
+                    <span class="demonstration">size</span>
+                  </el-tooltip>  
+                  <div>
+                    <el-select v-model="SettingInfo.size" placeholder="请选择" style="margin-top: 10px;">
+                      <el-option
+                        v-for="item in imgSizes"
+                        :key="item.value"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
                 </div>
 
               </div>
