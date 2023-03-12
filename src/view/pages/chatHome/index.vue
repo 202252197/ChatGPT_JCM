@@ -4,8 +4,9 @@
       <div class="title">
         <h1>君尘陌AI聊天</h1>
       </div>
-      <div class="online-person">
+      <div class="online-person" style="margin-top: 5%;"> 
         <span class="onlin-text">模型列表</span>
+        <input class="inputs" v-model="modelSearch"  style=" margin-top: 10px;" />
         <div class="s-wrapper">
           <div
             class="personList"
@@ -164,8 +165,11 @@ export default {
         size:"256x256"
       },
       pcCurrent: "",
+      modelSearch: "",
       //模型列表
       personList: [],
+      //模型列表缓存
+      personListCache: [],
       //是否显示聊天窗口
       showChatWindow: false,
       //当前窗口的对话模型信息
@@ -182,6 +186,7 @@ export default {
   mounted() {
     // 在Vue实例中添加监听函数
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
+    this.$watch('modelSearch', this.watchModelSearch);
     if(sessionStorage.getItem("OpenAI_key")){
       this.SettingInfo.KeyMsg=sessionStorage.getItem("OpenAI_key")
     }
@@ -197,6 +202,12 @@ export default {
     }
   },
   methods: {
+    // 监听modelSearch属性的变化
+    watchModelSearch:function(newVal,oldVal){
+      if(this.personList.length !==0 ){
+        this.personList = this.personListCache.filter(person => person.id.includes(newVal))
+      }
+    },
     // 监听KeyMsg属性的变化
     watchKeyMsg: function(newVal, oldVal) {
       //获取模型列表
@@ -204,6 +215,7 @@ export default {
         //保存OpenAI key到session中
         sessionStorage.setItem('OpenAI_key', newVal)
         this.personList = res;
+        this.personListCache = res;
          //获取余额信息
         getMoneyInfo(newVal).then((res) => {
           this.moneryInfo.totalGranted = res.total_granted;
@@ -252,6 +264,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ .inputs {
+        width: 65%;
+        height: 50px;
+        background-color: rgb(66, 70, 86);
+        border-radius: 15px;
+        border: 2px solid rgb(34, 135, 225);
+        padding: 10px;
+        box-sizing: border-box;
+        transition: 0.2s;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 100;
+        margin: 0 20px;
+        &:focus {
+          outline: none;
+        }
+      }
 ::v-deep .el-input__inner  {
               background-color: transparent;
               color: #409EFF;
@@ -319,7 +348,7 @@ export default {
       .s-wrapper {
         padding-left: 10px;
         height: 65vh;
-        margin-top: 20px;
+        margin-top: 10px;
         overflow: hidden;
         overflow-y: scroll;
         box-sizing: border-box;

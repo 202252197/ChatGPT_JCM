@@ -44,7 +44,12 @@
                 v-if="item.extend.imgType == 1"
                 style="width: 100px; height: 100px"
               />
-              <el-image :src="item.msg" :preview-src-list="srcImgList" v-else>
+              <el-image
+                style="border-radius: 10px"
+                :src="item.msg"
+                :preview-src-list="srcImgList"
+                v-else
+              >
               </el-image>
             </div>
             <div class="chat-img" v-if="item.chatType == 2">
@@ -103,7 +108,7 @@
         </div>
         <!--录音-->
         <div class="send boxinput" @click="record"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
-          <i class="el-icon-microphone" style="margin-top: 17%;"></i>
+          <i class="el-icon-turn-off-microphone" style="margin-top: 17%;"></i>
         </div>
         <!--emo表情列表-->
         <div class="emoji-content">
@@ -165,7 +170,7 @@ export default {
       inputMsg: "",
       showEmoji: false,
       friendInfo: {},
-      srcImgList: [],
+      srcImgList: []
     };
   },
   mounted() {
@@ -251,6 +256,7 @@ export default {
                 uid: this.frinedInfo.id, //uid
               };
               this.sendMsg(imgResMsg);
+              this.srcImgList.push(imgInfo.url);
             }
             this.acqStatus=true
           })
