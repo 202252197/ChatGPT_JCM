@@ -27,4 +27,18 @@
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
 
+## 下载依赖包
+```
+npm install
+```
+
+### 运行
+```
+npm run serve
+```
+
+### 编译
+```
+npm run build
+```
 
