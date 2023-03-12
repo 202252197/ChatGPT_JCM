@@ -102,7 +102,7 @@
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
         <!--录音-->
-        <div class="send boxinput" @click="tishi"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+        <div class="send boxinput" @click="record"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
           <i class="el-icon-microphone" style="margin-top: 17%;"></i>
         </div>
         <!--emo表情列表-->
@@ -123,7 +123,7 @@
         </div>
         <!--等待-->
         <div v-else>
-          <div class="send boxinput" @click="tishi"  >
+          <div class="send boxinput" @click="waitMsg"  >
             <div class="spinner">
               <img src="@/assets/img/shuaxin.png" alt="AI回答中" />
             </div>
@@ -172,7 +172,12 @@ export default {
     this.getFriendChatMsg();
   },
   methods: {
-    tishi(){
+    record(){
+      this.$message({
+        message: "开始录音咯！",
+      });
+    },
+    waitMsg(){
       this.$message({
         message: this.frinedInfo.id+":"+"客观稍等片刻，马上告诉您！~",
       });

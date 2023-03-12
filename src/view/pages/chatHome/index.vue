@@ -1,6 +1,6 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft" style="width:31%">
+    <div class="chatLeft" style="width:24%">
       <div class="title">
         <h1>君尘陌AI聊天</h1>
       </div>

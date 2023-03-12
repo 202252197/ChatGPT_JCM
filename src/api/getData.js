@@ -34,7 +34,7 @@ export const getModels = token => {
         img: "",
         name: model,
         detail: statements[Math.floor(Math.random() * statements.length)],
-        lastMsg: "我是"+model+"模型",
+        lastMsg: model+"模型",
         id: model,
         headImg: require("@/assets/img/ai.png")
       }

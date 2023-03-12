@@ -3,7 +3,7 @@
     <div class="info">
           <HeadPortrait :imgUrl="personInfo.headImg"></HeadPortrait>
           <div class="info-detail">
-            <div class="name">{{ personInfo.name }}</div>
+            <div class="name">{{ truncateString(personInfo.name, 17) }}</div>
             <div class="detail">{{ personInfo.lastMsg }}</div>
           </div>
 
@@ -40,7 +40,13 @@ export default {
   methods: {
     isActive() {
       this.current = this.pcCurrent
-    }
+    },
+    truncateString(str, num) {
+      if (str.length <= num) {
+        return str;
+      }
+      return str.slice(0, num) + "...";
+    },
   }
 };
 </script>
