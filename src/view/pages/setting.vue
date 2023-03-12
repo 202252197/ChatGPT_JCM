@@ -17,12 +17,12 @@
                 大家如果有什么好的想法可以在GitHub中提出来，我们一起来完善这个页面。
               </span>
               <div style="font-size: 97px;margin-top: 5%;">
-                <a href="" style="text-decoration: none;color: #67C23A;">BliBili</a>---<a href="" style="text-decoration: none;color: #67C23A;">GitHub</a>
+                <a href="https://space.bilibili.com/326625155?spm_id_from=333.337.0.0" style="text-decoration: none;color: #67C23A;">BliBili</a>---<a href="https://github.com/202252197/ChatGPT_JCM" style="text-decoration: none;color: #67C23A;">GitHub</a>
               </div>
             </div>
         </transition>
       </el-main>
-      <el-footer style="margin-top: 18%;">ssssssssssssssssssssssssssssss</el-footer>
+      <!-- <el-footer style="margin-top: 18%;">ssssssssssssssssssssssssssssss</el-footer> -->
     </el-container>
   </div>
 </template>

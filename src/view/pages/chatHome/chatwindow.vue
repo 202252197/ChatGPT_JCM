@@ -108,12 +108,17 @@
           ></Emoji>
         </div>
         <input class="inputs" v-model="inputMsg" @keyup.enter="sendText" />
-        <div class="send boxinput" @click="sendText" v-if="!acquiringStatus">
-          <img src="@/assets/img/emoji/rocket.png" alt="" />
+   
+        <div v-if="acqStatus">
+          <div class="send boxinput" @click="sendText" >
+            <img src="@/assets/img/emoji/rocket.png" alt="" />
+          </div>
         </div>
-        <div class="send boxinput" @click="tishi"  v-else>
-          <div class="spinner">
-            <img src="@/assets/img/shuaxin.png" alt="AI回答中" />
+        <div v-else>
+          <div class="send boxinput" @click="tishi"  >
+            <div class="spinner">
+              <img src="@/assets/img/shuaxin.png" alt="AI回答中" />
+            </div>
           </div>
         </div>
       </div>
@@ -123,7 +128,7 @@
 
 <script>
 import { animation,getNowTime,JCMFormatDate } from "@/util/util";
-import { getChatMsg,getCompletion,getChatCompletion } from "@/api/getData";
+import { getChatMsg,getCompletion,getChatCompletion,createImage } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -147,12 +152,12 @@ export default {
   },
   data() {
     return {
+      acqStatus: true,
       chatList: [],
       inputMsg: "",
       showEmoji: false,
       friendInfo: {},
       srcImgList: [],
-      acquiringStatus:false
     };
   },
   mounted() {
@@ -177,7 +182,6 @@ export default {
     //       }
     //     });
     // this.scrollBottom();
-
     //   });
     },
     //发送信息
@@ -198,7 +202,9 @@ export default {
     },
     //发送文字信息
     sendText() {
-      this.acquiringStatus=true
+      this.$nextTick(() => {
+        this.acqStatus=false
+      })
       const dateNow=JCMFormatDate(getNowTime());
       if (this.inputMsg) {
         let chatMsg = {
@@ -210,44 +216,74 @@ export default {
           uid: "jcm", //uid
         };
         this.sendMsg(chatMsg);
-        let params={
+        
+        //如果是图片模式则进入待开发不过可用改状态使用
+        if(this.inputMsg.startsWith("img:")){
+          let params={
+            "prompt":this.inputMsg,
+            "n":this.settingInfo.n,
+            "size":this.settingInfo.size,
+          }
+          createImage(params,this.settingInfo.KeyMsg).then(data =>{
+            for(var imgInfo of data) {
+              let imgResMsg = {
+                headImg: require("@/assets/img/ai.png"),
+                name: this.frinedInfo.id,
+                time: JCMFormatDate(getNowTime()),
+                msg: imgInfo.url,
+                chatType: 1, //信息类型，0文字，1图片
+                extend: {
+                    imgType: 2, //(1表情，2本地图片)
+                },
+                uid: this.frinedInfo.id, //uid
+              };
+              this.sendMsg(imgResMsg);
+            }
+            this.acqStatus=true
+          })
+        }else{
+           //如果是文字模式则进入
+          let params={
             "model":this.frinedInfo.id,
             "max_tokens":this.settingInfo.MaxTokens,
             "temperature":this.settingInfo.Temperature,
             "top_p":this.settingInfo.TopP,
             "presence_penalty":this.settingInfo.PresencePenalty,
             "frequency_penalty":this.settingInfo.FrequencyPenalty
+          }
+          if(this.frinedInfo.id==="gpt-3.5-turbo" || this.frinedInfo.id==="gpt-3.5-turbo-0301"){
+            params.messages=[{"role": "user", "content": this.inputMsg}]
+            getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+              let chatResMsg = {
+                headImg: require("@/assets/img/ai.png"),
+                name: this.frinedInfo.id,
+                time: JCMFormatDate(getNowTime()),
+                msg: data,
+                chatType: 0, //信息类型，0文字，1图片
+                uid: this.frinedInfo.id, //uid
+              };
+              this.sendMsg(chatResMsg);
+              this.acqStatus=true
+            })
+          }else{
+            params.prompt=this.inputMsg
+            getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+              let chatResMsg = {
+                headImg: require("@/assets/img/ai.png"),
+                name: this.frinedInfo.id,
+                time: JCMFormatDate(getNowTime()),
+                msg: data,
+                chatType: 0, //信息类型，0文字，1图片
+                uid: this.frinedInfo.id, //uid
+              };
+              this.sendMsg(chatResMsg);
+              this.acqStatus=true
+            })
+          }
         }
-        if(this.frinedInfo.id==="gpt-3.5-turbo" || this.frinedInfo.id==="gpt-3.5-turbo-0301"){
-          params.messages=[{"role": "user", "content": this.inputMsg}]
-          getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
-            let chatResMsg = {
-              headImg: require("@/assets/img/ai.png"),
-              name: this.frinedInfo.id,
-              time: JCMFormatDate(getNowTime()),
-              msg: data,
-              chatType: 0, //信息类型，0文字，1图片
-              uid: this.frinedInfo.id, //uid
-            };
-            this.sendMsg(chatResMsg);
-          })
-        }else{
-          params.prompt=this.inputMsg
-          getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
-            let chatResMsg = {
-              headImg: require("@/assets/img/ai.png"),
-              name: this.frinedInfo.id,
-              time: JCMFormatDate(getNowTime()),
-              msg: data,
-              chatType: 0, //信息类型，0文字，1图片
-              uid: this.frinedInfo.id, //uid
-            };
-            this.sendMsg(chatResMsg);
-          })
-        }
-        this.acquiringStatus=false
         this.$emit('personCardSort', this.frinedInfo.id)
         this.inputMsg = "";
+        this.$parent.updateMoneyInfo();
       } else {
         this.$message({
           message: "消息不能为空哦~",
@@ -354,6 +390,10 @@ export default {
 
 
 <style lang="scss" scoped>
+::v-deep .el-input__inner  {
+              background-color: transparent;
+              color: #fff;
+            }
 .spinner {
   width: 50px;
   height: 50px;

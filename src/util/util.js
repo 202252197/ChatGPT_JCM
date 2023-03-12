@@ -133,5 +133,6 @@ export function JCMFormatDate(dateStr){
   let day = date.getDate();
   let hour = date.getHours();
   let minute = date.getMinutes();
-  return `${year}年${month}月${day}日 ${hour}时${minute}分`;
+  let second = date.getSeconds();
+  return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
 }

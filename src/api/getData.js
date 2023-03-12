@@ -89,11 +89,25 @@ export const createImage = (params,token) => {
     },
     data: params
   }).then(res => {
-    console.log("chatgpt说")
-    return res.data.choices[0].text;
+    return res.data.data;
   })
 }
 
+
+// 获取账号余额信息
+export const getMoneyInfo= token => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/dashboard/billing/credit_grants`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    console.log("chatgpt说")
+    return res.data;
+  })
+}
 
 
   // 获取聊天信息
