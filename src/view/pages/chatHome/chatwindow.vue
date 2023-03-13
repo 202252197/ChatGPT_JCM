@@ -1,6 +1,6 @@
 <template>
   <div class="chat-window">
-    <div class="top">
+    <div class="top" >
       <div class="head-pic">
         <HeadPortrait :imgUrl="frinedInfo.headImg"></HeadPortrait>
       </div>
@@ -119,7 +119,8 @@
           ></Emoji>
         </div>
         <!--输入框-->
-        <input class="inputs" v-model="inputMsg" @keyup.enter="sendText" />
+        <!-- <input /> -->
+        <textarea id="textareaMsg" class="inputs" style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 65%;min-width: 65%;"    maxlength="2000" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off" autocomplete="off" v-model="inputMsg" @keyup.enter="sendText"  ></textarea>
         <!--发送-->
         <div v-if="acqStatus">
           <div class="send boxinput" @click="sendText" >
@@ -220,6 +221,7 @@ export default {
     },
     //发送文字信息
     sendText() {
+      document.getElementById("textareaMsg").style.height="26px";
       this.$nextTick(() => {
         this.acqStatus=false
       })
@@ -409,7 +411,13 @@ export default {
 
 
 <style lang="scss" scoped>
-
+textarea::-webkit-scrollbar {
+  width: 3px; /* 设置滚动条宽度 */
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(66, 70, 86); /* 设置滚动条滑块的背景色 */
+  border-radius: 50%; /* 设置滑块的圆角 */
+}
 .spinner {
   width: 50px;
   height: 50px;
@@ -427,7 +435,7 @@ export default {
   position: relative;
 
   .top {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     &::after {
       content: "";
       display: block;
@@ -467,7 +475,7 @@ export default {
   }
   .botoom {
     width: 100%;
-    height: 70vh;
+    height: 74vh;
     background-color: rgb(50, 54, 68);
     border-radius: 20px;
     padding: 20px;
