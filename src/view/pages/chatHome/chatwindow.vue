@@ -107,7 +107,10 @@
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
         <!--录音-->
-        <div class="send boxinput" @click="record"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+        <div class="send boxinput" @click="stopRecording" v-if="recording" style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+          <i class="el-icon-microphone" style="margin-top: 17%;"></i>
+        </div>
+        <div class="send boxinput" @click="startRecording" v-if="!recording"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
           <i class="el-icon-turn-off-microphone" style="margin-top: 17%;"></i>
         </div>
         <!--emo表情列表-->
@@ -142,7 +145,7 @@
 
 <script>
 import { animation,getNowTime,JCMFormatDate } from "@/util/util";
-import { getChatMsg,getCompletion,getChatCompletion,createImage } from "@/api/getData";
+import { getChatMsg,getCompletion,getChatCompletion,createImage,createImageVariations,createTranscription } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -171,16 +174,58 @@ export default {
       inputMsg: "",
       showEmoji: false,
       friendInfo: {},
-      srcImgList: []
+      srcImgList: [],
+      recording: false,
+      audioChunks: []
     };
   },
   mounted() {
     this.getFriendChatMsg();
   },
   methods: {
-    record(){
+    startRecording(){
+      navigator.mediaDevices.getUserMedia({ audio: true }) .then((stream) => {
+        this.recorder = new MediaRecorder(stream);
+        this.recorder.addEventListener('dataavailable', event => {
+          this.audioChunks.push(event.data)
+        })
+        this.recording = true
+        this.recorder.start()
+        // 在这里使用录音器
+        this.$message({
+          message: "开始录音咯！",
+        });
+      }).catch((error) => {
+        this.$message({
+          type:"error",
+          message: "获取音频流失败啦！",
+        });
+      });
+      
+    },
+    async stopRecording() {
+      this.recorder.stop()
+      this.recording = false
+      this.recorder.ondataavailable = (event) => {
+        const blob = new Blob([event.data], { type: 'audio/wav' });
+        const file = new File([blob], 'recording.wav', {
+          type: 'audio/wav',
+          lastModified: Date.now()
+        });
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('model',"whisper-1")
+        formData.append('temperature',this.settingInfo.TemperatureAudio)
+        formData.append('response_format',"text")
+      
+        createTranscription(formData,this.settingInfo.KeyMsg).then(data =>{
+          this.$nextTick(() => {
+            this.inputMsg = data;
+          });
+        })
+      }
       this.$message({
-        message: "开始录音咯！",
+          message: "结束录音咯！",
       });
     },
     waitMsg(){
@@ -332,9 +377,37 @@ export default {
     },
     //发送本地图片
     sendImg(e) {
+      this.acqStatus=false
+      //获取文件
+      const file = e.target.files[0];
+
+      // 验证文件类型是否为PNG格式
+      if (file.type !== "image/png") {
+        this.$message({
+          message: "请上传一个有效的PNG文件~",
+          type: "warning",
+        });
+        return;
+      }
+
+      // 验证文件大小是否小于4MB
+      if (file.size > 4 * 1024 * 1024) {
+        this.$message({
+          message: "请上传一个小于4MB的文件~",
+          type: "warning",
+        });
+        return;
+      }
+      
+      // 通过验证后，上传文件
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("n", this.settingInfo.n);
+      formData.append("size", this.settingInfo.size);
+
       const dateNow=JCMFormatDate(getNowTime());
       let _this = this;
-      console.log(e.target.files);
+
       let chatMsg = {
         headImg: require("@/assets/img/head.jpg"),
         name: "君尘陌",
@@ -346,15 +419,34 @@ export default {
         },
         uid: "jcm",
       };
-      let files = e.target.files[0]; //图片文件名
+
       if (!e || !window.FileReader) return; // 看是否支持FileReader
       let reader = new FileReader();
-      reader.readAsDataURL(files); // 关键一步，在这里转换的
+      reader.readAsDataURL(file); // 关键一步，在这里转换的
       reader.onloadend = function() {
         chatMsg.msg = this.result; //赋值
         _this.srcImgList.push(chatMsg.msg);
       };
       this.sendMsg(chatMsg);
+
+      createImageVariations(formData,this.settingInfo.KeyMsg).then(data =>{
+        for(var imgInfo of data) {
+          let imgResMsg = {
+            headImg: require("@/assets/img/ai.png"),
+            name: this.frinedInfo.id,
+            time: JCMFormatDate(getNowTime()),
+            msg: imgInfo.url,
+            chatType: 1, //信息类型，0文字，1图片
+            extend: {
+                imgType: 2, //(1表情，2本地图片)
+            },
+            uid: this.frinedInfo.id, //uid
+          };
+          this.sendMsg(imgResMsg);
+          this.srcImgList.push(imgInfo.url);
+        }
+        this.acqStatus=true
+      })
       e.target.files = null;
     },
     //发送文件

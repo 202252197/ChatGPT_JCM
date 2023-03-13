@@ -93,6 +93,35 @@ export const createImage = (params,token) => {
   })
 }
 
+// 根据创建图像变体
+export const createImageVariations = (formData,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/images/variations`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: formData
+  }).then(res => {
+    return res.data.data;
+  })
+}
+
+// 将音频转换为文字
+export const createTranscription = (formData,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/audio/transcriptions`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: formData
+  }).then(res => {
+    return res.data;
+  })
+}
 
 // 获取账号余额信息
 export const getMoneyInfo= token => {

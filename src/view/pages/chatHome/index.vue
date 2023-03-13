@@ -45,8 +45,9 @@
         </el-card>
      
       <div class="online-person">
-        <span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话设置</span>
-        <span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片设置</span>
+        <span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span>
+        <span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span>
+        <span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">语音</span>
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -125,6 +126,24 @@
               </div>
             </el-collapse-transition>
             
+
+
+            <!--音频设置-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==2">
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定语音识别的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
+                    <span class="demonstration">temperature(0~1)</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0" :max="1"></el-slider>
+                </div>
+
+              </div>
+            </el-collapse-transition>
+
+
         </div>
       </div>
     </div>
@@ -158,6 +177,7 @@ export default {
         KeyMsg:"",
         MaxTokens:1000,
         Temperature:1,
+        TemperatureAudio:0,
         TopP:1,
         FrequencyPenalty:0,
         PresencePenalty:0,
