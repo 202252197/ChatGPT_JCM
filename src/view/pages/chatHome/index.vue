@@ -317,10 +317,10 @@ export default {
     cursor: pointer;
   }
   #jianbian{
-    background-color:rgb(50, 54, 68);
+    background-color:rgb(39, 42, 55);
     border-color: #409EFF;
     color: #fff;
-    border-width: 3px;
+    border-width:0px;
   }
   .astrict{
     width: 90%;
