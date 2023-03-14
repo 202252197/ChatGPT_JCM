@@ -496,6 +496,7 @@ export default {
           message: "请上传一个有效的PNG文件~",
           type: "warning",
         });
+        this.acqStatus=true
         return;
       }
 
@@ -505,6 +506,7 @@ export default {
           message: "请上传一个小于4MB的文件~",
           type: "warning",
         });
+        this.acqStatus=true
         return;
       }
       
