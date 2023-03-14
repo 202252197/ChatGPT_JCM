@@ -48,6 +48,8 @@
         <span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span>
         <span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span>
         <span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">语音</span>
+        <span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span>
+        <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span>
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -123,6 +125,15 @@
                   </div>
                 </div>
 
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="打开之后聊天发送的内容为描述图片的信息" placement="top">
+                    <span class="demonstration">产图模式</span>
+                  </el-tooltip>
+                  <div>
+                    <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth" style="margin-top: 10px;"></el-switch>
+                  </div>
+                </div>
+
               </div>
             </el-collapse-transition>
             
@@ -139,10 +150,48 @@
 
                   <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0" :max="1"></el-slider>
                 </div>
+                
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="请选你录音说的语言，以便于更快更精准的识别" placement="top">
+                    <span class="demonstration">language</span>
+                  </el-tooltip>  
+                  <div>
+                    <el-select v-model="SettingInfo.language" placeholder="请选择" style="margin-top: 10px;">
+                      <el-option
+                        v-for="item in languages"
+                        :key="item.value"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </div>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="英文录音识别专用" placement="top">
+                    <span class="demonstration">英语音频翻译</span>
+                  </el-tooltip>
+                  <div>
+                    <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth" style="margin-top: 10px;"></el-switch>
+                  </div>
+                </div>
 
               </div>
             </el-collapse-transition>
 
+
+            <!--微调-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==3">
+
+              </div>
+            </el-collapse-transition>
+
+              <!--文件-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==4">
+
+              </div>
+            </el-collapse-transition>
 
         </div>
       </div>
@@ -164,6 +213,8 @@ export default {
   },
   data() {
     return {
+      //宽度
+      defaulWidth:70,
       //0是聊天设置，1是图片设置
       SettingStatus:0,
       //余额信息
@@ -174,6 +225,8 @@ export default {
       },
       //全部的设置参数
       SettingInfo:{
+        translateEnglish:false,
+        openProductionPicture:false,
         KeyMsg:"",
         MaxTokens:1000,
         Temperature:1,
@@ -182,7 +235,8 @@ export default {
         FrequencyPenalty:0,
         PresencePenalty:0,
         n:1,
-        size:"256x256"
+        size:"256x256",
+        language:"zh"
       },
       pcCurrent: "",
       modelSearch: "",
@@ -200,6 +254,17 @@ export default {
           value: '512x512'
         }, {
           value: '1024x1024'
+        }],
+      languages:[{
+          value: 'zh'
+        }, {
+          value: 'en'
+        }, {
+          value: 'fr'
+        }, {
+          value: 'de'
+        },{
+          value: 'ja'
         }]
     };
   },

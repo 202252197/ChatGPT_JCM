@@ -145,10 +145,12 @@
 
 <script>
 import { animation,getNowTime,JCMFormatDate } from "@/util/util";
-import { getChatMsg,getCompletion,getChatCompletion,createImage,createImageVariations,createTranscription } from "@/api/getData";
+import { getChatMsg,getCompletion,getChatCompletion,createImage,createImageVariations,createTranscription,createTranslation } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
+import base from "@/api/index";
+
 export default {
   components: {
     HeadPortrait,
@@ -219,12 +221,23 @@ export default {
         formData.append('model',"whisper-1")
         formData.append('temperature',this.settingInfo.TemperatureAudio)
         formData.append('response_format',"text")
-      
-        createTranscription(formData,this.settingInfo.KeyMsg).then(data =>{
+        
+        if(this.settingInfo.translateEnglish){
+          createTranslation(formData,this.settingInfo.KeyMsg).then(data =>{
+            this.$nextTick(() => {
+              this.inputMsg = data;
+            });
+          })
+        }else{
+          console.log("哈哈哈")
+          formData.append('language',this.settingInfo.language)
+     
+          createTranscription(formData,this.settingInfo.KeyMsg).then(data =>{
           this.$nextTick(() => {
             this.inputMsg = data;
           });
         })
+        }
       }
       this.$message({
           message: "结束录音咯！",
@@ -275,7 +288,7 @@ export default {
         this.sendMsg(chatMsg);
         
         //如果是图片模式则进入待开发不过可用改状态使用
-        if(this.inputMsg.startsWith("img:")){
+        if(this.settingInfo.openProductionPicture){
           let params={
             "prompt":this.inputMsg,
             "n":this.settingInfo.n,
@@ -309,10 +322,18 @@ export default {
             "presence_penalty":this.settingInfo.PresencePenalty,
             "frequency_penalty":this.settingInfo.FrequencyPenalty
           }
+          let chatBeforResMsg = {
+              headImg: require("@/assets/img/ai.png"),
+              name: this.frinedInfo.id,
+              time: JCMFormatDate(getNowTime()),
+              msg: "",
+              chatType: 0, //信息类型，0文字，1图片
+              uid: this.frinedInfo.id, //uid
+          };
           if(this.frinedInfo.id==="gpt-3.5-turbo" || this.frinedInfo.id==="gpt-3.5-turbo-0301"){
-            this.chatCompletion(params)
+            this.chatCompletion(params,chatBeforResMsg)
           }else{
-            this.completion(params)
+            this.completion(params,chatBeforResMsg)
           }
         }
         this.$emit('personCardSort', this.frinedInfo.id)
@@ -325,40 +346,70 @@ export default {
         });
       }
     },
-    chatCompletion(params){
+    async chatCompletion(params,chatBeforResMsg){
         params.messages=[{"role": "user", "content": this.inputMsg}]
-        getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
-          let chatResMsg = {
-            headImg: require("@/assets/img/ai.png"),
-            name: this.frinedInfo.id,
-            time: JCMFormatDate(getNowTime()),
-            msg: data,
-            chatType: 0, //信息类型，0文字，1图片
-            uid: this.frinedInfo.id, //uid
-          };
-          this.sendMsg(chatResMsg);
-          this.acqStatus=true
-        })
+        params.stream=true
+        //新增一个空的消息
+        this.sendMsg(chatBeforResMsg);
+        const currentResLocation=this.chatList.length-1
+
+        let _this=this
+        try {
+          await fetch(
+              base.baseUrl+'/v1/chat/completions',{
+              method: "POST",
+              body: JSON.stringify({
+                ...params
+              }),
+              headers: {
+                Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            }
+          ).then(response=>{
+            const reader = response.body.getReader();
+      
+            function readStream(reader) {
+              return reader.read().then(({ done, value }) => {
+                if (done) {
+                  return;
+                }
+                let decodeds = new TextDecoder().decode(value);
+                let decodedArray = decodeds.split("data: ")
+
+                decodedArray.forEach(decoded => {
+                  if(decoded!==""){
+                    if(decoded.trim()==="[DONE]"){
+                      return;
+                    }else{
+                      const response = JSON.parse(decoded).choices[0].delta.content?JSON.parse(decoded).choices[0].delta.content:"";
+                      _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+response
+                    }
+                  }
+                });
+                return readStream(reader);
+              });
+            }
+            readStream(reader);
+          });
+    
+          this.acqStatus = true;
+        } catch (error) {
+          console.error(error);
+        }
     },
-    async completion(params){
+    async completion(params,chatBeforResMsg){
       // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.prompt=this.inputMsg
       params.stream=true
       //新增一个空的消息
-      let chatResMsg = {
-          headImg: require("@/assets/img/ai.png"),
-          name: this.frinedInfo.id,
-          time: JCMFormatDate(getNowTime()),
-          msg: "",
-          chatType: 0, //信息类型，0文字，1图片
-          uid: this.frinedInfo.id, //uid
-      };
-      this.sendMsg(chatResMsg);
+      this.sendMsg(chatBeforResMsg);
       const currentResLocation=this.chatList.length-1
       let _this=this
       try {
         await fetch(
-          `https://api.openai.com/v1/completions`,{
+            base.baseUrl+'/v1/completions',{
             method: "POST",
             body: JSON.stringify({
               ...params
@@ -380,7 +431,7 @@ export default {
               let decodeds = new TextDecoder().decode(value);
       
               let decodedArray = decodeds.split("data: ")
-              
+
               decodedArray.forEach(decoded => {
                 if(decoded!==""){
                   if(decoded.trim()==="[DONE]"){
@@ -396,14 +447,12 @@ export default {
           }
           readStream(reader);
         });
-
-        // 将结果添加到聊天记录中
-        // chatResMsg.msg = result;
-        // this.chatList.splice(currentResLocation, 1, chatResMsg);
+   
+        this.acqStatus = true;
       } catch (error) {
         console.error(error);
       }
-      this.acqStatus = true;
+
     },
     //获取窗口高度并滚动至最底层
     scrollBottom() {
