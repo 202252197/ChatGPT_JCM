@@ -45,8 +45,9 @@ npm run build
 | fine-tune    | 待开发 |
 | Files    | 待开发 |
 
-# 发送指令（后期会增加更多指令玩法）
-:img 根据描述生成图片，例如: img:黑色的小狗
+# 给粉丝分享的OppenAI key,感谢大家点赞，希望不要恶意使用哦，让每个粉丝都可以使用到，谢谢大家，谢谢大家
+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
+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
 
 
 # 个人说明
