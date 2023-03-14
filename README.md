@@ -6,6 +6,13 @@
 
 > 🤭记得点个小星星
 
+# 给粉丝分享的OppenAI key,感谢大家点赞，希望不要恶意使用哦，让每个粉丝都可以使用到，谢谢大家，谢谢大家
+
+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
+
+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
+
+
 ## 下载依赖包
 ```
 npm install
@@ -44,10 +51,6 @@ npm run build
 | Create translation    | 英语音频识别 |
 | fine-tune    | 待开发 |
 | Files    | 待开发 |
-
-# 给粉丝分享的OppenAI key,感谢大家点赞，希望不要恶意使用哦，让每个粉丝都可以使用到，谢谢大家，谢谢大家
-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
-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
 
 
 # 个人说明
