@@ -169,6 +169,7 @@ export default {
   },
   data() {
     return {
+      //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
       acqStatus: true,
       chatList: [],
       inputMsg: "",
@@ -183,6 +184,7 @@ export default {
     this.getFriendChatMsg();
   },
   methods: {
+    //开始录音
     startRecording(){
       navigator.mediaDevices.getUserMedia({ audio: true }) .then((stream) => {
         this.recorder = new MediaRecorder(stream);
@@ -201,8 +203,8 @@ export default {
           message: "获取音频流失败啦！",
         });
       });
-      
     },
+    //停止录音
     async stopRecording() {
       this.recorder.stop()
       this.recording = false
@@ -228,6 +230,7 @@ export default {
           message: "结束录音咯！",
       });
     },
+    //发送消息时等待
     waitMsg(){
       this.$message({
         message: this.frinedInfo.id+":"+"客观稍等片刻，马上告诉您！~",
@@ -253,19 +256,8 @@ export default {
       this.chatList.push(msgList);
       this.scrollBottom();
     },
-    //获取窗口高度并滚动至最底层
-    scrollBottom() {
-      this.$nextTick(() => {
-        const scrollDom = this.$refs.chatContent;
-        animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
-      });
-    },
-    //关闭标签框
-    clickEmoji() {
-      this.showEmoji = !this.showEmoji;
-    },
-    //发送文字信息
-    sendText() {
+   //发送文字信息
+   sendText() {
       document.getElementById("textareaMsg").style.height="26px";
       this.$nextTick(() => {
         this.acqStatus=false
@@ -318,33 +310,9 @@ export default {
             "frequency_penalty":this.settingInfo.FrequencyPenalty
           }
           if(this.frinedInfo.id==="gpt-3.5-turbo" || this.frinedInfo.id==="gpt-3.5-turbo-0301"){
-            params.messages=[{"role": "user", "content": this.inputMsg}]
-            getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
-              let chatResMsg = {
-                headImg: require("@/assets/img/ai.png"),
-                name: this.frinedInfo.id,
-                time: JCMFormatDate(getNowTime()),
-                msg: data,
-                chatType: 0, //信息类型，0文字，1图片
-                uid: this.frinedInfo.id, //uid
-              };
-              this.sendMsg(chatResMsg);
-              this.acqStatus=true
-            })
+            this.chatCompletion(params)
           }else{
-            params.prompt=this.inputMsg
-            getCompletion(params,this.settingInfo.KeyMsg).then(data =>{
-              let chatResMsg = {
-                headImg: require("@/assets/img/ai.png"),
-                name: this.frinedInfo.id,
-                time: JCMFormatDate(getNowTime()),
-                msg: data,
-                chatType: 0, //信息类型，0文字，1图片
-                uid: this.frinedInfo.id, //uid
-              };
-              this.sendMsg(chatResMsg);
-              this.acqStatus=true
-            })
+            this.completion(params)
           }
         }
         this.$emit('personCardSort', this.frinedInfo.id)
@@ -357,6 +325,98 @@ export default {
         });
       }
     },
+    chatCompletion(params){
+        params.messages=[{"role": "user", "content": this.inputMsg}]
+        getChatCompletion(params,this.settingInfo.KeyMsg).then(data =>{
+          let chatResMsg = {
+            headImg: require("@/assets/img/ai.png"),
+            name: this.frinedInfo.id,
+            time: JCMFormatDate(getNowTime()),
+            msg: data,
+            chatType: 0, //信息类型，0文字，1图片
+            uid: this.frinedInfo.id, //uid
+          };
+          this.sendMsg(chatResMsg);
+          this.acqStatus=true
+        })
+    },
+    async completion(params){
+      // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+      params.prompt=this.inputMsg
+      params.stream=true
+      //新增一个空的消息
+      let chatResMsg = {
+          headImg: require("@/assets/img/ai.png"),
+          name: this.frinedInfo.id,
+          time: JCMFormatDate(getNowTime()),
+          msg: "",
+          chatType: 0, //信息类型，0文字，1图片
+          uid: this.frinedInfo.id, //uid
+      };
+      this.sendMsg(chatResMsg);
+      const currentResLocation=this.chatList.length-1
+      let _this=this
+      try {
+        await fetch(
+          `https://api.openai.com/v1/completions`,{
+            method: "POST",
+            body: JSON.stringify({
+              ...params
+            }),
+            headers: {
+              Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        ).then(response=>{
+          const reader = response.body.getReader();
+    
+          function readStream(reader) {
+            return reader.read().then(({ done, value }) => {
+              if (done) {
+                return;
+              }
+              let decodeds = new TextDecoder().decode(value);
+      
+              let decodedArray = decodeds.split("data: ")
+              
+              decodedArray.forEach(decoded => {
+                if(decoded!==""){
+                  if(decoded.trim()==="[DONE]"){
+                    return;
+                  }else{
+                    const response = JSON.parse(decoded).choices[0].text;
+                    _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+response
+                  }
+                }
+              });
+              return readStream(reader);
+            });
+          }
+          readStream(reader);
+        });
+
+        // 将结果添加到聊天记录中
+        // chatResMsg.msg = result;
+        // this.chatList.splice(currentResLocation, 1, chatResMsg);
+      } catch (error) {
+        console.error(error);
+      }
+      this.acqStatus = true;
+    },
+    //获取窗口高度并滚动至最底层
+    scrollBottom() {
+      this.$nextTick(() => {
+        const scrollDom = this.$refs.chatContent;
+        animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
+      });
+    },
+    //关闭标签框
+    clickEmoji() {
+      this.showEmoji = !this.showEmoji;
+    },
+
     //发送表情
     sendEmoji(msg) {
       console.log(msg)

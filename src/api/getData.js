@@ -60,21 +60,55 @@ export const getChatCompletion = (params,token) => {
   })
 }
 
-
 // 完成指令
-export const getCompletion = (params,token) => {
-  return axios({
-    method: 'post',
-    baseURL: `${baseUrl}/v1/completions`,
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json'
-    },
-    data: params
-  }).then(res => {
-    return res.data.choices[0].text;
-  })
+export const getCompletion = async (params,token) => {
+  try {
+    await fetch(
+      `${baseUrl}/v1/completions`,{
+        method: "POST",
+        body: JSON.stringify({
+          ...params
+        }),
+        headers: {
+          Authorization: 'Bearer ' + token,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    ).then(response=>{
+      const reader = response.body.getReader();
+ 
+      function readStream(reader) {
+        return reader.read().then(({ done, value }) => {
+          if (done) {
+            return;
+          }
+          let decoded = new TextDecoder().decode(value);
+       
+          if (decoded.substring(0, 5) === "data:") {
+            decoded = decoded.substring(5);
+          }
+          decoded=decoded.trim();
+          if(decoded==="[DONE]"){
+            return;
+          }else{
+            const response = JSON.parse(decoded).choices[0].text;
+            console.log(response) 
+          }
+  
+          return readStream(reader);
+        });
+      }
+      readStream(reader);
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
+
+
+
 
 
 // 根据提示创建图像
@@ -115,7 +149,8 @@ export const createTranscription = (formData,token) => {
     baseURL: `${baseUrl}/v1/audio/transcriptions`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
+      
     },
     data: formData
   }).then(res => {
