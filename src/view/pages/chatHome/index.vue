@@ -292,6 +292,9 @@ export default {
       if(this.personList.length !==0 ){
         this.personList = this.personListCache.filter(person => person.id.includes(newVal))
       }
+      if(newVal==""){
+        this.personList = this.personListCache
+      }
     },
     // 监听KeyMsg属性的变化
     watchKeyMsg: function(newVal, oldVal) {

@@ -140,6 +140,103 @@ export const createTranslation = (formData,token) => {
   })
 }
 
+// 创建微调
+export const createFineTune = (formData,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/fine-tunes`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: formData
+  }).then(res => {
+    return res.data;
+  })
+}
+
+
+// 列出微调
+export const getFineTunesList = (formData,token) => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/v1/fine-tunes`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: formData
+  }).then(res => {
+    return res.data;
+  })
+}
+
+
+// 列出微调
+export const retrieveFineTune = (fineTuneId,token) => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/v1/fine-tunes/`+fineTuneId,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: fineTuneId
+  }).then(res => {
+    return res.data;
+  })
+}
+
+
+
+// 取消微调
+export const cancelFineTune = (fineTuneId,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/fine-tunes/`+fineTuneId+'/cancel',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: fineTuneId
+  }).then(res => {
+    return res.data;
+  })
+}
+
+// 取消微调
+export const getFineTuneEventsList = (fineTuneId,token) => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/v1/fine-tunes/`+fineTuneId+'/events',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: fineTuneId
+  }).then(res => {
+    return res.data;
+  })
+}
+
+// 取消微调
+export const deleteFineTuneModel = (model,token) => {
+  return axios({
+    method: 'delete',
+    baseURL: `${baseUrl}/v1/models/`+model,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data"'
+    },
+    data: model
+  }).then(res => {
+    return res.data;
+  })
+}
+
+
+
+
 // 获取账号余额信息
 export const getMoneyInfo= token => {
   return axios({
