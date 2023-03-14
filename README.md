@@ -40,9 +40,10 @@ npm run build
 | Completion  | GPT3.5以下模型 |
 | Create Image  | 根据描述生成图片 |
 | Create Image Variation  | 根据上传的图片生成变体图片 |
-| Create transcription  | 录音功能 |
-| Create translation    | 待开发 |
-| .....    | 待开发 |
+| Create transcription  | 音频识别文字 |
+| Create translation    | 英语音频识别 |
+| fine-tune    | 待开发 |
+| Files    | 待开发 |
 
 # 发送指令（后期会增加更多指令玩法）
 :img 根据描述生成图片，例如: img:黑色的小狗
