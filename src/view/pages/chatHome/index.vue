@@ -49,7 +49,8 @@
         <span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span>
         <span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">语音</span>
         <span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span>
-        <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span>
+        <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span><br>
+        <span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span>
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -104,10 +105,10 @@
               <div v-show="SettingStatus==1">
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="生成图片的数量。" placement="top">
-                    <span class="demonstration">n(1~10)</span>
-                  </el-tooltip>  
-                  <el-slider class="astrict" v-model="SettingInfo.n" :step="1" :min="-1" :max="10"></el-slider>
+                  <el-tooltip class="item" effect="dark" content="打开之后聊天发送的内容为描述图片的信息" placement="top">
+                    <span class="demonstration">产图模式</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
 
                 <div class="block">
@@ -126,12 +127,10 @@
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="打开之后聊天发送的内容为描述图片的信息" placement="top">
-                    <span class="demonstration">产图模式</span>
-                  </el-tooltip>
-                  <div>
-                    <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth" style="margin-top: 10px;"></el-switch>
-                  </div>
+                  <el-tooltip class="item" effect="dark" content="生成图片的数量。" placement="top">
+                    <span class="demonstration">n(1~10)</span>
+                  </el-tooltip>  
+                  <el-slider class="astrict" v-model="SettingInfo.n" :step="1" :min="-1" :max="10"></el-slider>
                 </div>
 
               </div>
@@ -144,13 +143,12 @@
               <div v-show="SettingStatus==2">
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定语音识别的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
-                    <span class="demonstration">temperature(0~1)</span>
+                  <el-tooltip class="item" effect="dark" content="英文录音识别专用" placement="top">
+                    <span class="demonstration">英语音频翻译</span>
                   </el-tooltip>
-
-                  <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0" :max="1"></el-slider>
+                  <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
-                
+
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="请选你录音说的语言，以便于更快更精准的识别" placement="top">
                     <span class="demonstration">language</span>
@@ -166,14 +164,15 @@
                   </div>
                 </div>
 
+               
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="英文录音识别专用" placement="top">
-                    <span class="demonstration">英语音频翻译</span>
+                  <el-tooltip class="item" effect="dark" content="指定语音识别的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
+                    <span class="demonstration">temperature(0~1)</span>
                   </el-tooltip>
-                  <div>
-                    <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth" style="margin-top: 10px;"></el-switch>
-                  </div>
+
+                  <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0" :max="1"></el-slider>
                 </div>
+                
 
               </div>
             </el-collapse-transition>
@@ -186,13 +185,26 @@
               </div>
             </el-collapse-transition>
 
-              <!--文件-->
+           <!--文件-->
             <el-collapse-transition>
               <div v-show="SettingStatus==4">
 
               </div>
             </el-collapse-transition>
 
+           <!--会话-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==5">
+
+              </div>
+            </el-collapse-transition>
+
+            <!--界面设置-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==5">
+
+              </div>
+          </el-collapse-transition>
         </div>
       </div>
     </div>

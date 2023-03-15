@@ -36,7 +36,8 @@ export const getModels = token => {
         detail: statements[Math.floor(Math.random() * statements.length)],
         lastMsg: model+"模型",
         id: model,
-        headImg: require("@/assets/img/ai.png")
+        headImg: require("@/assets/img/ai.png"),
+        showHeadImg: true
       }
       modelsObj.push(modelObj)
     });
@@ -247,7 +248,6 @@ export const getMoneyInfo= token => {
       'Content-Type': 'application/json'
     }
   }).then(res => {
-    console.log("chatgpt说")
     return res.data;
   })
 }

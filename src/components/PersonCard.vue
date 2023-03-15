@@ -1,7 +1,7 @@
 <template>
   <div class="person-card" :class="{ activeCard: personInfo.id == current }">
     <div class="info">
-          <HeadPortrait :imgUrl="personInfo.headImg"></HeadPortrait>
+          <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg"></HeadPortrait>
           <div class="info-detail">
             <div class="name">{{ truncateString(personInfo.name, 17) }}</div>
             <div class="detail">{{ personInfo.lastMsg }}</div>

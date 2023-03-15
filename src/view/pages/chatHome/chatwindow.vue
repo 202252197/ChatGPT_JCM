@@ -186,6 +186,20 @@ export default {
     this.getFriendChatMsg();
   },
   methods: {
+    //组装上下文数据
+    contextualAssemblyData(){
+      const conversation = []
+      for(var chat of this.chatList) {
+        if(chat.uid=='jcm'){
+          let my={'speaker':'user','text':chat.msg}
+          conversation.push(my)
+        }else if(chat.uid==this.frinedInfo.id){
+          let ai={'speaker':'agent','text':chat.msg}
+          conversation.push(ai)
+        }
+      }
+      return conversation
+    },
     //开始录音
     startRecording(){
       navigator.mediaDevices.getUserMedia({ audio: true }) .then((stream) => {
@@ -229,7 +243,6 @@ export default {
             });
           })
         }else{
-          console.log("哈哈哈")
           formData.append('language',this.settingInfo.language)
      
           createTranscription(formData,this.settingInfo.KeyMsg).then(data =>{
@@ -276,6 +289,9 @@ export default {
         this.acqStatus=false
       })
       const dateNow=JCMFormatDate(getNowTime());
+
+      let params={}
+
       if (this.inputMsg) {
         let chatMsg = {
           headImg: require("@/assets/img/head.jpg"),
@@ -289,11 +305,9 @@ export default {
         
         //如果是图片模式则进入待开发不过可用改状态使用
         if(this.settingInfo.openProductionPicture){
-          let params={
-            "prompt":this.inputMsg,
-            "n":this.settingInfo.n,
-            "size":this.settingInfo.size,
-          }
+            params.prompt=this.inputMsg,
+            params.n=this.settingInfo.n,
+            params.size=this.settingInfo.size,
           createImage(params,this.settingInfo.KeyMsg).then(data =>{
             for(var imgInfo of data) {
               let imgResMsg = {
@@ -314,14 +328,12 @@ export default {
           })
         }else{
            //如果是文字模式则进入
-          let params={
-            "model":this.frinedInfo.id,
-            "max_tokens":this.settingInfo.MaxTokens,
-            "temperature":this.settingInfo.Temperature,
-            "top_p":this.settingInfo.TopP,
-            "presence_penalty":this.settingInfo.PresencePenalty,
-            "frequency_penalty":this.settingInfo.FrequencyPenalty
-          }
+          params.model=this.frinedInfo.id,
+          params.max_tokens=this.settingInfo.MaxTokens,
+          params.temperature=this.settingInfo.Temperature,
+          params.top_p=this.settingInfo.TopP,
+          params.presence_penalty=this.settingInfo.PresencePenalty,
+          params.frequency_penalty=this.settingInfo.FrequencyPenalty
           let chatBeforResMsg = {
               headImg: require("@/assets/img/ai.png"),
               name: this.frinedInfo.id,
@@ -347,7 +359,13 @@ export default {
       }
     },
     async chatCompletion(params,chatBeforResMsg){
-        params.messages=[{"role": "user", "content": this.inputMsg}]
+        let conversation=this.contextualAssemblyData();
+        params.messages=conversation.map(item => {
+            return {
+              role: item.speaker === 'user' ? 'user' : 'assistant',
+              content: item.text
+            }
+        })
         params.stream=true
         //新增一个空的消息
         this.sendMsg(chatBeforResMsg);
@@ -400,8 +418,8 @@ export default {
         }
     },
     async completion(params,chatBeforResMsg){
-      // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.prompt=this.inputMsg
+      // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.stream=true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
