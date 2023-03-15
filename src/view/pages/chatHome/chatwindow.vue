@@ -9,6 +9,9 @@
         <div class="detail">{{ frinedInfo.detail }}</div>
       </div>
       <div class="other-fun">
+        <label @click="sc" >
+          <span class="iconfont icon-snapchat"></span>
+        </label>
         <label for="docFile">
           <span class="iconfont icon-wenjian"></span>
         </label>
@@ -33,10 +36,11 @@
       </div>
     </div>
     <div class="botoom">
-      <div class="chat-content" ref="chatContent">
+      <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
-            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre-wrap;" >{{ item.msg.trim() }}</div>
+            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre-wrap;" >
+             <markdown-it-vue class="md-body"  :content="item.msg.trim()"/></div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
                 :src="item.msg"
@@ -68,7 +72,7 @@
           </div>
           <div class="chat-me" v-else>
             <div class="chat-text" v-if="item.chatType == 0">
-              {{ item.msg }}
+              {{item.msg}}
             </div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
@@ -138,6 +142,7 @@
             </div>
           </div>
         </div>
+       
       </div>
     </div>
   </div>
@@ -150,12 +155,16 @@ import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
 import base from "@/api/index";
+import MarkdownItVue from 'markdown-it-vue'
+import 'markdown-it-vue/dist/markdown-it-vue.css'
+import html2canvas from 'html2canvas';
 
 export default {
   components: {
     HeadPortrait,
     Emoji,
     FileCard,
+    MarkdownItVue
   },
   props: {
     settingInfo: Object,
@@ -179,13 +188,31 @@ export default {
       friendInfo: {},
       srcImgList: [],
       recording: false,
-      audioChunks: []
+      audioChunks: [],
+      screenshot:""
     };
   },
   mounted() {
     this.getFriendChatMsg();
   },
   methods: {
+    //截图
+    sc(){
+      const contentEle = document.querySelector('#chat-content')
+      const options = {
+        backgroundColor: "rgb(39, 42, 55)" // 设置截图背景颜色
+      };
+      html2canvas(contentEle,options).then(canvas => {
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.download = 'screenshot.png';
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+        });
+      })
+    },
     //组装上下文数据
     contextualAssemblyData(){
       const conversation = []
@@ -728,10 +755,10 @@ textarea::-webkit-scrollbar-thumb {
             max-width: 90%;
             padding: 20px;
             border-radius: 20px 20px 20px 5px;
-            background-color: rgb(56, 60, 75);
+            background-color: rgb(255, 255, 255);
             color: #fff;
             &:hover {
-              background-color: rgb(39, 42, 55);
+              background-color: rgb(255, 255, 255);
             }
           }
           .chat-img {

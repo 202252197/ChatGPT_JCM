@@ -281,6 +281,19 @@ export default {
     };
   },
   mounted() {
+    if(this.SettingInfo.KeyMsg){
+      //获取模型列表
+      getModels(this.SettingInfo.KeyMsg).then((res) => {
+        //保存OpenAI key到session中
+        this.personList = res;
+        this.personListCache = res;
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
+    }
     // 在Vue实例中添加监听函数
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
     this.$watch('modelSearch', this.watchModelSearch);
