@@ -61,7 +61,7 @@ npm run build
 待更新
 
 # 多模型ChatGPT群
-![webui2.0](https://i.328888.xyz/2023/03/14/9ThO3.jpeg)
+![webui2.0](https://i.328888.xyz/2023/03/16/KsC3b.jpeg)
 
 
 # 个人说明
