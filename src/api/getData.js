@@ -100,7 +100,7 @@ export const createImage = (params,token) => {
 export const createImageEdit = (formData,token) => {
   return axios({
     method: 'post',
-    baseURL: `${baseUrl}/v1/images/variations`,
+    baseURL: `${baseUrl}/v1/images/edits`,
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'multipart/form-data'

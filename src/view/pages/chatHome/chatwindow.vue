@@ -328,16 +328,19 @@ export default {
 
       if(this.settingInfo.openChangePicture){
         if(this.updateImage==null){
+          this.$nextTick(() => {
+            this.acqStatus=true
+          });
           this.$message({
             message: "编辑图片模式：请您聊天窗口右上角先上传图片，再发送修改的内容~",
             type: "warning",
           });
-          this.acqStatus=true
           return
         }else{
             // 通过验证后，上传文件
             const formData = new FormData();
             formData.append("image", this.updateImage);
+            formData.append("prompt", this.inputMsg);
             formData.append("n", this.settingInfo.n);
             formData.append("size", this.settingInfo.size);
 
@@ -694,7 +697,7 @@ export default {
       };
       let files = e.target.files[0]; //图片文件名
       chatMsg.msg = files;
-      console.log(files);
+
       if (files) {
         switch (files.type) {
           case "application/msword":

@@ -52,7 +52,7 @@
         <span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span>
         <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span><br>
         <span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span>
-        <span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">系统设置</span>
+        <span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">设置</span>
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -334,7 +334,7 @@ export default {
     // 监听openChangePicture属性的变化
     watchOpenChangePicture:function(newVal,oldVal){
       if(!newVal){
-          
+
       }
     },
     // 监听contentImageUrl属性的变化
