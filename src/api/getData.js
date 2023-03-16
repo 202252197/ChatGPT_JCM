@@ -96,6 +96,21 @@ export const createImage = (params,token) => {
   })
 }
 
+// 根据提示词编辑图像
+export const createImageEdit = (formData,token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/images/variations`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data'
+    },
+    data: formData
+  }).then(res => {
+    return res.data.data;
+  })
+}
+
 // 根据创建图像变体
 export const createImageVariations = (formData,token) => {
   return axios({
@@ -103,7 +118,7 @@ export const createImageVariations = (formData,token) => {
     baseURL: `${baseUrl}/v1/images/variations`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: formData
   }).then(res => {
@@ -118,7 +133,7 @@ export const createTranscription = (formData,token) => {
     baseURL: `${baseUrl}/v1/audio/transcriptions`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: formData
   }).then(res => {
@@ -133,7 +148,7 @@ export const createTranslation = (formData,token) => {
     baseURL: `${baseUrl}/v1/audio/translations`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: formData
   }).then(res => {
@@ -148,7 +163,7 @@ export const createFineTune = (formData,token) => {
     baseURL: `${baseUrl}/v1/fine-tunes`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: formData
   }).then(res => {
@@ -164,7 +179,7 @@ export const getFineTunesList = (formData,token) => {
     baseURL: `${baseUrl}/v1/fine-tunes`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: formData
   }).then(res => {
@@ -212,7 +227,7 @@ export const getFineTuneEventsList = (fineTuneId,token) => {
     baseURL: `${baseUrl}/v1/fine-tunes/`+fineTuneId+'/events',
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: fineTuneId
   }).then(res => {
@@ -227,7 +242,7 @@ export const deleteFineTuneModel = (model,token) => {
     baseURL: `${baseUrl}/v1/models/`+model,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
+      'Content-Type': 'multipart/form-data'
     },
     data: model
   }).then(res => {

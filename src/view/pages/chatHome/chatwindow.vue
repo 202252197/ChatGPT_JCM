@@ -35,7 +35,7 @@
         <!-- accept="application/*" -->
       </div>
     </div>
-    <div class="botoom" id="botoom">
+    <div class="botoom"  :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }">
       <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
@@ -149,7 +149,7 @@
 
 <script>
 import { animation,getNowTime,JCMFormatDate } from "@/util/util";
-import { getChatMsg,getCompletion,getChatCompletion,createImage,createImageVariations,createTranscription,createTranslation } from "@/api/getData";
+import { getChatMsg,getCompletion,getChatCompletion,createImage,createImageEdit,createImageVariations,createTranscription,createTranslation } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -188,16 +188,24 @@ export default {
       srcImgList: [],
       recording: false,
       audioChunks: [],
-      screenshot:""
+      screenshot:"",
+      contentBackImageUrl:"https://images2.alphacoders.com/178/17850.jpg",
+      updateImage:null
     };
   },
   mounted() {
     this.getFriendChatMsg();
   },
   methods: {
+    //更新内容背景图片
+    updateContentImageUrl(imgUrl){
+      console.log("图片更新了")
+      console.log(imgUrl)
+      this.contentBackImageUrl=imgUrl
+    },
     //截图
     sc(){
-      const contentEle = document.querySelector('#botoom')
+      const contentEle = document.querySelector('#chat-content')
       const options = {
         backgroundColor: "rgb(39, 42, 55)" // 设置截图背景颜色
       };
@@ -317,6 +325,57 @@ export default {
       const dateNow=JCMFormatDate(getNowTime());
 
       let params={}
+
+      if(this.settingInfo.openChangePicture){
+        if(this.updateImage==null){
+          this.$message({
+            message: "编辑图片模式：请您聊天窗口右上角先上传图片，再发送修改的内容~",
+            type: "warning",
+          });
+          this.acqStatus=true
+          return
+        }else{
+            // 通过验证后，上传文件
+            const formData = new FormData();
+            formData.append("image", this.updateImage);
+            formData.append("n", this.settingInfo.n);
+            formData.append("size", this.settingInfo.size);
+
+            const dateNow=JCMFormatDate(getNowTime());
+
+            let chatMsg = {
+              headImg: require("@/assets/img/head.jpg"),
+              name: "君尘陌",
+              time: dateNow,
+              msg: this.inputMsg,
+              chatType: 0, //信息类型，0文字，1图片
+              uid: "jcm", //uid
+            };
+
+            this.sendMsg(chatMsg);
+            this.inputMsg = "";
+            createImageEdit(formData,this.settingInfo.KeyMsg).then(data =>{
+              for(var imgInfo of data) {
+                let imgResMsg = {
+                  headImg: require("@/assets/img/ai.png"),
+                  name: this.frinedInfo.id,
+                  time: JCMFormatDate(getNowTime()),
+                  msg: imgInfo.url,
+                  chatType: 1, //信息类型，0文字，1图片
+                  extend: {
+                      imgType: 2, //(1表情，2本地图片)
+                  },
+                  uid: this.frinedInfo.id, //uid
+                };
+                this.sendMsg(imgResMsg);
+                this.srcImgList.push(imgInfo.url);
+              }
+              this.acqStatus=true
+              this.updateImage=null
+            })
+            return
+        }
+      }
 
       if (this.inputMsg) {
         let chatMsg = {
@@ -499,6 +558,10 @@ export default {
       }
 
     },
+    resetUpdate(){
+      this.updateImage=null
+      alert("更新的文件已重置")
+    },
     //获取窗口高度并滚动至最底层
     scrollBottom() {
       this.$nextTick(() => {
@@ -554,7 +617,17 @@ export default {
         this.acqStatus=true
         return;
       }
-      
+
+      if(this.settingInfo.openChangePicture){
+        this.updateImage=file
+        this.$message({
+          message: "图片上传完成啦，请给我提示进行编辑~",
+          type: "info",
+        });
+        e.target.files = null;
+        this.acqStatus=true
+        return
+      }
       // 通过验证后，上传文件
       const formData = new FormData();
       formData.append("image", file);
@@ -724,7 +797,9 @@ textarea::-webkit-scrollbar-thumb {
   .botoom {
     width: 100%;
     height: 74vh;
-    background-color: rgb(50, 54, 68);
+    background: url("https://images3.alphacoders.com/235/235575.jpg") no-repeat; 
+    background-size:100% 100%;
+    // background-color: rgb(50, 54, 68);
     border-radius: 20px;
     padding: 20px;
     box-sizing: border-box;

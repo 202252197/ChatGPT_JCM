@@ -26,6 +26,7 @@
       <!-- <router-view></router-view> -->
       <div v-if="showChatWindow">
         <ChatWindow
+          ref="chatWindow"
           :frinedInfo="chatWindowInfo"
           :settingInfo="SettingInfo"
           @personCardSort="personCardSort"
@@ -51,6 +52,7 @@
         <span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span>
         <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span><br>
         <span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span>
+        <span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">系统设置</span>
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -109,6 +111,13 @@
                     <span class="demonstration">产图模式</span>
                   </el-tooltip>
                   <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="打开之后先上传图片，然后再输入提示词进行修改。" placement="top">
+                    <span class="demonstration">改图模式</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.openChangePicture" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
 
                 <div class="block">
@@ -201,10 +210,16 @@
 
             <!--界面设置-->
             <el-collapse-transition>
-              <div v-show="SettingStatus==5">
-
+              <div v-show="SettingStatus==6">
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="将图片的url路径填入此处即可设置聊天背景。" placement="top">
+                    <span class="demonstration">聊天背景</span>
+                  </el-tooltip>
+                  <input class="inputs" v-model="SettingInfo.contentImageUrl" placeholder="设置聊天界面的背景URL" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+               
               </div>
-          </el-collapse-transition>
+            </el-collapse-transition>
         </div>
       </div>
     </div>
@@ -239,6 +254,7 @@ export default {
       SettingInfo:{
         translateEnglish:false,
         openProductionPicture:false,
+        openChangePicture:false,
         KeyMsg:"",
         MaxTokens:1000,
         Temperature:1,
@@ -248,7 +264,8 @@ export default {
         PresencePenalty:0,
         n:1,
         size:"256x256",
-        language:"zh"
+        language:"zh",
+        contentImageUrl:""
       },
       pcCurrent: "",
       modelSearch: "",
@@ -296,7 +313,9 @@ export default {
     }
     // 在Vue实例中添加监听函数
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
+    this.$watch('SettingInfo.contentImageUrl', this.watchContentImageUrl);
     this.$watch('modelSearch', this.watchModelSearch);
+    this.$watch('SettingInfo.openChangePicture', this.watchOpenChangePicture);
     if(sessionStorage.getItem("OpenAI_key")){
       this.SettingInfo.KeyMsg=sessionStorage.getItem("OpenAI_key")
     }
@@ -312,6 +331,20 @@ export default {
     }
   },
   methods: {
+    // 监听openChangePicture属性的变化
+    watchOpenChangePicture:function(newVal,oldVal){
+      if(!newVal){
+          
+      }
+    },
+    // 监听contentImageUrl属性的变化
+    watchContentImageUrl:function(newVal,oldVal){
+      if(newVal){
+         this.$refs.chatWindow.updateContentImageUrl(newVal)
+      }else{
+         this.$refs.chatWindow.updateContentImageUrl("https://images2.alphacoders.com/178/17850.jpg")
+      }
+    },
     // 监听modelSearch属性的变化
     watchModelSearch:function(newVal,oldVal){
       if(this.personList.length !==0 ){
