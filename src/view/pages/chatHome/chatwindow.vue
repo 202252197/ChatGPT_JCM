@@ -378,6 +378,7 @@ export default {
         this.inputMsg = "";
         this.$parent.updateMoneyInfo();
       } else {
+        this.acqStatus=true
         this.$message({
           message: "消息不能为空哦~",
           type: "warning",
