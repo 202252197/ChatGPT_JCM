@@ -35,7 +35,7 @@
         <!-- accept="application/*" -->
       </div>
     </div>
-    <div class="botoom">
+    <div class="botoom" id="botoom">
       <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
@@ -72,7 +72,7 @@
           </div>
           <div class="chat-me" v-else>
             <div class="chat-text" v-if="item.chatType == 0">
-              {{item.msg}}
+              <span style="font-size:16px">{{item.msg}}</span>
             </div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
@@ -126,7 +126,6 @@
           ></Emoji>
         </div>
         <!--输入框-->
-        <!-- <input /> -->
         <textarea id="textareaMsg" class="inputs" style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 65%;min-width: 65%;"    maxlength="2000" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off" autocomplete="off" v-model="inputMsg" @keyup.enter="sendText"  ></textarea>
         <!--发送-->
         <div v-if="acqStatus">
@@ -198,7 +197,7 @@ export default {
   methods: {
     //截图
     sc(){
-      const contentEle = document.querySelector('#chat-content')
+      const contentEle = document.querySelector('#botoom')
       const options = {
         backgroundColor: "rgb(39, 42, 55)" // 设置截图背景颜色
       };
@@ -753,7 +752,10 @@ textarea::-webkit-scrollbar-thumb {
           align-items: flex-start;
           .chat-text {
             max-width: 90%;
-            padding: 20px;
+            padding-top: 15px;
+            padding-bottom: 7px;
+            padding-left: 20px;
+            padding-right: 20px;
             border-radius: 20px 20px 20px 5px;
             background-color: rgb(255, 255, 255);
             color: #fff;
