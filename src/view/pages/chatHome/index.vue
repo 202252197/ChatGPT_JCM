@@ -46,13 +46,17 @@
         </el-card>
      
       <div class="online-person">
-        <span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span>
-        <span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span>
-        <span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">语音</span>
-        <span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span>
-        <span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span><br>
-        <span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span>
-        <span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">设置</span>
+        <el-row :gutter="20">
+        <el-col :span="6"><span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">识图</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">设置</span></el-col>
+      </el-row>
+        
         <div class="s-wrapper">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -342,7 +346,7 @@ export default {
       if(newVal){
          this.$refs.chatWindow.updateContentImageUrl(newVal)
       }else{
-         this.$refs.chatWindow.updateContentImageUrl("https://images2.alphacoders.com/178/17850.jpg")
+         this.$refs.chatWindow.updateContentImageUrl("https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780")
       }
     },
     // 监听modelSearch属性的变化

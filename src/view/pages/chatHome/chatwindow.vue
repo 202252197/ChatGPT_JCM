@@ -189,7 +189,7 @@ export default {
       recording: false,
       audioChunks: [],
       screenshot:"",
-      contentBackImageUrl:"https://images2.alphacoders.com/178/17850.jpg",
+      contentBackImageUrl:"https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780",
       updateImage:null
     };
   },
