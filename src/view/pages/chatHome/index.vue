@@ -49,12 +49,12 @@
         <el-row :gutter="20">
         <el-col :span="6"><span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span></el-col>
         <el-col :span="6"><span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">音频</span></el-col>
         <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
         <el-col :span="6"><span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
         <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">识图</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">设置</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">识图</span></el-col>
+        <el-col :span="6"><span class="setting" @click="SettingStatus=7" :class="{ active: SettingStatus === 7 }">设置</span></el-col>
       </el-row>
         
         <div class="s-wrapper">
@@ -212,9 +212,16 @@
               </div>
             </el-collapse-transition>
 
-            <!--界面设置-->
+            <!--识图-->
             <el-collapse-transition>
               <div v-show="SettingStatus==6">
+       
+              </div>
+            </el-collapse-transition>
+
+                <!--界面设置-->
+            <el-collapse-transition>
+              <div v-show="SettingStatus==7">
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="将图片的url路径填入此处即可设置聊天背景。" placement="top">
                     <span class="demonstration">聊天背景</span>
