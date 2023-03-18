@@ -3,8 +3,8 @@
     <div class="info">
           <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg"></HeadPortrait>
           <div class="info-detail">
-            <div class="name">{{ truncateString(personInfo.name, 17) }}</div>
-            <div class="detail">{{ personInfo.lastMsg }}</div>
+            <div class="name">{{ truncateString(personInfo.name, 16) }}</div>
+            <div class="detail">{{ truncateString(personInfo.lastMsg, 28) }}</div>
           </div>
 
     </div>

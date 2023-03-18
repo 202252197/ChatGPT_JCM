@@ -73,11 +73,11 @@
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
+                  <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到2，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
                     <span class="demonstration">temperature(0~1)</span>
                   </el-tooltip>
 
-                  <el-slider class="astrict" v-model="SettingInfo.Temperature" :step="0.1" :min="0" :max="1"></el-slider>
+                  <el-slider class="astrict" v-model="SettingInfo.Temperature" :step="0.1" :min="0" :max="2"></el-slider>
                 </div>
 
                 <div class="block">
