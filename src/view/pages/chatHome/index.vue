@@ -157,7 +157,7 @@
 
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="英文录音识别专用" placement="top">
-                    <span class="demonstration">英语音频翻译</span>
+                    <span class="demonstration">英文识别</span>
                   </el-tooltip>
                   <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
