@@ -65,6 +65,8 @@ npm run build
 # 多模型ChatGPT群2
 ![webui2.0](https://i.328888.xyz/2023/03/16/KsC3b.jpeg)
 
+# 多模型ChatGPT群3
+![webui2.0](https://i.328888.xyz/2023/03/18/MOaWC.jpeg)
 
 # 个人说明
 14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言，然后到大数据的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
