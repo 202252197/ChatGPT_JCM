@@ -266,7 +266,7 @@ export default {
         translateEnglish:false,
         openProductionPicture:false,
         openChangePicture:false,
-        KeyMsg:"",
+        KeyMsg:process.env.VUE_APP_OPENAI_API_KEY,
         MaxTokens:1000,
         Temperature:1,
         TemperatureAudio:0,
@@ -315,6 +315,11 @@ export default {
         //保存OpenAI key到session中
         this.personList = res;
         this.personListCache = res;
+        console.log("auto click.")
+        if (this.personList.length > 0) {
+          this.clickPerson(this.personList[0])
+          }
+        this.updateMoneyInfo()
       }).catch(e =>{
         this.$message({
           message: "OpenAI Key有问题哦~",
