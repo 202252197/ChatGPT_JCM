@@ -1,39 +1,51 @@
 <template>
   <div class="chat-window">
     <div class="top" >
-      <div class="head-pic">
-        <HeadPortrait :imgUrl="frinedInfo.headImg"></HeadPortrait>
-      </div>
-      <div class="info-detail">
-        <div class="name">{{ frinedInfo.name }}</div>
-        <div class="detail">{{ frinedInfo.detail }}</div>
-      </div>
-      <div class="other-fun">
-        <label @click="sc" >
-          <span class="iconfont icon-snapchat"></span>
-        </label>
-        <label for="docFile">
-          <span class="iconfont icon-wenjian"></span>
-        </label>
-        <label for="imgFile">
-          <span class="iconfont icon-tupian"></span>
-        </label>
-        <input
-          type="file"
-          name=""
-          id="imgFile"
-          @change="sendImg"
-          accept="image/*"
-        />
-        <input
-          type="file"
-          name=""
-          id="docFile"
-          @change="sendFile"
-          accept="application/*,text/*"
-        />
-        <!-- accept="application/*" -->
-      </div>
+
+      <el-row>
+ 
+        <el-col :span="2">
+          <div class="head-pic">
+            <HeadPortrait :imgUrl="frinedInfo.headImg"></HeadPortrait>
+          </div>
+        </el-col>
+        
+        <el-col :span="17">
+          <div class="info-detail">
+            <div class="name">{{ frinedInfo.name }}</div>
+            <div class="detail">{{ frinedInfo.detail }}</div>
+          </div>
+        </el-col>
+        <el-col :span="5">
+          <div class="other-fun">
+            <label @click="sc" >
+              <span class="iconfont icon-snapchat"></span>
+            </label>
+            <label for="docFile">
+              <span class="iconfont icon-wenjian"></span>
+            </label>
+            <label for="imgFile">
+              <span class="iconfont icon-tupian"></span>
+            </label>
+            <input
+              type="file"
+              name=""
+              id="imgFile"
+              @change="sendImg"
+              accept="image/*"
+            />
+            <input
+              type="file"
+              name=""
+              id="docFile"
+              @change="sendFile"
+              accept="application/*,text/*"
+            />
+            <!-- accept="application/*" -->
+          </div>
+        </el-col>
+    </el-row>
+   
     </div>
     <div class="botoom"  :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }">
       <div class="chat-content" id="chat-content" ref="chatContent">
@@ -476,14 +488,18 @@ export default {
             }
           ).then(response=>{
             const reader = response.body.getReader();
-      
+
             function readStream(reader) {
               return reader.read().then(({ done, value }) => {
                 if (done) {
                   return;
                 }
-                let decodeds = new TextDecoder().decode(value);
-                let decodedArray = decodeds.split("data: ")
+                if (!_this.chatList[currentResLocation].reminder) {
+                  _this.chatList[currentResLocation].reminder = "";
+                }
+                let decoded = new TextDecoder().decode(value);
+                decoded = _this.chatList[currentResLocation].reminder + decoded;
+                let decodedArray = decoded.split("data: "); 
 
                 decodedArray.forEach(decoded => {
                   if(decoded!==""){

@@ -89,7 +89,7 @@ export const getModels = token => {
         img: "",
         name: model,
         detail: produceModelDesc(model),
-        lastMsg: model+"模型",
+        lastMsg: produceModelDesc(model),
         id: model,
         headImg: require("@/assets/img/ai.png"),
         showHeadImg: true
