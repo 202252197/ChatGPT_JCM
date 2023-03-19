@@ -60,7 +60,18 @@ npm run build
 | More    | 待开发 |
 
 # Docker部署
-待更新
+
+## 构建镜像
+使用以下命令构建镜像，其中 "jcm-chatgpt" 是您想要给镜像取的名称，"." 表示 Dockerfile 在当前目录中。
+```
+docker build -t jcm-chatgpt .
+```
+## 运行镜像
+构建完成后，可以使用以下命令运行镜像，其中 "my-container" 是您想要给容器取的名称。该命令会将容器端口 80 映射到本地机器的端口 80。
+```
+docker run --name my-chatgpt -p 80:80 jcm-chatgpt
+```
+
 
 # 多模型ChatGPT群2
 ![webui2.0](https://i.328888.xyz/2023/03/16/KsC3b.jpeg)

@@ -74,7 +74,7 @@
 
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到2，越高表示越多样化和创造性，越低表示越保守和确定性。" placement="top">
-                    <span class="demonstration">temperature(0~1)</span>
+                    <span class="demonstration">temperature(0~2)</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.Temperature" :step="0.1" :min="0" :max="2"></el-slider>
@@ -350,7 +350,7 @@ export default {
     // 监听openChangePicture属性的变化
     watchOpenChangePicture:function(newVal,oldVal){
       if(!newVal){
-
+        
       }
     },
     // 监听contentImageUrl属性的变化
