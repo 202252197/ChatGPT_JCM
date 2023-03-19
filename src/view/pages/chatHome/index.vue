@@ -553,7 +553,7 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: rgb(29, 144, 245);
+  background-color: rgb(91 162 78);
   border: 0;
   transition: 0.3s;
   box-shadow: 0px 0px 5px 0px rgba(0, 136, 255);

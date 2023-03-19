@@ -2,8 +2,8 @@
 声明：此项目只发布于 Github，基于 Apache2.0 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
 项目使用Vue2进行开发，给大家提供一个好看的GPT壳子，有好的建议和bug欢迎大家提出来，星星超过100会分享2个OpenAI的Key哦，先到先用，使用完毕为止。
 
-![webui2.0](https://i.328888.xyz/2023/03/18/LaWpw.jpeg)
-
+![webui2.0](https://i.328888.xyz/2023/03/19/PZPyX.jpeg)
+![webui2.0](https://i.328888.xyz/2023/03/19/PZKmC.jpeg)
 > 🤭记得点个小星星
 
 # 给粉丝分享的OppenAI key,感谢大家点赞，希望不要恶意使用哦，让每个粉丝都可以使用到，谢谢大家，谢谢大家
@@ -51,7 +51,7 @@ npm run build
 | Create translation    | 英语音频识别 |
 | fine-tune    | 待开发 |
 | Files    | 待开发 |
-| 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑，多会话待开发 |
+| 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑,多窗口上下文对话 |
 | 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图 |
 | 导出导入数据   | 待开发 |
 | 更换聊天窗口背景    | 支持输入背景图片URL |
@@ -71,10 +71,6 @@ docker build -t jcm-chatgpt .
 ```
 docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 ```
-
-
-# 多模型ChatGPT群2
-![webui2.0](https://i.328888.xyz/2023/03/16/KsC3b.jpeg)
 
 # 多模型ChatGPT群3
 ![webui2.0](https://i.328888.xyz/2023/03/18/MOaWC.jpeg)
