@@ -1,16 +1,10 @@
 # Multi Model ChatGPT Web
 声明：此项目只发布于 Github，基于 Apache2.0 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
-项目使用Vue2进行开发，给大家提供一个好看的GPT壳子，有好的建议和bug欢迎大家提出来，星星超过100会分享2个OpenAI的Key哦，先到先用，使用完毕为止。
+项目使用Vue2进行开发，给大家提供一个好看的GPT壳子，有好的建议和bug欢迎大家提出来，星星超过1000个随机抽10个群聊活跃的用户送独有的openai key。
 
 ![webui2.0](https://i.328888.xyz/2023/03/19/PZPyX.jpeg)
 ![webui2.0](https://i.328888.xyz/2023/03/19/PZKmC.jpeg)
 > 🤭记得点个小星星
-
-# 给粉丝分享的OppenAI key,感谢大家点赞，希望不要恶意使用哦，让每个粉丝都可以使用到，谢谢大家，谢谢大家
-
-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
-
-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
 
 # 使用步骤
 ## 下载依赖包
