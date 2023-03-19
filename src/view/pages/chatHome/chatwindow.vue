@@ -1,7 +1,6 @@
 <template>
   <div class="chat-window">
     <div class="top" >
-
       <el-row>
  
         <el-col :span="2">
@@ -51,7 +50,7 @@
       <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
-            <div class="chat-text" v-if="item.chatType == 0" style="white-space: pre-wrap;" >
+            <div class="chat-text" v-if="item.chatType == 0"  >
              <markdown-it-vue class="md-body"  :content="item.msg.trim()"/></div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
@@ -123,10 +122,10 @@
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
         <!--录音-->
-        <div class="send boxinput" @click="stopRecording" v-if="recording" style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+        <div class="luyin boxinput" @click="stopRecording" v-if="recording" >
           <i class="el-icon-microphone" style="margin-top: 17%;"></i>
         </div>
-        <div class="send boxinput" @click="startRecording" v-if="!recording"  style="margin-left: 1.5%;font-size: 30px;text-align: center;" >
+        <div class="luyin boxinput" @click="startRecording" v-if="!recording" >
           <i class="el-icon-turn-off-microphone" style="margin-top: 17%;"></i>
         </div>
         <!--emo表情列表-->
@@ -209,6 +208,20 @@ export default {
     this.getFriendChatMsg();
   },
   methods: {
+    //赋值对话列表
+    assignmentMesList(msgList){
+      console.log("进得来吗")
+      console.log(msgList)
+     this.chatList=msgList
+    },
+    //获取对话列表
+    getMesList(){
+      return this.chatList
+    },
+    //清除当前对话列表
+    clearMsgList(){
+      this.chatList=[]
+    },
     //更新内容背景图片
     updateContentImageUrl(imgUrl){
       console.log("图片更新了")
@@ -373,7 +386,7 @@ export default {
               for(var imgInfo of data) {
                 let imgResMsg = {
                   headImg: require("@/assets/img/ai.png"),
-                  name: this.frinedInfo.id,
+                  name: this.frinedInfo.name,
                   time: JCMFormatDate(getNowTime()),
                   msg: imgInfo.url,
                   chatType: 1, //信息类型，0文字，1图片
@@ -412,7 +425,7 @@ export default {
             for(var imgInfo of data) {
               let imgResMsg = {
                 headImg: require("@/assets/img/ai.png"),
-                name: this.frinedInfo.id,
+                name: this.frinedInfo.name,
                 time: JCMFormatDate(getNowTime()),
                 msg: imgInfo.url,
                 chatType: 1, //信息类型，0文字，1图片
@@ -436,7 +449,7 @@ export default {
           params.frequency_penalty=this.settingInfo.FrequencyPenalty
           let chatBeforResMsg = {
               headImg: require("@/assets/img/ai.png"),
-              name: this.frinedInfo.id,
+              name: this.frinedInfo.name,
               time: JCMFormatDate(getNowTime()),
               msg: "",
               chatType: 0, //信息类型，0文字，1图片
@@ -681,7 +694,7 @@ export default {
         for(var imgInfo of data) {
           let imgResMsg = {
             headImg: require("@/assets/img/ai.png"),
-            name: this.frinedInfo.id,
+            name: this.frinedInfo.name,
             time: JCMFormatDate(getNowTime()),
             msg: imgInfo.url,
             chatType: 1, //信息类型，0文字，1图片
@@ -964,10 +977,20 @@ textarea::-webkit-scrollbar-thumb {
           background-color: rgb(46, 49, 61);
           border: 1px solid rgb(71, 73, 82);
         }
+        width: 50px;
       }
-
+      .luyin {
+        margin-left: 1.5%;font-size: 30px;text-align: center;
+        transition: 0.3s;
+        width: 50px;
+        &:hover {
+          color:#fff;
+          background-color: rgb(46, 49, 61);
+          border: 1px solid rgb(71, 73, 82);
+        }
+      }
       .inputs {
-        width: 65%;
+        width: 95%;
         height: 50px;
         background-color: rgb(66, 70, 86);
         border-radius: 15px;

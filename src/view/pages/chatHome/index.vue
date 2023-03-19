@@ -5,21 +5,52 @@
         <h1>君尘陌AI聊天</h1>
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
-        <span class="onlin-text">模型列表</span>
-        <input class="inputs" v-model="modelSearch"  style=" margin-top: 10px;" />
-        <div class="s-wrapper">
-          <div
-            class="personList"
-            v-for="personInfo in personList"
-            :key="personInfo.id"
-            @click="clickPerson(personInfo)"
-          >
-            <PersonCard
-              :personInfo="personInfo"
-              :pcCurrent="pcCurrent"
-            ></PersonCard>
+        <el-row :gutter="24">
+          <el-col :span="9" :offset="3">
+            <div class="setting">
+              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型列表</span>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="setting">
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话列表</span>
+            </div>
+          </el-col>
+        </el-row>
+        <div v-show="cutSetting==0">
+          <input class="inputs" v-model="modelSearch"  style=" margin-top: 10px;" />
+          <div class="s-wrapper">
+            <div
+              class="personList"
+              v-for="personInfo in personList"
+              :key="personInfo.id"
+              @click="clickPerson(personInfo)"
+            >
+              <PersonCard
+                :personInfo="personInfo"
+                :pcCurrent="pcCurrent"
+              ></PersonCard>
+            </div>
           </div>
         </div>
+
+        <div v-show="cutSetting==1">
+          <div class="send boxinput" @click="newSession">
+            <svg t="1679215361568" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3128" width="30" height="30"><path d="M512.001024 0A512 512 0 0 0 0.001024 512a506.88 506.88 0 0 0 92.16 292.352V972.8a51.2 51.2 0 0 0 51.2 51.2H512.001024a512 512 0 0 0 0-1024z m0 921.6H194.561024v-134.144a51.2 51.2 0 0 0-10.24-30.72A406.016 406.016 0 0 1 102.401024 512a409.6 409.6 0 1 1 409.6 409.6z" fill="#ffffff" p-id="3129"></path><path d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z" fill="#ffffff" p-id="3130"></path></svg>
+            New Thread
+          </div>
+          <div class="s-wrapper">
+            <div v-for="sessionInfo in sessionList"
+              :key="sessionInfo.id" 
+              @click="clickSession(sessionInfo)">
+              <Session
+                :sessionInfo="sessionInfo"
+                :pcCurrent="sessionCurrent"
+              ></Session>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="chatRight">
@@ -47,15 +78,15 @@
      
       <div class="online-person">
         <el-row :gutter="20">
-        <el-col :span="6"><span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">音频</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">识图</span></el-col>
-        <el-col :span="6"><span class="setting" @click="SettingStatus=7" :class="{ active: SettingStatus === 7 }">设置</span></el-col>
-      </el-row>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=0" :class="{ active: SettingStatus === 0 }">对话</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=1" :class="{ active: SettingStatus === 1 }">图片</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=2" :class="{ active: SettingStatus === 2 }">音频</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=3" :class="{ active: SettingStatus === 3 }">微调</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=4" :class="{ active: SettingStatus === 4 }">文件</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=5" :class="{ active: SettingStatus === 5 }">会话</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=6" :class="{ active: SettingStatus === 6 }">识图</span></el-col>
+          <el-col :span="6"><span class="setting" @click="SettingStatus=7" :class="{ active: SettingStatus === 7 }">设置</span></el-col>
+        </el-row>
         
         <div class="s-wrapper">
           <div >
@@ -240,6 +271,7 @@
 
 <script>
 import PersonCard from "@/components/PersonCard.vue";
+import Session from "@/components/Session.vue";
 import ChatWindow from "./chatwindow.vue";
 
 import { getModels,getMoneyInfo } from "@/api/getData";
@@ -248,6 +280,7 @@ export default {
   components: {
     PersonCard,
     ChatWindow,
+    Session
   },
   data() {
     return {
@@ -255,6 +288,8 @@ export default {
       defaulWidth:70,
       //0是聊天设置，1是图片设置
       SettingStatus:0,
+      //0是模型列表，1是会话列表
+      cutSetting:0,
       //余额信息
       moneryInfo:{
         totalGranted:0,
@@ -279,9 +314,12 @@ export default {
         contentImageUrl:""
       },
       pcCurrent: "",
+      sessionCurrent:"",
       modelSearch: "",
       //模型列表
       personList: [],
+      //会话列表
+      sessionList: [],
       //模型列表缓存
       personListCache: [],
       //是否显示聊天窗口
@@ -401,11 +439,75 @@ export default {
         })
       })
     },
+    //创建会话
+    newSession(){
+      //获取当前会话长度
+      const currentLen=this.sessionList.length+1
+      //定义对象
+      const obj= {
+        "id":currentLen,
+        "title":"",
+        "dataList":[]
+      }
+      //先获取对话的列表
+      const msgList=this.$refs.chatWindow.getMesList();
+      if(msgList.length>=2){
+        if(this.sessionCurrent){
+          this.sessionCurrent=""
+          //清除当前窗口数据
+          this.$refs.chatWindow.clearMsgList();
+        }else{
+          obj.title=msgList[0].msg
+          obj.dataList=msgList;
+          let tempSessionList= this.sessionList;
+          tempSessionList.push(obj)
+          
+          this.sessionList=tempSessionList.reverse();
+          this.sessionCurrent = "";
+          //清除当前窗口数据
+          this.$refs.chatWindow.clearMsgList();
+        }
+      }else if(msgList.length=1){
+       //清除当前窗口数据
+       this.$refs.chatWindow.clearMsgList();
+      }else{
+        console.log("啥都不干")
+      }
+    },
+    //模型列表被点击
+    modelClick(){
+      this.cutSetting=0
+      this.showChatWindow = false;
+    },
+    //会话列表被点击
+    sessionClick(){
+      this.sessionCurrent=""
+      this.cutSetting=1
+      this.chatWindowInfo={
+        img: "",
+        name: "ChatGPT-3.5",
+        detail: "chatgpt v3.5 所基于的模型",
+        lastMsg: "chatgpt v3.5 所基于的模型",
+        id: "gpt-3.5-turbo",
+        headImg: require("@/assets/img/ai.png"),
+        showHeadImg: true
+      }
+      this.showChatWindow = true;
+    },
+    //模型被点击
     clickPerson(info) {
+      this.sessionCurrent= "";
       this.showChatWindow = true;
       this.chatWindowInfo = info;
       this.personInfo = info;
       this.pcCurrent = info.id;
+    },
+    //会话被点击
+    clickSession(info) {
+      this.pcCurrent= "";
+      this.sessionCurrent = info.id;
+      console.log("看看能不能获取到数据")
+      this.$refs.chatWindow.assignmentMesList(info.dataList)
     },
     personCardSort(id) {
       if (id !== this.personList[0].id) {
@@ -426,23 +528,59 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.boxinput {
+  height:30px;
+  line-height:50px;
+  color: #fff;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 90%;
+  text-align: center;
+  height: 50px;
+  background-color: rgb(66, 70, 86);
+  border-radius: 15px;
+  border: 1px solid rgb(80, 85, 103);
+  position: relative;
+  cursor: pointer;
+}
+.icon {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(29, 144, 245);
+  border: 0;
+  transition: 0.3s;
+  box-shadow: 0px 0px 5px 0px rgba(0, 136, 255);
+  &:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0, 136, 255);
+  }
+ }
  .inputs {
-        width: 65%;
-        height: 50px;
-        background-color: rgb(66, 70, 86);
-        border-radius: 15px;
-        border: 2px solid rgb(34, 135, 225);
-        padding: 10px;
-        box-sizing: border-box;
-        transition: 0.2s;
-        font-size: 20px;
-        color: #fff;
-        font-weight: 100;
-        margin: 0 20px;
-        &:focus {
-          outline: none;
-        }
-      }
+    width: 65%;
+    height: 50px;
+    background-color: rgb(66, 70, 86);
+    border-radius: 15px;
+    border: 2px solid rgb(34, 135, 225);
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.2s;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 100;
+    margin: 0 20px;
+    &:focus {
+      outline: none;
+    }
+}
+.whiteText{
+  color: #fff;
+}
 ::v-deep .el-input__inner  {
               background-color: transparent;
               color: #409EFF;
@@ -503,7 +641,7 @@ export default {
     .online-person {
       margin-top: 10%;
       .onlin-text {
-        margin-left: 35%;
+        margin-left: 20%;
         padding-left: 10px;
         color: rgb(176, 178, 189);
       }
