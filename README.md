@@ -6,7 +6,11 @@
 ![webui2.0](https://i.328888.xyz/2023/03/19/PZKmC.jpeg)
 > 🤭记得点个小星星
 
-# 使用步骤
+# 部署步骤
+## 参考视频
+https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
+
+
 ## 下载依赖包
 ```
 npm install
