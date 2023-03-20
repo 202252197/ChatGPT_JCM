@@ -1,6 +1,6 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft" style="width:24%">
+    <div class="chatLeft" style="width:24%" v-show="showPersonList">
       <div class="title">
         <h1>君尘陌AI聊天</h1>
       </div>
@@ -68,7 +68,7 @@
         <!-- <img src="@/assets/img/snapchat.png" alt="" /> -->
       </div>
     </div>
-    <div class="chatLeft">
+    <div class="chatLeft" v-show="showSetupList">
      
         <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
             总余额：${{ this.moneryInfo.totalGranted | numFilterReservedTwo }}<br/>
@@ -343,8 +343,19 @@ export default {
           value: 'de'
         },{
           value: 'ja'
-        }]
+        }],
+      // 是否隐藏模型列表和功能设置选择列表
+      showPersonList: true,
+      showSetupList: true,
     };
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+
+  destoryed() {
+    window.removeEventListener('resize', this.handleResize)
   },
   mounted() {
     if(this.SettingInfo.KeyMsg){
@@ -385,6 +396,16 @@ export default {
     }
   },
   methods: {
+    //监听窗口尺寸的变化
+    handleResize() {
+      if (window.innerWidth <= 1150) {
+        this.showPersonList = false;
+        this.showSetupList = false;
+      } else {
+        this.showPersonList = true;
+        this.showSetupList = true;
+      };
+    },
     // 监听openChangePicture属性的变化
     watchOpenChangePicture:function(newVal,oldVal){
       if(!newVal){

@@ -3,19 +3,19 @@
     <div class="top" >
       <el-row>
  
-        <el-col :span="2">
+        <el-col :span="personInfoSpan[0]">
           <div class="head-pic">
             <HeadPortrait :imgUrl="frinedInfo.headImg"></HeadPortrait>
           </div>
         </el-col>
         
-        <el-col :span="17">
+        <el-col :span="personInfoSpan[1]">
           <div class="info-detail">
             <div class="name">{{ frinedInfo.name }}</div>
             <div class="detail">{{ frinedInfo.detail }}</div>
           </div>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="personInfoSpan[2]">
           <div class="other-fun">
             <label @click="sc" >
               <span class="iconfont icon-snapchat"></span>
@@ -137,7 +137,7 @@
           ></Emoji>
         </div>
         <!--输入框-->
-        <textarea id="textareaMsg" class="inputs" style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 65%;min-width: 65%;"    maxlength="2000" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off" autocomplete="off" v-model="inputMsg" @keyup.enter="sendText"  ></textarea>
+        <textarea id="textareaMsg" class="inputs" style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;"    maxlength="2000" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off" autocomplete="off" v-model="inputMsg" @keyup.enter="sendText"  ></textarea>
         <!--发送-->
         <div v-if="acqStatus">
           <div class="send boxinput" @click="sendText" >
@@ -202,13 +202,32 @@ export default {
       audioChunks: [],
       screenshot:"",
       contentBackImageUrl:"https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780",
-      updateImage:null
+      updateImage:null,
+      // 是否隐藏对话框上方介绍（空间局促时隐藏）
+      personInfoSpan: [2, 17, 5],
     };
   },
   mounted() {
     this.getFriendChatMsg();
   },
+
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+
+  destoryed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    //监听窗口的变化
+    handleResize() {
+      if (window.innerWidth <= 700) {
+        this.personInfoSpan = [14, 0, 10];
+      } else {
+        this.personInfoSpan = [2, 17, 5];
+      };
+    },
     //赋值对话列表
     assignmentMesList(msgList){
      this.chatList=msgList
