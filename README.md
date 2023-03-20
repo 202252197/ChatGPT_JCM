@@ -22,6 +22,13 @@ npm run serve
 npm run build
 ```
 
+## 设置自动读取APIKEY
+在.env中添加代码
+```
+VUE_APP_OPENAI_API_KEY='你的openai api key'
+```
+
+
 # 技术栈
 
 |  名称   | 版本  |
