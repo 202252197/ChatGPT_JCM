@@ -1,4 +1,5 @@
 import base from './index'
+import {AI_HEAD_IMG_URL} from '../store/mutation-types'
 let axios = base.axios
 let baseUrl = base.baseUrl
 
@@ -91,7 +92,7 @@ export const getModels = token => {
         detail: produceModelDesc(model),
         lastMsg: produceModelDesc(model),
         id: model,
-        headImg: require("@/assets/img/ai.png"),
+        headImg: AI_HEAD_IMG_URL,
         showHeadImg: true
       }
       modelsObj.push(modelObj)

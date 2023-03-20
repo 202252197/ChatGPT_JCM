@@ -273,7 +273,7 @@
 import PersonCard from "@/components/PersonCard.vue";
 import Session from "@/components/Session.vue";
 import ChatWindow from "./chatwindow.vue";
-
+import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
 import { getModels,getMoneyInfo } from "@/api/getData";
 export default {
   name: "App",
@@ -489,7 +489,7 @@ export default {
         detail: "chatgpt v3.5 所基于的模型",
         lastMsg: "chatgpt v3.5 所基于的模型",
         id: "gpt-3.5-turbo",
-        headImg: require("@/assets/img/ai.png"),
+        headImg:AI_HEAD_IMG_URL,
         showHeadImg: true
       }
       this.showChatWindow = true;
@@ -506,7 +506,6 @@ export default {
     clickSession(info) {
       this.pcCurrent= "";
       this.sessionCurrent = info.id;
-      console.log("看看能不能获取到数据")
       this.$refs.chatWindow.assignmentMesList(info.dataList)
     },
     personCardSort(id) {

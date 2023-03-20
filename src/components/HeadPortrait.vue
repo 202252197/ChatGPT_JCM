@@ -5,9 +5,10 @@
 </template>
 
 <script>
+import {USER_HEAD_IMG_URL} from '@/store/mutation-types'
 export default {
     props: {
-        imgUrl:{ default:require('@/assets/img/head.jpg')}
+        imgUrl:{ default:USER_HEAD_IMG_URL}
     }
 }
 </script>

@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {USER_HEAD_IMG_URL} from '@/store/mutation-types'
 import HeadPortrait from "./HeadPortrait.vue";
 
 export default {
@@ -33,7 +34,7 @@ export default {
         "icon-shezhi",
       ],
       current: 0,
-      imgUrl: require('@/assets/img/head.jpg')
+      imgUrl: USER_HEAD_IMG_URL
     };
   },
   methods: {

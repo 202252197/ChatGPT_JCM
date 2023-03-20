@@ -168,6 +168,7 @@ import base from "@/api/index";
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import html2canvas from 'html2canvas';
+import {AI_HEAD_IMG_URL,USER_HEAD_IMG_URL,USER_NAME} from '@/store/mutation-types'
 
 export default {
   components: {
@@ -210,8 +211,6 @@ export default {
   methods: {
     //赋值对话列表
     assignmentMesList(msgList){
-      console.log("进得来吗")
-      console.log(msgList)
      this.chatList=msgList
     },
     //获取对话列表
@@ -224,8 +223,6 @@ export default {
     },
     //更新内容背景图片
     updateContentImageUrl(imgUrl){
-      console.log("图片更新了")
-      console.log(imgUrl)
       this.contentBackImageUrl=imgUrl
     },
     //截图
@@ -372,8 +369,8 @@ export default {
             const dateNow=JCMFormatDate(getNowTime());
 
             let chatMsg = {
-              headImg: require("@/assets/img/head.jpg"),
-              name: "君尘陌",
+              headImg: USER_HEAD_IMG_URL,
+              name: USER_NAME,
               time: dateNow,
               msg: this.inputMsg,
               chatType: 0, //信息类型，0文字，1图片
@@ -385,7 +382,7 @@ export default {
             createImageEdit(formData,this.settingInfo.KeyMsg).then(data =>{
               for(var imgInfo of data) {
                 let imgResMsg = {
-                  headImg: require("@/assets/img/ai.png"),
+                  headImg: AI_HEAD_IMG_URL,
                   name: this.frinedInfo.name,
                   time: JCMFormatDate(getNowTime()),
                   msg: imgInfo.url,
@@ -407,8 +404,8 @@ export default {
 
       if (this.inputMsg) {
         let chatMsg = {
-          headImg: require("@/assets/img/head.jpg"),
-          name: "君尘陌",
+          headImg: USER_HEAD_IMG_URL,
+          name: USER_NAME,
           time: dateNow,
           msg: this.inputMsg,
           chatType: 0, //信息类型，0文字，1图片
@@ -424,7 +421,7 @@ export default {
           createImage(params,this.settingInfo.KeyMsg).then(data =>{
             for(var imgInfo of data) {
               let imgResMsg = {
-                headImg: require("@/assets/img/ai.png"),
+                headImg: AI_HEAD_IMG_URL,
                 name: this.frinedInfo.name,
                 time: JCMFormatDate(getNowTime()),
                 msg: imgInfo.url,
@@ -448,7 +445,7 @@ export default {
           params.presence_penalty=this.settingInfo.PresencePenalty,
           params.frequency_penalty=this.settingInfo.FrequencyPenalty
           let chatBeforResMsg = {
-              headImg: require("@/assets/img/ai.png"),
+              headImg: AI_HEAD_IMG_URL,
               name: this.frinedInfo.name,
               time: JCMFormatDate(getNowTime()),
               msg: "",
@@ -608,11 +605,10 @@ export default {
 
     //发送表情
     sendEmoji(msg) {
-      console.log(msg)
       const dateNow=JCMFormatDate(getNowTime());
       let chatMsg = {
-        headImg: require("@/assets/img/head.jpg"),
-        name: "君尘陌",
+        headImg: USER_HEAD_IMG_URL,
+        name: USER_NAME,
         time: dateNow,
         msg: msg,
         chatType: 1, //信息类型，0文字，1图片
@@ -670,8 +666,8 @@ export default {
       let _this = this;
 
       let chatMsg = {
-        headImg: require("@/assets/img/head.jpg"),
-        name: "君尘陌",
+        headImg: USER_HEAD_IMG_URL,
+        name: USER_NAME,
         time: dateNow,
         msg: "",
         chatType: 1, //信息类型，0文字，1图片, 2文件
@@ -693,7 +689,7 @@ export default {
       createImageVariations(formData,this.settingInfo.KeyMsg).then(data =>{
         for(var imgInfo of data) {
           let imgResMsg = {
-            headImg: require("@/assets/img/ai.png"),
+            headImg: AI_HEAD_IMG_URL,
             name: this.frinedInfo.name,
             time: JCMFormatDate(getNowTime()),
             msg: imgInfo.url,
@@ -714,8 +710,8 @@ export default {
     sendFile(e) {
       const dateNow=JCMFormatDate(getNowTime());
       let chatMsg = {
-        headImg: require("@/assets/img/head.jpg"),
-        name: "君尘陌",
+        headImg: USER_HEAD_IMG_URL,
+        name: USER_NAME,
         time: dateNow,
         msg: "",
         chatType: 2, //信息类型，0文字，1图片, 2文件
