@@ -1,12 +1,11 @@
 <template>
   <div class="person-card" :class="{ activeCard: personInfo.id == current }">
     <div class="info">
-          <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg"></HeadPortrait>
-          <div class="info-detail">
-            <div class="name">{{ truncateString(personInfo.name, 16) }}</div>
-            <div class="detail">{{ truncateString(personInfo.lastMsg, 19) }}</div>
-          </div>
-
+      <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg" />
+      <div class="info-detail">
+        <div class="name">{{ personInfo.name.slice(0, 16) }}</div>
+        <div class="detail">{{ personInfo.lastMsg.slice(0, 19) }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,12 +16,11 @@ import HeadPortrait from "./HeadPortrait.vue";
 export default {
   props: {
     personInfo: {
-      default: {
-      },
+      default: {},
     },
     pcCurrent: {
-      default: ''
-    }
+      default: '',
+    },
   },
   components: {
     HeadPortrait,
@@ -30,24 +28,18 @@ export default {
   data() {
     return {
       current: '',
-    }
+    };
   },
   watch: {
-    pcCurrent: function() {
-      this.isActive()
-    }
+    pcCurrent() {
+      this.isActive();
+    },
   },
   methods: {
     isActive() {
-      this.current = this.pcCurrent
+      this.current = this.pcCurrent;
     },
-    truncateString(str, num) {
-      if (str.length <= num) {
-        return str;
-      }
-      return str.slice(0, num) + "...";
-    },
-  }
+  },
 };
 </script>
 
@@ -91,7 +83,6 @@ export default {
     background-color: #1d90f5;
     transition: 0.3s;
     box-shadow: 0px 0px 10px 0px rgba(0, 136, 255);
-    // box-shadow:  0 5px 20px rgba(251, 152, 11, .5);
     .info {
       .info-detail {
         .detail {
@@ -102,15 +93,15 @@ export default {
   }
 }
 .activeCard {
-    background-color: #1d90f5;
-    transition: 0.3s;
-    box-shadow: 3px 2px 10px 0px rgba(0, 136, 255);
-    .info {
-      .info-detail {
-        .detail {
-          color: #fff;
-        }
+  background-color: #1d90f5;
+  transition: 0.3s;
+  box-shadow: 3px 2px 10px 0px rgba(0, 136, 255);
+  .info {
+    .info-detail {
+      .detail {
+        color: #fff;
       }
     }
+  }
 }
 </style>

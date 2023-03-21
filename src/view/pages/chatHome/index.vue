@@ -2,7 +2,7 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:24%">
       <div class="title">
-        <h1>君尘陌AI聊天</h1>
+        <h2>君尘陌AI聊天</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
         <el-row :gutter="24">
@@ -37,7 +37,7 @@
         <div v-show="cutSetting==1">
           <div class="send boxinput" @click="newSession">
             <svg t="1679215361568" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3128" width="30" height="30"><path d="M512.001024 0A512 512 0 0 0 0.001024 512a506.88 506.88 0 0 0 92.16 292.352V972.8a51.2 51.2 0 0 0 51.2 51.2H512.001024a512 512 0 0 0 0-1024z m0 921.6H194.561024v-134.144a51.2 51.2 0 0 0-10.24-30.72A406.016 406.016 0 0 1 102.401024 512a409.6 409.6 0 1 1 409.6 409.6z" fill="#ffffff" p-id="3129"></path><path d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z" fill="#ffffff" p-id="3130"></path></svg>
-            New Thread
+            New Chat
           </div>
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList"

@@ -462,7 +462,9 @@ export default {
         this.inputMsg = "";
         this.$parent.updateMoneyInfo();
       } else {
-        this.acqStatus=true
+        this.$nextTick(() => {
+            this.acqStatus=true
+          });
         this.$message({
           message: "消息不能为空哦~",
           type: "warning",
@@ -825,7 +827,6 @@ textarea::-webkit-scrollbar-thumb {
   .botoom {
     width: 100%;
     height: 74vh;
-    background: url("https://images3.alphacoders.com/235/235575.jpg") no-repeat; 
     background-size:100% 100%;
     // background-color: rgb(50, 54, 68);
     border-radius: 20px;
@@ -839,107 +840,105 @@ textarea::-webkit-scrollbar-thumb {
       padding: 20px;
       box-sizing: border-box;
       &::-webkit-scrollbar {
-        width: 0; /* Safari,Chrome 隐藏滚动条 */
-        height: 0; /* Safari,Chrome 隐藏滚动条 */
-        display: none; /* 移动端、pad 上Safari，Chrome，隐藏滚动条 */
+        width: 3px; /* 设置滚动条宽度 */
       }
-      .chat-wrapper {
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(66, 70, 86); /* 设置滚动条滑块的背景色 */
+        border-radius: 50%; /* 设置滑块的圆角 */
+      }
+      .chat-friend {
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
         position: relative;
-        word-break: break-all;
-        .chat-friend {
-          width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        .chat-text {
           float: left;
-          margin-bottom: 20px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-start;
-          .chat-text {
-            max-width: 90%;
-            padding-top: 15px;
-            padding-bottom: 7px;
-            padding-left: 20px;
-            padding-right: 20px;
-            border-radius: 20px 20px 20px 5px;
-            background-color: rgb(255, 255, 255);
-            color: #fff;
-            &:hover {
-              background-color: rgb(255, 255, 255);
-            }
-          }
-          .chat-img {
-            img {
-              width: 100px;
-              height: 100px;
-            }
-          }
-          .info-time {
-            margin: 10px 0;
-            color: #fff;
-            font-size: 14px;
-            img {
-              width: 30px;
-              height: 30px;
-              border-radius: 50%;
-              vertical-align: middle;
-              margin-right: 10px;
-            }
-            span:last-child {
-              color: rgb(101, 104, 115);
-              margin-left: 10px;
-              vertical-align: middle;
-            }
+          max-width: 90%;
+          padding: 20px;
+          border-radius: 20px 20px 20px 5px;
+          background-color: rgb(226 226 226);
+          color: #fff;
+        }
+        .chat-img {
+          img {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 10px;
           }
         }
-        .chat-me {
-          width: 100%;
-          float: right;
-          margin-bottom: 20px;
-          position: relative;
+        .info-time {
+          margin: 10px 0;
+          color: #fff;
+          font-size: 14px;
           display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          align-items: flex-end;
-          .chat-text {
-            float: right;
-            max-width: 90%;
-            padding: 20px;
-            border-radius: 20px 20px 5px 20px;
-            background-color: rgb(29, 144, 245);
-            color: #fff;
-            &:hover {
-              background-color: rgb(26, 129, 219);
-            }
-          }
-          .chat-img {
-            img {
-              max-width: 300px;
-              max-height: 200px;
-              border-radius: 10px;
-            }
-          }
-          .info-time {
-            margin: 10px 0;
-            color: #fff;
-            font-size: 14px;
-            display: flex;
-            justify-content: flex-end;
+          justify-content: flex-start;
 
-            img {
-              width: 30px;
-              height: 30px;
-              border-radius: 50%;
-              vertical-align: middle;
-              margin-left: 10px;
-            }
-            span {
-              line-height: 30px;
-            }
-            span:first-child {
-              color: rgb(101, 104, 115);
-              margin-right: 10px;
-              vertical-align: middle;
-            }
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+          }
+          span {
+            line-height: 30px;
+          }
+          span:last-child {
+            color: rgb(101, 104, 115);
+            margin-left: 10px;
+            vertical-align: middle;
+          }
+        }
+      }
+      .chat-me {
+        width: 100%;
+        float: right;
+        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        .chat-text {
+          float: right;
+          max-width: 90%;
+          padding: 20px;
+          border-radius: 20px 20px 5px 20px;
+          background-color: rgb(29, 144, 245);
+          color: #fff;
+        }
+        .chat-img {
+          img {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 10px;
+          }
+        }
+        .info-time {
+          margin: 10px 0;
+          color: #fff;
+          font-size: 14px;
+          display: flex;
+          justify-content: flex-end;
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-left: 10px;
+          }
+          span {
+            line-height: 30px;
+          }
+          span:first-child {
+            color: rgb(101, 104, 115);
+            margin-right: 10px;
+            vertical-align: middle;
           }
         }
       }
