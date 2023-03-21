@@ -63,6 +63,10 @@ export default {
     .info-detail {
       margin-top: 5px;
       margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      text-overflow: ellipsis;
       .name {
         color: #fff;
         overflow: hidden;
