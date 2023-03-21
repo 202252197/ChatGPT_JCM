@@ -188,17 +188,29 @@ export const createFineTune = (formData, token) => {
 
 
 // 列出微调
-export const getFineTunesList = (formData, token) => {
+export const getFineTunesList = token => {
   return axios({
     method: 'get',
     baseURL: `${baseUrl}/v1/fine-tunes`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data'
-    },
-    data: formData
+      'Content-Type': 'application/json'
+    }
   }).then(res => {
-    return res.data;
+    const fineTunesObjs = []
+    res.data.data.forEach(fineTunes => {
+      let fineTunesObj = {
+        img: "",
+        name: fineTunes.fine_tuned_model,
+        detail: "基于"+fineTunes.model+"微调创建的模型",
+        lastMsg: "基于"+fineTunes.model+"微调创建的模型",
+        id: fineTunes.fine_tuned_model,
+        headImg: AI_HEAD_IMG_URL,
+        showHeadImg: true
+      }
+      fineTunesObjs.push(fineTunesObj)
+    });
+    return fineTunesObjs;
   })
 }
 

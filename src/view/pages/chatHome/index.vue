@@ -6,14 +6,19 @@
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
         <el-row :gutter="24">
-          <el-col :span="9" :offset="3">
+          <el-col :span="7" :offset="2">
             <div class="setting">
-              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型列表</span>
+              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="7">
             <div class="setting">
-              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话列表</span>
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
+            </div>
+          </el-col>
+          <el-col :span="7">
+            <div class="setting">
+              <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">微调</span>
             </div>
           </el-col>
         </el-row>
@@ -26,7 +31,7 @@
               :key="personInfo.id"
               @click="clickPerson(personInfo)"
             >
-              <PersonCard
+              <PersonCard 
                 :personInfo="personInfo"
                 :pcCurrent="pcCurrent"
               ></PersonCard>
@@ -47,6 +52,23 @@
                 :sessionInfo="sessionInfo"
                 :pcCurrent="sessionCurrent"
               ></Session>
+            </div>
+          </div>
+        </div>
+
+        <div v-show="cutSetting==2">
+          <input class="inputs" v-model="fineTuningSearch"  style=" margin-top: 10px;" />
+          <div class="s-wrapper">
+            <div
+              class="personList"
+              v-for="fineTuningInfo in fineTuningList"
+              :key="fineTuningInfo.id"
+              @click="clickFineTuning(fineTuningInfo)"
+            >
+              <PersonCard
+                :personInfo="fineTuningInfo"
+                :pcCurrent="ftCurrent"
+              ></PersonCard>
             </div>
           </div>
         </div>
@@ -282,7 +304,7 @@ import PersonCard from "@/components/PersonCard.vue";
 import Session from "@/components/Session.vue";
 import ChatWindow from "./chatwindow.vue";
 import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
-import { getModels,getMoneyInfo } from "@/api/getData";
+import { getModels,getMoneyInfo,getFineTunesList } from "@/api/getData";
 export default {
   name: "App",
   components: {
@@ -321,9 +343,18 @@ export default {
         language:"zh",
         contentImageUrl:""
       },
+      //当前点击的模型
       pcCurrent: "",
+      //当前点击的会话
       sessionCurrent:"",
+      //当前点击的微调模型
+      ftCurrent:"",
+      //微调搜索数据
+      fineTuningSearch:"",
+      //模型搜索数据
       modelSearch: "",
+      //微调模型列表
+      fineTuningList: [],
       //模型列表
       personList: [],
       //会话列表
@@ -334,6 +365,7 @@ export default {
       showChatWindow: false,
       //当前窗口的对话模型信息
       chatWindowInfo: {},
+      //图片大小参数列表
       imgSizes: [{
           value: '256x256'
         }, {
@@ -341,6 +373,7 @@ export default {
         }, {
           value: '1024x1024'
         }],
+      //语音定义的参数
       languages:[{
           value: 'zh'
         }, {
@@ -544,19 +577,58 @@ export default {
       }
       this.showChatWindow = true;
     },
+     //微调模型列表被点击
+     fineTuningClick(){
+      this.cutSetting=2
+      this.showChatWindow = false;
+      //获取微调模型列表
+      getFineTunesList(this.SettingInfo.KeyMsg).then((res) => {
+        this.fineTuningList=res
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
+    },
     //模型被点击
     clickPerson(info) {
+      //清除当前选择的会话
       this.sessionCurrent= "";
+      //清除当前选择的微调
+      this.ftCurrent="";
+      //显示当前聊天窗口
       this.showChatWindow = true;
+      //传入当前聊天窗口信息
       this.chatWindowInfo = info;
+      //设置当前被点击的对象
       this.personInfo = info;
+      //设置当前被点击的模型id
       this.pcCurrent = info.id;
     },
     //会话被点击
     clickSession(info) {
+      //清除当前选择的微调
+      this.ftCurrent="";
+      //清除当前选择的模型
       this.pcCurrent= "";
       this.sessionCurrent = info.id;
       this.$refs.chatWindow.assignmentMesList(info.dataList)
+    },
+    //微调模型被点击
+    clickFineTuning(info){
+      //清除当前选择的会话
+      this.sessionCurrent= "";
+      //清除当前选择的模型
+      this.pcCurrent= "";
+      //显示当前聊天窗口
+      this.showChatWindow = true;
+      //传入当前聊天窗口信息
+      this.chatWindowInfo = info;
+      //设置当前被点击的对象
+      this.fineTuningInfo = info;
+      //设置当前选着的微调模型id
+      this.ftCurrent = info.id
     },
     personCardSort(id) {
       if (id !== this.personList[0].id) {

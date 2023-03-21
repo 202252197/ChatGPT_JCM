@@ -226,6 +226,8 @@ export default {
     handleResize() {
       if (window.innerWidth <= 700) {
         this.buttonStatus=false
+        var textareaMsg = document.getElementById("textareaMsg");
+        textareaMsg.style.marginLeft = "0px";
         this.personInfoSpan = [14, 0, 10];
       } else {
         this.buttonStatus=true
@@ -558,6 +560,7 @@ export default {
         }
     },
     async completion(params,chatBeforResMsg){
+      params.stop="END"
       params.prompt=this.inputMsg
       // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.stream=true

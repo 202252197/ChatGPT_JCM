@@ -38,7 +38,7 @@ export default {
   methods: {
     isActive() {
       this.current = this.pcCurrent;
-    },
+    }
   },
 };
 </script>
