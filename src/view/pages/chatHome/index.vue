@@ -401,6 +401,18 @@ export default {
       if (window.innerWidth <= 1150) {
         this.showPersonList = false;
         this.showSetupList = false;
+        this.showChatWindow = true;
+        const info = {
+          img: "",
+          name: "ChatGPT-3.5",
+          detail: "chatgpt v3.5 所基于的模型",
+          lastMsg: "chatgpt v3.5 所基于的模型",
+          id: "gpt-3.5-turbo",
+          headImg:AI_HEAD_IMG_URL,
+          showHeadImg: true
+        }
+        this.chatWindowInfo = info;
+        this.personInfo = info;
       } else {
         this.showPersonList = true;
         this.showSetupList = true;

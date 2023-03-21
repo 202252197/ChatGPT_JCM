@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-container height="100%">
-      <el-aside width="100px">
+      <el-aside width="100px" v-show="asideStatus">
         <Nav></Nav>
       </el-aside>
       <el-main>
@@ -18,6 +18,29 @@ export default {
   components: {
     Nav,
   },
+  data() {
+    return {
+      asideStatus: true
+    };
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+
+  destoryed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+   //监听窗口尺寸的变化
+    handleResize() {
+      if (window.innerWidth <= 1150) {
+        this.asideStatus=false
+      } else {
+        this.asideStatus=true
+      };
+    }
+  }
 };
 </script>
 

@@ -118,18 +118,18 @@
       </div>
       <div class="chatInputs">
         <!--表情-->
-        <div class="emoji boxinput" @click="clickEmoji">
+        <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus">
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
         <!--录音-->
-        <div class="luyin boxinput" @click="stopRecording" v-if="recording" >
+        <div class="luyin boxinput" @click="stopRecording" v-if="recording" v-show="buttonStatus">
           <i class="el-icon-microphone" style="margin-top: 17%;"></i>
         </div>
-        <div class="luyin boxinput" @click="startRecording" v-if="!recording" >
+        <div class="luyin boxinput" @click="startRecording" v-if="!recording" v-show="buttonStatus">
           <i class="el-icon-turn-off-microphone" style="margin-top: 17%;"></i>
         </div>
         <!--emo表情列表-->
-        <div class="emoji-content">
+        <div class="emoji-content" v-show="buttonStatus">
           <Emoji
             v-show="showEmoji"
             @sendEmoji="sendEmoji"
@@ -191,6 +191,8 @@ export default {
   },
   data() {
     return {
+      //是否显示表情和录音按钮
+      buttonStatus:true,
       //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
       acqStatus: true,
       chatList: [],
@@ -223,8 +225,10 @@ export default {
     //监听窗口的变化
     handleResize() {
       if (window.innerWidth <= 700) {
+        this.buttonStatus=false
         this.personInfoSpan = [14, 0, 10];
       } else {
+        this.buttonStatus=true
         this.personInfoSpan = [2, 17, 5];
       };
     },
