@@ -331,7 +331,7 @@ export default {
         translateEnglish:false,
         openProductionPicture:false,
         openChangePicture:false,
-        KeyMsg:process.env.VUE_APP_OPENAI_API_KEY,
+        KeyMsg: process.env.VUE_APP_OPENAI_API_KEY,
         MaxTokens:1000,
         Temperature:1,
         TemperatureAudio:0,
@@ -400,22 +400,7 @@ export default {
   },
   mounted() {
     if(this.SettingInfo.KeyMsg){
-      //获取模型列表
-      getModels(this.SettingInfo.KeyMsg).then((res) => {
-        //保存OpenAI key到session中
-        this.personList = res;
-        this.personListCache = res;
-        console.log("auto click.")
-        if (this.personList.length > 0) {
-          this.clickPerson(this.personList[0])
-          }
-        this.updateMoneyInfo()
-      }).catch(e =>{
-        this.$message({
-          message: "OpenAI Key有问题哦~",
-          type: "error",
-        });
-      })
+      this.getModelList(this.SettingInfo.KeyMsg);
     }
     // 在Vue实例中添加监听函数
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
@@ -445,6 +430,37 @@ export default {
     toggleRight() {
       console.log("right clicked")
       this.showSetupList = !this.showSetupList;
+    },
+    getModelList(key){
+      //获取微调的模型列表
+
+      //获取模型列表
+      getModels(key).then((res) => {
+        //保存OpenAI key到session中
+        this.personList = res;
+        this.personListCache = res;
+        console.log("auto click.")
+        if (this.personList.length > 0) {
+          this.clickPerson(this.personList[0])
+        }
+        this.updateMoneyInfo()
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
+    },
+    //获取微调模型列表
+    getFineTunessList(key){
+      getFineTunesList(key).then((res) => {
+        this.fineTuningList=res
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
     },
     //监听窗口尺寸的变化
     handleResize() {
@@ -496,7 +512,6 @@ export default {
       //获取模型列表
       getModels(newVal).then((res) => {
         //保存OpenAI key到session中
-        sessionStorage.setItem('OpenAI_key', newVal)
         this.personList = res;
         this.personListCache = res;
          //获取余额信息
@@ -559,13 +574,13 @@ export default {
     },
     //模型列表被点击
     modelClick(){
-      this.cutSetting=0
+      this.cutSetting = 0
       this.showChatWindow = false;
     },
     //会话列表被点击
     sessionClick(){
-      this.sessionCurrent=""
-      this.cutSetting=1
+      this.sessionCurrent = ""
+      this.cutSetting = 1
       this.chatWindowInfo={
         img: "",
         name: "ChatGPT-3.5",
@@ -582,21 +597,14 @@ export default {
       this.cutSetting=2
       this.showChatWindow = false;
       //获取微调模型列表
-      getFineTunesList(this.SettingInfo.KeyMsg).then((res) => {
-        this.fineTuningList=res
-      }).catch(e =>{
-        this.$message({
-          message: "OpenAI Key有问题哦~",
-          type: "error",
-        });
-      })
+      this.getFineTunessList(this.SettingInfo.KeyMsg)
     },
     //模型被点击
     clickPerson(info) {
       //清除当前选择的会话
       this.sessionCurrent= "";
       //清除当前选择的微调
-      this.ftCurrent="";
+      this.ftCurrent= "";
       //显示当前聊天窗口
       this.showChatWindow = true;
       //传入当前聊天窗口信息
