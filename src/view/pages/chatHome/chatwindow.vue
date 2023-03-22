@@ -178,6 +178,7 @@ export default {
     MarkdownItVue
   },
   props: {
+    storeStatu: Number,
     settingInfo: Object,
     frinedInfo: Object,
     default() {
@@ -426,7 +427,7 @@ export default {
             return
         }
       }
-
+   
       if (this.inputMsg) {
         let chatMsg = {
           headImg: USER_HEAD_IMG_URL,
@@ -469,6 +470,7 @@ export default {
           params.top_p=this.settingInfo.TopP,
           params.presence_penalty=this.settingInfo.PresencePenalty,
           params.frequency_penalty=this.settingInfo.FrequencyPenalty
+         
           let chatBeforResMsg = {
               headImg: AI_HEAD_IMG_URL,
               name: this.frinedInfo.name,
@@ -483,13 +485,18 @@ export default {
             this.completion(params,chatBeforResMsg)
           }
         }
-        this.$emit('personCardSort', this.frinedInfo.id)
+        if(this.storeStatu==0){
+          this.$emit('personCardSort', this.frinedInfo.id)
+        
+        }else if(this.storeStatu==1){
+          this.$emit('fineTunesCardSort', this.frinedInfo.id)
+        }
         this.inputMsg = "";
         this.$parent.updateMoneyInfo();
       } else {
         this.$nextTick(() => {
             this.acqStatus=true
-          });
+        });
         this.$message({
           message: "消息不能为空哦~",
           type: "warning",

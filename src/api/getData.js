@@ -197,6 +197,7 @@ export const getFineTunesList = token => {
       'Content-Type': 'application/json'
     }
   }).then(res => {
+    console.log(res)
     const fineTunesObjs = []
     res.data.data.forEach(fineTunes => {
       let fineTunesObj = {

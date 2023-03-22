@@ -2,7 +2,7 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:24%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
-        <h2>君尘陌AI聊天</h2>
+        <h2>君尘陌OpenAI Manage</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
         <el-row :gutter="24">
@@ -116,6 +116,7 @@
           ref="chatWindow"
           :frinedInfo="chatWindowInfo"
           :settingInfo="SettingInfo"
+          :storeStatu="storeStatus"
           @personCardSort="personCardSort"
         ></ChatWindow>
       </div>
@@ -144,7 +145,7 @@
           <el-col :span="6"><span class="setting" @click="SettingStatus=7" :class="{ active: SettingStatus === 7 }">设置</span></el-col>
         </el-row>
         
-        <div class="s-wrapper">
+        <div class="s-wrapper" style="height: 57vh;">
           <div >
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
           </div>
@@ -282,6 +283,107 @@
             <el-collapse-transition>
               <div v-show="SettingStatus==3">
 
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
+                    <span class="demonstration" style="">trainingFile</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+                
+                
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="包含验证数据的文件ID" placement="top">
+                    <span class="demonstration" style="">validationFile</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="您可以选择ada、babbage、curie、davinci或者是你自己通过微调训练的模型名称" placement="top">
+                    <span class="demonstration" style="">model</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="通过调整n_epochs的数量，可以控制模型的训练时期和训练次数，从而影响模型的性能和收敛速度" placement="top">
+                    <span class="demonstration" style="">nEpochs</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="较大的 batch_size可以加快模型的训练速度、模型的稳定性和泛化能力，较小的 batch_size 可以减少内存和计算资源的使用、提高模型在测试数据上的性能" placement="top">
+                    <span class="demonstration" style="">batchSize</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.batch_size" placeholder="每批数据的大小" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="可以控制微调训练期间使用的学习率是预训练模型使用的学习率的多少倍。例如，如果您设置为2.0，则微调训练期间使用的学习率将是预训练模型使用的学习率的两倍。" placement="top">
+                    <span class="demonstration" style="">learningRateMultiplier</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本" placement="top">
+                    <span class="demonstration" style="">promptLossWeight</span>
+                  </el-tooltip>
+               
+                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01" :max="1" style="width: 90%;" ></el-slider>
+                </div>
+
+ 
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标." placement="top">
+                    <span class="demonstration" style="">computeClassificationMetrics</span>
+                  </el-tooltip>
+                  <div>
+                    <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth" style="margin-top: 15px;"></el-switch>
+                  </div>
+                </div>
+
+                
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="分类任务中的类数,此参数对于多类分类是必需的" placement="top">
+                    <span class="demonstration" style="">classificationNClasses</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.classification_n_classes" placeholder="分类任务中的类数" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="二元分类中的正类,需要此参数来生成精度、召回率和 F1 执行二元分类时的指标。" placement="top">
+                    <span class="demonstration" style="">classificationPositiveClass</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.classification_positive_class" placeholder="二元分类中的正类" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="将计算指定 F-beta 分数 贝塔值。F-beta 分数是 F-1 分数的概括。 这仅用于二元分类。" placement="top">
+                    <span class="demonstration" style="">classificationBetas</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.classification_betas" placeholder="" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="最多 40 个字符的字符串，将添加到微调的模型名称中。" placement="top">
+                    <span class="demonstration" style="">suffix</span>
+                  </el-tooltip>
+               
+                  <input class="inputs" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
               </div>
             </el-collapse-transition>
 
@@ -342,6 +444,7 @@ export default {
   },
   data() {
     return {
+      storeStatus:0,
       //宽度
       defaulWidth:70,
       //0是聊天设置，1是图片设置
@@ -369,7 +472,21 @@ export default {
         n:1,
         size:"256x256",
         language:"zh",
-        contentImageUrl:""
+        contentImageUrl:"",
+        fineTunes:{
+          training_file:"",
+          validation_file:"",
+          model:"curie",
+          n_epochs:4,
+          batch_size:null,
+          learning_rate_multiplier:null,
+          prompt_loss_weight:0.01,
+          compute_classification_metrics:false,
+          classification_n_classes:null,
+          classification_positive_class:null,
+          classification_betas:"",
+          suffix:""
+        }
       },
       //当前点击的文件
       fiCurrent: "",
@@ -682,6 +799,7 @@ export default {
     },
     //模型被点击
     clickPerson(info) {
+      this.storeStatus=0;
       //清除当前选择的会话
       this.sessionCurrent= "";
       //清除当前选择的微调
@@ -706,6 +824,7 @@ export default {
     },
     //微调模型被点击
     clickFineTuning(info){
+      this.storeStatus=1;
       //清除当前选择的会话
       this.sessionCurrent= "";
       //清除当前选择的模型
@@ -735,6 +854,20 @@ export default {
           }
         }
         this.personList.unshift(nowPersonInfo);
+      }
+    },
+    fineTunesCardSort(id) {
+      if (id !== this.fineTuningList[0].id) {
+        console.log(id);
+        let nowPersonInfo;
+        for (let i = 0; i < this.fineTuningList.length; i++) {
+          if (this.fineTuningList[i].id == id) {
+            nowPersonInfo = this.fineTuningList[i];
+            this.fineTuningList.splice(i, 1);
+            break;
+          }
+        }
+        this.fineTuningList.unshift(nowPersonInfo);
       }
     },
   },
@@ -782,9 +915,9 @@ export default {
   background-color: rgb(91 162 78);
   border: 0;
   transition: 0.3s;
-  box-shadow: 0px 0px 5px 0px rgba(0, 136, 255);
+  box-shadow: 0px 0px 5px 0px rgb(26, 230, 7);
   &:hover {
-    box-shadow: 0px 0px 10px 0px rgba(0, 136, 255);
+    box-shadow: 0px 0px 10px 0px rgb(26, 230, 7);
   }
  }
  .inputs {
