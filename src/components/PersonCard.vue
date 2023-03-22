@@ -1,5 +1,5 @@
 <template>
-  <div class="person-card" :class="{ activeCard: personInfo.id == current }">
+  <div class="person-card" :class="{ activeCard: personInfo.id == pcCurrent }">
     <div class="info">
       <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg" />
       <div class="info-detail">

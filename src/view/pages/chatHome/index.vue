@@ -407,9 +407,6 @@ export default {
     this.$watch('SettingInfo.contentImageUrl', this.watchContentImageUrl);
     this.$watch('modelSearch', this.watchModelSearch);
     this.$watch('SettingInfo.openChangePicture', this.watchOpenChangePicture);
-    if(sessionStorage.getItem("OpenAI_key")){
-      this.SettingInfo.KeyMsg=sessionStorage.getItem("OpenAI_key")
-    }
   },
   filters: {
     numFilterReservedSix (value) {
@@ -433,7 +430,6 @@ export default {
     },
     getModelList(key){
       //获取微调的模型列表
-
       //获取模型列表
       getModels(key).then((res) => {
         //保存OpenAI key到session中
@@ -465,6 +461,7 @@ export default {
     //监听窗口尺寸的变化
     handleResize() {
       if (window.innerWidth <= 1150) {
+        console.log("进入")
         this.showPersonList = false;
         this.showSetupList = false;
         this.showChatWindow = true;
@@ -612,7 +609,9 @@ export default {
       //设置当前被点击的对象
       this.personInfo = info;
       //设置当前被点击的模型id
+      console.log(info.id)
       this.pcCurrent = info.id;
+      console.log(this.pcCurrent)
     },
     //会话被点击
     clickSession(info) {
