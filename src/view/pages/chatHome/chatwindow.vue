@@ -118,7 +118,7 @@
       </div>
       <div class="chatInputs">
         <!--表情-->
-        <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus">
+        <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus" >
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
         </div>
         <!--录音-->
@@ -999,11 +999,13 @@ textarea::-webkit-scrollbar-thumb {
           border: 1px solid rgb(71, 73, 82);
         }
         width: 50px;
+        min-width: 50px;
       }
       .luyin {
         margin-left: 1.5%;font-size: 30px;text-align: center;
         transition: 0.3s;
         width: 50px;
+        min-width: 50px;
         &:hover {
           color:#fff;
           background-color: rgb(46, 49, 61);

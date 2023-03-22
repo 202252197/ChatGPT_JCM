@@ -288,7 +288,7 @@ export const getFilesList = token => {
       'Content-Type': 'application/json'
     }
   }).then(res => {
-    console.log("文件列表")
+    console.log(res)
     const fileObjs = []
     res.data.data.forEach(file => {
       let fileObj = {
@@ -297,12 +297,28 @@ export const getFilesList = token => {
         detail: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
         lastMsg: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
         id: file.filename,
-        headImg: AI_HEAD_IMG_URL,
-        showHeadImg: false
+        createTime: file.created_at,
       }
       fileObjs.push(fileObj)
     });
-    return fileObjs;
+    return fileObjs.sort((a, b) => b.createTime - a.createTime);
+  })
+}
+
+// 上传JSONL文件
+export const uploadFile = (formData, token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/files`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'multipart/form-data'
+    },
+    data: formData
+  }).then(res => {
+    console.log("文件上传成功")
+    console.log(res)
+    return res.data.data;
   })
 }
 

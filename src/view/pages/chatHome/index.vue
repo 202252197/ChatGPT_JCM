@@ -79,15 +79,16 @@
         </div>
 
         <div v-show="cutSetting==3">
-          <div class="send boxinput" @click="fileClick">
+          <div class="send boxinput" @click="uploadFile" >
+            <input type="file" ref="fileInput" style="display: none;" @change="onFileChange">
             <svg t="1679458974300" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1590" width="30" height="30"><path d="M567.466667 634.325333v234.666667a21.333333 21.333333 0 0 1-21.333334 21.333333h-42.666666a21.333333 21.333333 0 0 1-21.333334-21.333333v-234.666667H413.866667a8.533333 8.533333 0 0 1-6.826667-13.653333l110.933333-147.925333a8.533333 8.533333 0 0 1 13.653334 0l110.933333 147.925333a8.533333 8.533333 0 0 1-6.826667 13.653333h-68.266666z" fill="#ffffff" p-id="1591"></path><path d="M768 725.333333a128 128 0 0 0 38.613333-250.112l-39.850666-12.586666-14.506667-39.253334a256.128 256.128 0 0 0-480.554667 0l-14.464 39.253334-39.850666 12.586666A128.085333 128.085333 0 0 0 256 725.333333a42.666667 42.666667 0 0 1 0 85.333334 213.333333 213.333333 0 0 1-64.341333-416.810667 341.461333 341.461333 0 0 1 640.682666 0A213.418667 213.418667 0 0 1 768 810.666667a42.666667 42.666667 0 0 1 0-85.333334z" fill="#ffffff" p-id="1592"></path></svg>
             上传文件
           </div>
           <div class="s-wrapper">
             <div
               class="personList"
-              v-for="fileInfo in fileList"
-              :key="fileInfo.id"
+              v-for="(fileInfo, index) in fileList"
+              :key="index"
               @click="clickFile(fileInfo)"
             >
               <File
@@ -330,7 +331,7 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
-import { getModels,getMoneyInfo,getFineTunesList,getFilesList } from "@/api/getData";
+import { getModels,getMoneyInfo,getFineTunesList,getFilesList,uploadFile } from "@/api/getData";
 export default {
   name: "App",
   components: {
@@ -459,11 +460,12 @@ export default {
       console.log("right clicked")
       this.showSetupList = !this.showSetupList;
     },
+    //获取模型列表
     getModelList(key){
-      //获取微调的模型列表
-      //获取模型列表
+    
+     
       getModels(key).then((modelsRes) => {
-       // 提取a集合中所有id属性值
+       // 提取fineTunesRes集合中所有id属性值
         getFineTunesList(key).then((fineTunesRes) => {
           const fineTunesIds = fineTunesRes.map(item => item.id);
           const models = modelsRes.filter(item => !fineTunesIds.includes(item.id)); 
@@ -496,7 +498,6 @@ export default {
     //获取文件列表
     getFilessList(key){
       getFilesList(key).then((res) => {
-        console.log("获取到文件列表了")
         console.log(res)
         this.fileList=res
       }).catch(e =>{
@@ -650,6 +651,35 @@ export default {
       //获取微调模型列表
       this.getFilessList(this.SettingInfo.KeyMsg)
     },
+    //山那个穿按钮被点击触发的方法
+    uploadFile(){
+      this.$refs.fileInput.click();
+    },
+    //文件上传触发的方法
+    onFileChange(e) {
+      //获取文件
+      const file = e.target.files[0];
+      // 验证文件类型是否为jsonl格式
+      if (!file.name.endsWith('.jsonl')){
+        this.$message({
+          message: "请上传一个有效的JSONL文件~",
+          type: "warning",
+        });
+        return;
+      }
+      // 通过验证后，上传文件
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("purpose", "fine-tune");
+      uploadFile(formData,this.SettingInfo.KeyMsg).then((res) => {
+        //更新文件列表
+        this.getFilessList(this.SettingInfo.KeyMsg)
+        this.$message({
+          message: "文件上传成功~",
+          type: "info",
+        });
+      })
+    },
     //模型被点击
     clickPerson(info) {
       //清除当前选择的会话
@@ -663,9 +693,7 @@ export default {
       //设置当前被点击的对象
       this.personInfo = info;
       //设置当前被点击的模型id
-      console.log(info.id)
       this.pcCurrent = info.id;
-      console.log(this.pcCurrent)
     },
     //会话被点击
     clickSession(info) {
