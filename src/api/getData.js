@@ -178,10 +178,12 @@ export const createFineTune = (formData, token) => {
     baseURL: `${baseUrl}/v1/fine-tunes`,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data'
+      'Content-Type':  'application/json'
     },
     data: formData
   }).then(res => {
+    console.log("重要的")
+    console.log(res)
     return res.data;
   })
 }

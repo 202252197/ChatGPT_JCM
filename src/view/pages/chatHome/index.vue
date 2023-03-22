@@ -2,7 +2,7 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:24%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
-        <h2>君尘陌OpenAI Manage</h2>
+        <h2>OpenAI Manage</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
         <el-row :gutter="24">
@@ -146,7 +146,8 @@
         </el-row>
         
         <div class="s-wrapper" style="height: 57vh;">
-          <div >
+
+          <div>
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
           </div>
             <!--对话设置-->
@@ -282,7 +283,9 @@
             <!--微调-->
             <el-collapse-transition>
               <div v-show="SettingStatus==3">
-
+                <div class="fineTune boxinput" @click="createFineTune" style="margin-left: 15px;">
+                  创建微调
+                </div>
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
                     <span class="demonstration" style="">trainingFile</span>
@@ -338,7 +341,7 @@
                     <span class="demonstration" style="">promptLossWeight</span>
                   </el-tooltip>
                
-                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01" :max="1" style="width: 90%;" ></el-slider>
+                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01" :max="1" style="width: 95%;" ></el-slider>
                 </div>
 
  
@@ -433,7 +436,7 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
-import { getModels,getMoneyInfo,getFineTunesList,getFilesList,uploadFile } from "@/api/getData";
+import { getModels,getMoneyInfo,getFineTunesList,getFilesList,uploadFile, createFineTune } from "@/api/getData";
 export default {
   name: "App",
   components: {
@@ -475,16 +478,16 @@ export default {
         contentImageUrl:"",
         fineTunes:{
           training_file:"",
-          validation_file:"",
+          validation_file:undefined,
           model:"curie",
           n_epochs:4,
-          batch_size:null,
-          learning_rate_multiplier:null,
+          batch_size:undefined,
+          learning_rate_multiplier:undefined,
           prompt_loss_weight:0.01,
           compute_classification_metrics:false,
-          classification_n_classes:null,
-          classification_positive_class:null,
-          classification_betas:"",
+          classification_n_classes:undefined,
+          classification_positive_class:undefined,
+          classification_betas:undefined,
           suffix:""
         }
       },
@@ -842,6 +845,16 @@ export default {
     clickFile(info){
     
     },
+    //创建微调
+    createFineTune(){
+      console.log("创建微调")
+      createFineTune(this.SettingInfo.fineTunes,this.SettingInfo.KeyMsg).then((res) => {
+        console.log("成功了")
+        console.log(res)
+      }).catch(e =>{
+        console.log("出错了")
+      })
+    },
     personCardSort(id) {
       if (id !== this.personList[0].id) {
         console.log(id);
@@ -920,6 +933,21 @@ export default {
     box-shadow: 0px 0px 10px 0px rgb(26, 230, 7);
   }
  }
+
+ .fineTune {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(149, 42, 255);
+  border: 0;
+  transition: 0.3s;
+  box-shadow: 0px 0px 5px 0px rgb(56, 0, 112);
+  &:hover {
+    box-shadow: 0px 0px 10px 0px rgb(56, 0, 112);
+  }
+ }
+
  .inputs {
     width: 65%;
     height: 50px;
