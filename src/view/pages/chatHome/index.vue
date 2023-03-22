@@ -432,6 +432,7 @@ export default {
       //获取微调的模型列表
       //获取模型列表
       getModels(key).then((res) => {
+        console.log(res)
         //保存OpenAI key到session中
         this.personList = res;
         this.personListCache = res;
@@ -461,7 +462,6 @@ export default {
     //监听窗口尺寸的变化
     handleResize() {
       if (window.innerWidth <= 1150) {
-        console.log("进入")
         this.showPersonList = false;
         this.showSetupList = false;
         this.showChatWindow = true;
