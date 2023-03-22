@@ -1,24 +1,29 @@
 <template>
   <div class="chatHome">
     <div class="chatLeft" style="width:24%" v-show="showPersonList">
-      <div class="title">
+      <div class="title" style="text-align: center;">
         <h2>君尘陌AI聊天</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;"> 
         <el-row :gutter="24">
-          <el-col :span="7" :offset="2">
+          <el-col :span="6" >
             <div class="setting">
               <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
             </div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="6">
             <div class="setting">
               <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
             </div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="6">
             <div class="setting">
               <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">微调</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="setting">
+              <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">文件</span>
             </div>
           </el-col>
         </el-row>
@@ -42,7 +47,7 @@
         <div v-show="cutSetting==1">
           <div class="send boxinput" @click="newSession">
             <svg t="1679215361568" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3128" width="30" height="30"><path d="M512.001024 0A512 512 0 0 0 0.001024 512a506.88 506.88 0 0 0 92.16 292.352V972.8a51.2 51.2 0 0 0 51.2 51.2H512.001024a512 512 0 0 0 0-1024z m0 921.6H194.561024v-134.144a51.2 51.2 0 0 0-10.24-30.72A406.016 406.016 0 0 1 102.401024 512a409.6 409.6 0 1 1 409.6 409.6z" fill="#ffffff" p-id="3129"></path><path d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z" fill="#ffffff" p-id="3130"></path></svg>
-            New Chat
+            创建新的会话
           </div>
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList"
@@ -69,6 +74,26 @@
                 :personInfo="fineTuningInfo"
                 :pcCurrent="ftCurrent"
               ></PersonCard>
+            </div>
+          </div>
+        </div>
+
+        <div v-show="cutSetting==3">
+          <div class="send boxinput" @click="fileClick">
+            <svg t="1679458974300" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1590" width="30" height="30"><path d="M567.466667 634.325333v234.666667a21.333333 21.333333 0 0 1-21.333334 21.333333h-42.666666a21.333333 21.333333 0 0 1-21.333334-21.333333v-234.666667H413.866667a8.533333 8.533333 0 0 1-6.826667-13.653333l110.933333-147.925333a8.533333 8.533333 0 0 1 13.653334 0l110.933333 147.925333a8.533333 8.533333 0 0 1-6.826667 13.653333h-68.266666z" fill="#ffffff" p-id="1591"></path><path d="M768 725.333333a128 128 0 0 0 38.613333-250.112l-39.850666-12.586666-14.506667-39.253334a256.128 256.128 0 0 0-480.554667 0l-14.464 39.253334-39.850666 12.586666A128.085333 128.085333 0 0 0 256 725.333333a42.666667 42.666667 0 0 1 0 85.333334 213.333333 213.333333 0 0 1-64.341333-416.810667 341.461333 341.461333 0 0 1 640.682666 0A213.418667 213.418667 0 0 1 768 810.666667a42.666667 42.666667 0 0 1 0-85.333334z" fill="#ffffff" p-id="1592"></path></svg>
+            上传文件
+          </div>
+          <div class="s-wrapper">
+            <div
+              class="personList"
+              v-for="fileInfo in fileList"
+              :key="fileInfo.id"
+              @click="clickFile(fileInfo)"
+            >
+              <File
+                :fileInfo="fileInfo"
+                :pcCurrent="fiCurrent"
+              ></File>
             </div>
           </div>
         </div>
@@ -302,15 +327,17 @@
 <script>
 import PersonCard from "@/components/PersonCard.vue";
 import Session from "@/components/Session.vue";
+import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
-import { getModels,getMoneyInfo,getFineTunesList } from "@/api/getData";
+import { getModels,getMoneyInfo,getFineTunesList,getFilesList } from "@/api/getData";
 export default {
   name: "App",
   components: {
     PersonCard,
     ChatWindow,
-    Session
+    Session,
+    File
   },
   data() {
     return {
@@ -343,6 +370,8 @@ export default {
         language:"zh",
         contentImageUrl:""
       },
+      //当前点击的文件
+      fiCurrent: "",
       //当前点击的模型
       pcCurrent: "",
       //当前点击的会话
@@ -353,6 +382,8 @@ export default {
       fineTuningSearch:"",
       //模型搜索数据
       modelSearch: "",
+      //文件列表
+      fileList:[],
       //微调模型列表
       fineTuningList: [],
       //模型列表
@@ -431,11 +462,14 @@ export default {
     getModelList(key){
       //获取微调的模型列表
       //获取模型列表
-      getModels(key).then((res) => {
-        console.log(res)
-        //保存OpenAI key到session中
-        this.personList = res;
-        this.personListCache = res;
+      getModels(key).then((modelsRes) => {
+       // 提取a集合中所有id属性值
+        getFineTunesList(key).then((fineTunesRes) => {
+          const fineTunesIds = fineTunesRes.map(item => item.id);
+          const models = modelsRes.filter(item => !fineTunesIds.includes(item.id)); 
+          this.personList = models;
+          this.personListCache = models;
+        })
         console.log("auto click.")
         if (this.personList.length > 0) {
           this.clickPerson(this.personList[0])
@@ -452,6 +486,19 @@ export default {
     getFineTunessList(key){
       getFineTunesList(key).then((res) => {
         this.fineTuningList=res
+      }).catch(e =>{
+        this.$message({
+          message: "OpenAI Key有问题哦~",
+          type: "error",
+        });
+      })
+    },
+    //获取文件列表
+    getFilessList(key){
+      getFilesList(key).then((res) => {
+        console.log("获取到文件列表了")
+        console.log(res)
+        this.fileList=res
       }).catch(e =>{
         this.$message({
           message: "OpenAI Key有问题哦~",
@@ -589,12 +636,19 @@ export default {
       }
       this.showChatWindow = true;
     },
-     //微调模型列表被点击
-     fineTuningClick(){
+    //微调模型列表被点击
+    fineTuningClick(){
       this.cutSetting=2
       this.showChatWindow = false;
       //获取微调模型列表
       this.getFineTunessList(this.SettingInfo.KeyMsg)
+    },
+    //文件列表被点击
+    fileClick(){
+      console.log("文件列表被点击")
+      this.cutSetting=3
+      //获取微调模型列表
+      this.getFilessList(this.SettingInfo.KeyMsg)
     },
     //模型被点击
     clickPerson(info) {
@@ -636,6 +690,10 @@ export default {
       this.fineTuningInfo = info;
       //设置当前选着的微调模型id
       this.ftCurrent = info.id
+    },
+    //文件被点击
+    clickFile(info){
+    
     },
     personCardSort(id) {
       if (id !== this.personList[0].id) {

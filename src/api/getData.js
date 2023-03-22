@@ -278,6 +278,33 @@ export const deleteFineTuneModel = (model, token) => {
 }
 
 
+//获取文件列表
+export const getFilesList = token => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/v1/files`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    console.log("文件列表")
+    const fileObjs = []
+    res.data.data.forEach(file => {
+      let fileObj = {
+        img: "",
+        name: file.filename,
+        detail: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
+        lastMsg: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
+        id: file.filename,
+        headImg: AI_HEAD_IMG_URL,
+        showHeadImg: false
+      }
+      fileObjs.push(fileObj)
+    });
+    return fileObjs;
+  })
+}
 
 
 // 获取账号余额信息

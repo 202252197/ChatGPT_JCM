@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import HeadPortrait from "./HeadPortrait.vue";
 
 export default {
   props: {
@@ -22,9 +21,6 @@ export default {
     pcCurrent: {
       default: ''
     }
-  },
-  components: {
-    HeadPortrait,
   },
   data() {
     return {
