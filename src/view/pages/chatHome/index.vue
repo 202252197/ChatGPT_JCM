@@ -145,7 +145,7 @@
           <el-col :span="6"><span class="setting" @click="SettingStatus=7" :class="{ active: SettingStatus === 7 }">设置</span></el-col>
         </el-row>
         
-        <div class="s-wrapper" style="height: 57vh;">
+        <div class="s-wrapper" style="height: 68vh;">
 
           <div>
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" style="width: 100%; margin-left: 0px;margin-right: 0px;"/>
@@ -334,26 +334,6 @@
                
                   <input class="inputs" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
                 </div>
-
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本" placement="top">
-                    <span class="demonstration" style="">promptLossWeight</span>
-                  </el-tooltip>
-               
-                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01" :max="1" style="width: 95%;" ></el-slider>
-                </div>
-
- 
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标." placement="top">
-                    <span class="demonstration" style="">computeClassificationMetrics</span>
-                  </el-tooltip>
-                  <div>
-                    <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth" style="margin-top: 15px;"></el-switch>
-                  </div>
-                </div>
-
                 
                 <div class="block">
                   <el-tooltip class="item" effect="dark" content="分类任务中的类数,此参数对于多类分类是必需的" placement="top">
@@ -385,6 +365,24 @@
                   </el-tooltip>
                
                   <input class="inputs" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;"/>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本" placement="top">
+                    <span class="demonstration" style="">promptLossWeight</span>
+                  </el-tooltip>
+               
+                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01" :max="1" style="width: 95%;" ></el-slider>
+                </div>
+
+ 
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标." placement="top">
+                    <span class="demonstration" style="">computeClassificationMetrics</span>
+                  </el-tooltip>
+                  <div>
+                    <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth" style="margin-top: 15px;"></el-switch>
+                  </div>
                 </div>
 
               </div>
@@ -744,11 +742,16 @@ export default {
     },
     //模型列表被点击
     modelClick(){
+      this.SettingStatus= 0
       this.cutSetting = 0
       this.showChatWindow = false;
     },
     //会话列表被点击
     sessionClick(){
+      //清除当前选择的微调
+      this.ftCurrent="";
+      //清除当前选择的模型
+      this.pcCurrent= "";
       this.sessionCurrent = ""
       this.cutSetting = 1
       this.chatWindowInfo={
@@ -764,6 +767,7 @@ export default {
     },
     //微调模型列表被点击
     fineTuningClick(){
+      this.SettingStatus=3;
       this.cutSetting=2
       this.showChatWindow = false;
       //获取微调模型列表
@@ -1039,7 +1043,7 @@ export default {
       }
       .s-wrapper {
         padding-left: 10px;
-        height: 65vh;
+        height: 75vh;
         margin-top: 10px;
         overflow: hidden;
         overflow-y: scroll;

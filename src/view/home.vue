@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 90vw;
-  height: 90vh;
+  height: 100vh;
   background-color: rgb(39, 42, 55);
   border-radius: 15px;
   position: absolute;

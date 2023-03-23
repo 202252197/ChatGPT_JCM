@@ -1,7 +1,7 @@
 <template>
   <div class="chat-window">
     <div class="top" >
-      <el-row>
+      <el-row style="height: 70px;">
  
         <el-col :span="personInfoSpan[0]">
           <div class="head-pic">
@@ -51,7 +51,7 @@
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0"  >
-             <markdown-it-vue class="md-body"  :content="item.msg.trim()"/></div>
+             <markdown-it-vue :options="markdownOption"  :content="item.msg.trim()"/></div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
                 :src="item.msg"
@@ -192,6 +192,8 @@ export default {
   },
   data() {
     return {
+      //markdown配置项
+      markdownOption:"",
       //是否显示表情和录音按钮
       buttonStatus:true,
       //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
@@ -859,7 +861,7 @@ textarea::-webkit-scrollbar-thumb {
   }
   .botoom {
     width: 100%;
-    height: 74vh;
+    height: 83vh;
     background-size:100% 100%;
     // background-color: rgb(50, 54, 68);
     border-radius: 20px;
@@ -893,7 +895,7 @@ textarea::-webkit-scrollbar-thumb {
           max-width: 90%;
           padding: 20px;
           border-radius: 20px 20px 20px 5px;
-          background-color: rgb(226 226 226);
+          background-color: rgb(50, 54, 68);
           color: #fff;
         }
         .chat-img {
@@ -941,7 +943,7 @@ textarea::-webkit-scrollbar-thumb {
           max-width: 90%;
           padding: 20px;
           border-radius: 20px 20px 5px 20px;
-          background-color: rgb(29, 144, 245);
+          background-color: rgb(50, 54, 68);
           color: #fff;
         }
         .chat-img {
