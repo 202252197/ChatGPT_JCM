@@ -209,11 +209,12 @@ export const getFineTunesList = token => {
         lastMsg: "基于"+fineTunes.model+"微调创建的模型",
         id: fineTunes.fine_tuned_model,
         headImg: AI_HEAD_IMG_URL,
-        showHeadImg: true
+        showHeadImg: true,
+        createTime: fineTunes.created_at
       }
       fineTunesObjs.push(fineTunesObj)
     });
-    return fineTunesObjs;
+    return fineTunesObjs.sort((a, b) => b.createTime - a.createTime);
   })
 }
 

@@ -283,7 +283,7 @@
             <!--微调-->
             <el-collapse-transition>
               <div v-show="SettingStatus==3">
-                <div class="fineTune boxinput" @click="createFineTune" style="margin-left: 15px;">
+                <div class="fineTune boxinput" @click="createFineTune" style="margin-left: 0px;margin-right: 0px;width: 100%;">
                   创建微调
                 </div>
                 <div class="block">
@@ -559,6 +559,7 @@ export default {
     this.$watch('SettingInfo.contentImageUrl', this.watchContentImageUrl);
     this.$watch('modelSearch', this.watchModelSearch);
     this.$watch('SettingInfo.openChangePicture', this.watchOpenChangePicture);
+    this.$watch('SettingInfo.openProductionPicture', this.watchOpenProductionPicture);
   },
   filters: {
     numFilterReservedSix (value) {
@@ -582,8 +583,7 @@ export default {
     },
     //获取模型列表
     getModelList(key){
-    
-     
+
       getModels(key).then((modelsRes) => {
        // 提取fineTunesRes集合中所有id属性值
         getFineTunesList(key).then((fineTunesRes) => {
@@ -651,8 +651,13 @@ export default {
     },
     // 监听openChangePicture属性的变化
     watchOpenChangePicture:function(newVal,oldVal){
-      if(!newVal){
-        
+      if(newVal){
+        this.SettingInfo.openProductionPicture=false
+      }
+    },
+    watchOpenProductionPicture:function(newVal,oldVal){
+      if(newVal){
+        this.SettingInfo.openChangePicture=false
       }
     },
     // 监听contentImageUrl属性的变化

@@ -567,7 +567,7 @@ export default {
         }
     },
     async completion(params,chatBeforResMsg){
-      params.stop="END"
+      params.stop=" END"
       params.prompt=this.inputMsg
       // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.stream=true

@@ -59,7 +59,7 @@ VUE_APP_OPENAI_API_KEY='你的openai api key'
 | Create transcription  | 音频识别文字 |
 | Create translation    | 英语音频识别 |
 | fine-tune    | 创建微调，微调列表已经实现 |
-| Files    | 待开发 |
+| Files    | 上传文件，文件列表已经实现 |
 | 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑,多窗口上下文对话 |
 | 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图 |
 | 导出导入数据   | 待开发 |
