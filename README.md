@@ -90,7 +90,7 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 
 # Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Date)](https://star-history.com/#202252197/ChatGPT_JCM&Date)
+[![Star History Chart](https://star-history.com/#202252197/ChatGPT_JCM&Date)](https://star-history.com/#202252197/ChatGPT_JCM&Date)
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
