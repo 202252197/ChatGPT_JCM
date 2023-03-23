@@ -51,7 +51,7 @@
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0"  >
-             <markdown-it-vue :options="markdownOption"  :content="item.msg.trim()"/></div>
+             <markdown-it-vue  :content="item.msg.trim()" :options="markdownOption" /></div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img
                 :src="item.msg"
@@ -193,7 +193,10 @@ export default {
   data() {
     return {
       //markdown配置项
-      markdownOption:"",
+      markdownOption: {
+     
+
+      },
       //是否显示表情和录音按钮
       buttonStatus:true,
       //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
@@ -517,7 +520,6 @@ export default {
         //新增一个空的消息
         this.sendMsg(chatBeforResMsg);
         const currentResLocation=this.chatList.length-1
-
         let _this=this
         try {
           await fetch(
@@ -895,7 +897,7 @@ textarea::-webkit-scrollbar-thumb {
           max-width: 90%;
           padding: 20px;
           border-radius: 20px 20px 20px 5px;
-          background-color: rgb(50, 54, 68);
+          background-color: rgb(113 207 130);
           color: #fff;
         }
         .chat-img {
@@ -943,8 +945,8 @@ textarea::-webkit-scrollbar-thumb {
           max-width: 90%;
           padding: 20px;
           border-radius: 20px 20px 5px 20px;
-          background-color: rgb(50, 54, 68);
-          color: #fff;
+          background-color: rgb(113 207 130);
+          color: #000;
         }
         .chat-img {
           img {
@@ -1050,4 +1052,6 @@ textarea::-webkit-scrollbar-thumb {
     }
   }
 }
+
+
 </style>

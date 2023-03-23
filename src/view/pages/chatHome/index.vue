@@ -121,8 +121,7 @@
         ></ChatWindow>
       </div>
       <div class="showIcon" v-else>
-        <span class="iconfont icon-snapchat"></span>
-        <!-- <img src="@/assets/img/snapchat.png" alt="" /> -->
+        <svg t="1679552353056" class="icon iconfont icon-snapchat" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" width="200" height="200"><path d="M992.33 416.37c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-63.96h63.98c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-95.94c0.01-8.48-3.36-16.62-9.35-22.62-6-6-14.14-9.37-22.62-9.36h-95.94V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96H544.6V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98s-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98S224.8 14.95 224.8 32.61v63.96h-95.94c-8.48 0-16.62 3.36-22.62 9.36s-9.36 14.14-9.36 22.62v95.94H32.92c-17.67 0-31.98 14.32-31.98 31.98s14.32 31.98 31.98 31.98h63.96v63.96H32.92c-17.67 0-31.98 14.32-31.98 31.98 0 17.67 14.32 31.98 31.98 31.98h63.96v63.97H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.65 14.31 31.97 31.97 31.97h63.96v63.98H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.66 14.31 31.97 31.97 31.97h63.96v63.98H32.92C15.26 736.18 0.95 750.5 0.95 768.15s14.31 31.97 31.97 31.97h63.96v95.95a31.944 31.944 0 0 0 9.36 22.62c6 5.99 14.14 9.36 22.62 9.35h95.94v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h95.94c8.48 0.02 16.62-3.35 22.62-9.35s9.37-14.14 9.35-22.62v-95.95h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98V672.2h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.98h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.97h63.98zM864.41 864.1H160.84V160.53h703.57V864.1zM406.82 580.42h79.2l15.48 61.56h67.68l-83.16-267.84h-77.04l-83.16 267.84h65.52l15.48-61.56z m18-72.36c6.84-26.64 14.04-57.96 20.52-86.04h1.44c7.2 27.36 14.04 59.4 21.24 86.04l5.76 22.68h-54.72l5.76-22.68zM697.7 641.98h-64.44V374.14h64.44v267.84z" p-id="3489"></path></svg>
       </div>
     </div>
     <div class="chatLeft" v-show="showSetupList">
@@ -398,7 +397,26 @@
            <!--会话-->
             <el-collapse-transition>
               <div v-show="SettingStatus==5">
-
+                <div class="fineTune boxinput" @click="clearCurrentContext" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  清空当前会话内容
+                </div>
+                <div class="fineTune boxinput" @click="exportObjArrToJson" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  导出当前会话内容
+                </div>
+                <div class="fineTune boxinput" @click="importFromJsonArr" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  导入当前会话内容
+                  <input type="file" ref="onupdateJosnArr" @change="handleFileUpload"  style="display: none;" >
+                </div>
+                <div class="fineTune boxinput" @click="exportObjArrAllToJson" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  导出会话列表
+                </div>
+                <div class="fineTune boxinput" @click="importFromJsonArrAll" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  导入会话列表
+                  <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll"  style="display: none;" >
+                </div>
+                <div class="fineTune boxinput" @click="clearAllContext" style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                  清除会话列表
+                </div>
               </div>
             </el-collapse-transition>
 
@@ -435,6 +453,8 @@ import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import {AI_HEAD_IMG_URL} from '@/store/mutation-types'
 import { getModels,getMoneyInfo,getFineTunesList,getFilesList,uploadFile, createFineTune } from "@/api/getData";
+import { saveAs } from 'file-saver';
+
 export default {
   name: "App",
   components: {
@@ -570,6 +590,57 @@ export default {
     }
   },
   methods: {
+    //导入会话列表触发的方法
+    importFromJsonArrAll() {
+      this.$refs.onupdateJosnArrAll.click(); // 触发选择文件的弹框
+    },
+    handleFileUploadAll(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const fileContent = reader.result; // 文件内容
+        const parsed = JSON.parse(fileContent); // 转换为数组
+        this.sessionList=parsed
+      };
+      reader.readAsText(file);
+    },
+    //导入当前内容json触发的方法
+    importFromJsonArr() {
+      this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const fileContent = reader.result; // 文件内容
+        const parsed = JSON.parse(fileContent); // 转换为数组
+        this.$refs.chatWindow.assignmentMesList(parsed)
+      };
+      reader.readAsText(file);
+    },
+    //导出所有会话到json文件
+    exportObjArrAllToJson(){
+      let jsonString = JSON.stringify(this.sessionList); // 将数组转为JSON字符串
+      let blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
+      saveAs(blob, "data.json");
+    },
+    //导出当前会话到json文件
+    exportObjArrToJson() {
+      const mesList = this.$refs.chatWindow.getMesList()
+      let jsonString = JSON.stringify(mesList); // 将数组转为JSON字符串
+      let blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
+      saveAs(blob, "data.json");
+    },
+    //清除所有的会话内容
+    clearAllContext(){
+      this.sessionList=[]
+    },
+    //清除当前会话内容
+    clearCurrentContext(){
+      this.$refs.chatWindow.clearMsgList()
+    },
     // 点击切换显示状态
     toggleLeft() {
       console.log("left clicked")
@@ -742,6 +813,10 @@ export default {
     },
     //模型列表被点击
     modelClick(){
+      //清除当前选择的会话
+      this.sessionCurrent= "";
+      //清除当前选择的微调
+      this.ftCurrent= "";
       this.SettingStatus= 0
       this.cutSetting = 0
       this.showChatWindow = false;
@@ -767,6 +842,10 @@ export default {
     },
     //微调模型列表被点击
     fineTuningClick(){
+      //清除当前选择的模型微调模型
+      this.ftCurrent = ""
+      //清除当前选择的模型
+      this.pcCurrent= "";
       this.SettingStatus=3;
       this.cutSetting=2
       this.showChatWindow = false;
@@ -775,7 +854,6 @@ export default {
     },
     //文件列表被点击
     fileClick(){
-      console.log("文件列表被点击")
       this.cutSetting=3
       //获取微调模型列表
       this.getFilessList(this.SettingInfo.KeyMsg)
@@ -812,10 +890,6 @@ export default {
     //模型被点击
     clickPerson(info) {
       this.storeStatus=0;
-      //清除当前选择的会话
-      this.sessionCurrent= "";
-      //清除当前选择的微调
-      this.ftCurrent= "";
       //显示当前聊天窗口
       this.showChatWindow = true;
       //传入当前聊天窗口信息
