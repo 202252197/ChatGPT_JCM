@@ -40,10 +40,12 @@
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0">
               <el-row :gutter="20">
-                <el-col :span="6"></el-col>
+                <el-col :span="2" >
+                  <svg t="1679666016648" @click="$copy(item.msg,'已复制')" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6241" width="22" height="22"><path d="M661.333333 234.666667A64 64 0 0 1 725.333333 298.666667v597.333333a64 64 0 0 1-64 64h-469.333333A64 64 0 0 1 128 896V298.666667a64 64 0 0 1 64-64z m-21.333333 85.333333H213.333333v554.666667h426.666667v-554.666667z m191.829333-256a64 64 0 0 1 63.744 57.856l0.256 6.144v575.701333a42.666667 42.666667 0 0 1-85.034666 4.992l-0.298667-4.992V149.333333H384a42.666667 42.666667 0 0 1-42.368-37.674666L341.333333 106.666667a42.666667 42.666667 0 0 1 37.674667-42.368L384 64h447.829333z" fill="#909399" p-id="6242"></path></svg>
+                </el-col>
+                <el-col :span="21" >
+                </el-col>
               </el-row>
-              <div><button>按钮</button></div>
-
 
               <markdown-it-vue :content="item.msg.trim()"  />
             </div>

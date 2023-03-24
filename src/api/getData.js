@@ -1,5 +1,6 @@
 import base from './index'
 import { AI_HEAD_IMG_URL } from '../store/mutation-types'
+import { generateUUID } from "@/util/util";
 let axios = base.axios
 let baseUrl = base.baseUrl
 
@@ -182,8 +183,6 @@ export const createFineTune = (formData, token) => {
     },
     data: formData
   }).then(res => {
-    console.log("重要的")
-    console.log(res)
     return res.data;
   })
 }
@@ -207,10 +206,12 @@ export const getFineTunesList = token => {
         name: fineTunes.fine_tuned_model,
         detail: "基于"+fineTunes.model+"微调创建的模型",
         lastMsg: "基于"+fineTunes.model+"微调创建的模型",
-        id: fineTunes.fine_tuned_model,
+        id: fineTunes.fine_tuned_model?fineTunes.fine_tuned_model:generateUUID(),
         headImg: AI_HEAD_IMG_URL,
         showHeadImg: true,
-        createTime: fineTunes.created_at
+        createTime: fineTunes.created_at,
+        fineTunesId:fineTunes.id,
+        fineTunesStatus:fineTunes.status
       }
       fineTunesObjs.push(fineTunesObj)
     });
@@ -243,9 +244,8 @@ export const cancelFineTune = (fineTuneId, token) => {
     baseURL: `${baseUrl}/v1/fine-tunes/` + fineTuneId + '/cancel',
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
-    },
-    data: fineTuneId
+      'Content-Type': 'application/json'
+    }
   }).then(res => {
     return res.data;
   })
@@ -266,16 +266,15 @@ export const getFineTuneEventsList = (fineTuneId, token) => {
   })
 }
 
-// 取消微调
+// 删除微调
 export const deleteFineTuneModel = (model, token) => {
   return axios({
     method: 'delete',
     baseURL: `${baseUrl}/v1/models/` + model,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data'
-    },
-    data: model
+      'Content-Type': 'application/json'
+    }
   }).then(res => {
     return res.data;
   })
@@ -322,7 +321,7 @@ export const uploadFile = (formData, token) => {
   }).then(res => {
     console.log("文件上传成功")
     console.log(res)
-    return res.data.data;
+    return res.data;
   })
 }
 

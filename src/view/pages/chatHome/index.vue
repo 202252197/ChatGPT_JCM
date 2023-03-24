@@ -327,127 +327,162 @@
           <!--微调-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 3">
-              <div class="fineTune boxinput" @click="createFineTune"
+              <div class="fineTune boxinput" @click="cancelFine"
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                取消微调
+              </div>
+              <div class="fineTune boxinput" @click="hidenCancelFine" v-if="cancelFineStatus"
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                隐藏微调
+              </div>
+              <div class="fineTune boxinput" @click="showCancelFine" v-else
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                显示微调
+              </div>
+              <div class="fineTune boxinput" @click="deleteFine"
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                删除微调模型
+              </div>
+              <div class="fineTune boxinput" @click="showFineSetting=!showFineSetting"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 创建微调
               </div>
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
-                  <span class="demonstration" style="">trainingFile</span>
-                </el-tooltip>
+              <el-collapse-transition >
+                <div v-show="showFineSetting">
+                  <div class="block">
+                  <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
+                    <span class="demonstration" style="">trainingFile<span style="color: red;">*</span></span>
+                  </el-tooltip>
 
-                <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" />
-              </div>
-
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="包含验证数据的文件ID" placement="top">
-                  <span class="demonstration" style="">validationFile</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="您可以选择ada、babbage、curie、davinci或者是你自己通过微调训练的模型名称"
-                  placement="top">
-                  <span class="demonstration" style="">model</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="通过调整n_epochs的数量，可以控制模型的训练时期和训练次数，从而影响模型的性能和收敛速度"
-                  placement="top">
-                  <span class="demonstration" style="">nEpochs</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark"
-                  content="较大的 batch_size可以加快模型的训练速度、模型的稳定性和泛化能力，较小的 batch_size 可以减少内存和计算资源的使用、提高模型在测试数据上的性能"
-                  placement="top">
-                  <span class="demonstration" style="">batchSize</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" placeholder="每批数据的大小" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark"
-                  content="可以控制微调训练期间使用的学习率是预训练模型使用的学习率的多少倍。例如，如果您设置为2.0，则微调训练期间使用的学习率将是预训练模型使用的学习率的两倍。" placement="top">
-                  <span class="demonstration" style="">learningRateMultiplier</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="分类任务中的类数,此参数对于多类分类是必需的" placement="top">
-                  <span class="demonstration" style="">classificationNClasses</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_n_classes" placeholder="分类任务中的类数" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="二元分类中的正类,需要此参数来生成精度、召回率和 F1 执行二元分类时的指标。" placement="top">
-                  <span class="demonstration" style="">classificationPositiveClass</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class"
-                  placeholder="二元分类中的正类" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="将计算指定 F-beta 分数 贝塔值。F-beta 分数是 F-1 分数的概括。 这仅用于二元分类。"
-                  placement="top">
-                  <span class="demonstration" style="">classificationBetas</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_betas" placeholder="" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="最多 40 个字符的字符串，将添加到微调的模型名称中。" placement="top">
-                  <span class="demonstration" style="">suffix</span>
-                </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" />
-              </div>
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本"
-                  placement="top">
-                  <span class="demonstration" style="">promptLossWeight</span>
-                </el-tooltip>
-
-                <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01"
-                  :max="1" style="width: 95%;"></el-slider>
-              </div>
-
-
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标."
-                  placement="top">
-                  <span class="demonstration" style="">computeClassificationMetrics</span>
-                </el-tooltip>
-                <div>
-                  <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth"
-                    style="margin-top: 15px;"></el-switch>
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" />
                 </div>
-              </div>
 
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="包含验证数据的文件ID" placement="top">
+                    <span class="demonstration" style="">validationFile</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="您可以选择ada、babbage、curie、davinci或者是你自己通过微调训练的模型名称"
+                    placement="top">
+                    <span class="demonstration" style="">model</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="通过调整n_epochs的数量，可以控制模型的训练时期和训练次数，从而影响模型的性能和收敛速度"
+                    placement="top">
+                    <span class="demonstration" style="">nEpochs</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark"
+                    content="较大的 batch_size可以加快模型的训练速度、模型的稳定性和泛化能力，较小的 batch_size 可以减少内存和计算资源的使用、提高模型在测试数据上的性能"
+                    placement="top">
+                    <span class="demonstration" style="">batchSize</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" placeholder="每批数据的大小" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark"
+                    content="可以控制微调训练期间使用的学习率是预训练模型使用的学习率的多少倍。例如，如果您设置为2.0，则微调训练期间使用的学习率将是预训练模型使用的学习率的两倍。" placement="top">
+                    <span class="demonstration" style="">learningRateMultiplier</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="分类任务中的类数,此参数对于多类分类是必需的" placement="top">
+                    <span class="demonstration" style="">classificationNClasses</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.classification_n_classes" placeholder="分类任务中的类数" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="二元分类中的正类,需要此参数来生成精度、召回率和 F1 执行二元分类时的指标。" placement="top">
+                    <span class="demonstration" style="">classificationPositiveClass</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class"
+                    placeholder="二元分类中的正类" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="将计算指定 F-beta 分数 贝塔值。F-beta 分数是 F-1 分数的概括。 这仅用于二元分类。"
+                    placement="top">
+                    <span class="demonstration" style="">classificationBetas</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.classification_betas" placeholder="分类贝塔" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="最多 40 个字符的字符串，将添加到微调的模型名称中。" placement="top">
+                    <span class="demonstration" style="">suffix</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本"
+                    placement="top">
+                    <span class="demonstration" style="">promptLossWeight</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.fineTunes.prompt_loss_weight" :step="0.01" :min="0.01"
+                    :max="1" style="width: 95%;"></el-slider>
+                </div>
+
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标."
+                    placement="top">
+                    <span class="demonstration" style="">computeClassificationMetrics</span>
+                  </el-tooltip>
+                  <div>
+                    <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth"
+                      style="margin-top: 15px;margin-left: 35%;"></el-switch>
+                  </div>
+                </div>
+
+                <div class="fineTune boxinput" @click="createFine" 
+                style="margin-left: 0px;margin-right: 0px;width: 99%; background-color: #409EFF;">
+                  创建
+                </div>
+                </div>
+              </el-collapse-transition>
             </div>
           </el-collapse-transition>
 
           <!--文件-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 4">
-
+              <div class="fineTune boxinput" 
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                删除文件
+              </div>
+              <div class="fineTune boxinput" 
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                查看文件
+              </div>
+              <div class="fineTune boxinput" 
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                查看文件内容
+              </div>
             </div>
           </el-collapse-transition>
 
@@ -516,7 +551,7 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import { AI_HEAD_IMG_URL } from '@/store/mutation-types'
-import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune } from "@/api/getData";
+import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune,cancelFineTune,deleteFineTuneModel } from "@/api/getData";
 import { saveAs } from 'file-saver';
 
 export default {
@@ -529,6 +564,8 @@ export default {
   },
   data() {
     return {
+      showFineSetting:false,
+      cancelFineStatus:true,
       storeStatus: 0,
       //宽度
       defaulWidth: 70,
@@ -654,6 +691,13 @@ export default {
     }
   },
   methods: {
+    //显示取消过的微调模型
+    showCancelFine(){
+      this.cancelFineStatus=true
+    },
+    hidenCancelFine(){
+      this.cancelFineStatus=false
+    },
     //导入会话列表触发的方法
     importFromJsonArrAll() {
       this.$refs.onupdateJosnArrAll.click(); // 触发选择文件的弹框
@@ -751,7 +795,6 @@ export default {
     //获取文件列表
     getFilessList(key) {
       getFilesList(key).then((res) => {
-        console.log(res)
         this.fileList = res
       }).catch(e => {
         this.$message({
@@ -877,6 +920,8 @@ export default {
     },
     //模型列表被点击
     modelClick() {
+      //清除被点击的微调对象
+      this.fineTuningInfo = {};
       //清除当前选择的会话
       this.sessionCurrent = "";
       //清除当前选择的微调
@@ -887,6 +932,8 @@ export default {
     },
     //会话列表被点击
     sessionClick() {
+      //清除被点击的微调对象
+      this.fineTuningInfo = {};
       //清除当前选择的微调
       this.ftCurrent = "";
       //清除当前选择的模型
@@ -919,6 +966,9 @@ export default {
     },
     //文件列表被点击
     fileClick() {
+      //清除被点击的微调对象
+      this.fineTuningInfo = {};
+      this.SettingStatus = 4;
       this.cutSetting = 3
       //获取微调模型列表
       this.getFilessList(this.SettingInfo.KeyMsg)
@@ -944,12 +994,9 @@ export default {
       formData.append("file", file);
       formData.append("purpose", "fine-tune");
       uploadFile(formData, this.SettingInfo.KeyMsg).then((res) => {
+        this.$copy(res.id,"文件已上传成功,文件ID是"+res.id+",已经帮您复制啦~")
         //更新文件列表
         this.getFilessList(this.SettingInfo.KeyMsg)
-        this.$message({
-          message: "文件上传成功~",
-          type: "info",
-        });
       })
     },
     //模型被点击
@@ -994,14 +1041,42 @@ export default {
 
     },
     //创建微调
-    createFineTune() {
-      console.log("创建微调")
+    createFine() {
       createFineTune(this.SettingInfo.fineTunes, this.SettingInfo.KeyMsg).then((res) => {
-        console.log("成功了")
-        console.log(res)
+        this.$message.success("恭喜您微调创建成功~")
+        this.getFineTunessList( this.SettingInfo.KeyMsg)
       }).catch(e => {
-        console.log("出错了")
+        this.$message.error("微调创建失败了...")
       })
+    },
+    //删除微调
+    deleteFine() {
+      if(!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId){
+        this.$message.error("只能删除微调中的模型哦~")
+      }else{
+        deleteFineTuneModel(this.fineTuningInfo.name, this.SettingInfo.KeyMsg).then((res) => {
+          this.$message.success("恭喜您微调模型删除成功~")
+          console.log(res)
+          this.getFineTunessList(this.SettingInfo.KeyMsg)
+        }).catch(e => {
+          this.$message.error("微调模型删除失败了,模型正在训练中或者中途已取消")
+        })
+      }
+    },
+    //取消微调
+    cancelFine(){
+      if(!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId || this.fineTuningInfo.fineTunesStatus==="succeeded"){
+        this.$message.error("只能取消进行训练中的微调模型哦~")
+      }else{
+        console.log(this.fineTuningInfo.fineTunesId)
+        cancelFineTune(this.fineTuningInfo.fineTunesId, this.SettingInfo.KeyMsg).then((res) => {
+          this.$message.success("成功取消此模型~")
+          this.getFineTunessList(this.SettingInfo.KeyMsg)
+        }).catch(e => {
+          console.log(e)
+          this.$message.error("取消微调模型失败~")
+        })
+      }
     },
     personCardSort(id) {
       if (id !== this.personList[0].id) {

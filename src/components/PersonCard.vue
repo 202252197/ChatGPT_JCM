@@ -3,7 +3,7 @@
     <div class="info">
       <HeadPortrait :imgUrl="personInfo.headImg" v-show="personInfo.showHeadImg" />
       <div class="info-detail">
-        <div class="name">{{ personInfo.name ? personInfo.name.slice(0, 20) : '正在训练...' }}</div>
+        <div class="name">{{ personInfo.name ? personInfo.name.slice(0, 20) : (personInfo.fineTunesStatus=="pending" ? "正在训练..." : "已取消") }}</div>
         <div class="detail">{{ personInfo.lastMsg.slice(0, 22) }}</div>
       </div>
     </div>
