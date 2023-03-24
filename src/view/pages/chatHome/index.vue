@@ -2,6 +2,18 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:24%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
+        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="3634" width="40" height="40">
+          <path
+            d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z"
+            fill="#ffffff" p-id="3635"></path>
+          <path
+            d="M514 559c-7.8 0-15.5-2-22.4-6L270.9 425.4c-21.5-12.4-28.8-39.8-16.4-61.3 12.4-21.5 39.8-28.8 61.3-16.4l198.1 114.5 189.7-110.9c21.4-12.5 48.9-5.3 61.4 16.1 12.5 21.4 5.3 48.9-16.1 61.4l-212.2 124c-7 4.1-14.9 6.2-22.7 6.2z"
+            fill="#ffffff" p-id="3636"></path>
+          <path
+            d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z"
+            fill="#ffffff" p-id="3637"></path>
+        </svg>
         <h2>OpenAI Manage</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;">
@@ -48,7 +60,7 @@
                 d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z"
                 fill="#ffffff" p-id="3130"></path>
             </svg>
-            创建新的会话
+            创建会话
           </div>
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList" :key="sessionInfo.id" @click="clickSession(sessionInfo)">
@@ -316,7 +328,7 @@
           <el-collapse-transition>
             <div v-show="SettingStatus == 3">
               <div class="fineTune boxinput" @click="createFineTune"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 创建微调
               </div>
               <div class="block">
@@ -324,8 +336,7 @@
                   <span class="demonstration" style="">trainingFile</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" />
               </div>
 
 
@@ -334,8 +345,7 @@
                   <span class="demonstration" style="">validationFile</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID" />
               </div>
 
               <div class="block">
@@ -344,8 +354,7 @@
                   <span class="demonstration" style="">model</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.model" placeholder="模型名称"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" />
               </div>
 
               <div class="block">
@@ -354,8 +363,7 @@
                   <span class="demonstration" style="">nEpochs</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数" />
               </div>
 
               <div class="block">
@@ -365,8 +373,7 @@
                   <span class="demonstration" style="">batchSize</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.batch_size" placeholder="每批数据的大小"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" placeholder="每批数据的大小" />
               </div>
 
               <div class="block">
@@ -375,8 +382,7 @@
                   <span class="demonstration" style="">learningRateMultiplier</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" />
               </div>
 
               <div class="block">
@@ -384,8 +390,7 @@
                   <span class="demonstration" style="">classificationNClasses</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.classification_n_classes" placeholder="分类任务中的类数"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_n_classes" placeholder="分类任务中的类数" />
               </div>
 
               <div class="block">
@@ -393,8 +398,8 @@
                   <span class="demonstration" style="">classificationPositiveClass</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.classification_positive_class" placeholder="二元分类中的正类"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class"
+                  placeholder="二元分类中的正类" />
               </div>
 
               <div class="block">
@@ -403,8 +408,7 @@
                   <span class="demonstration" style="">classificationBetas</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.classification_betas" placeholder=""
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.classification_betas" placeholder="" />
               </div>
 
               <div class="block">
@@ -412,8 +416,7 @@
                   <span class="demonstration" style="">suffix</span>
                 </el-tooltip>
 
-                <input class="inputs" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀"
-                  style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
+                <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" />
               </div>
 
               <div class="block">
@@ -452,29 +455,29 @@
           <el-collapse-transition>
             <div v-show="SettingStatus == 5">
               <div class="fineTune boxinput" @click="clearCurrentContext"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 清空当前会话内容
               </div>
               <div class="fineTune boxinput" @click="exportObjArrToJson"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导出当前会话内容
               </div>
               <div class="fineTune boxinput" @click="importFromJsonArr"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导入当前会话内容
                 <input type="file" ref="onupdateJosnArr" @change="handleFileUpload" style="display: none;">
               </div>
               <div class="fineTune boxinput" @click="exportObjArrAllToJson"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导出会话列表
               </div>
               <div class="fineTune boxinput" @click="importFromJsonArrAll"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导入会话列表
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
               <div class="fineTune boxinput" @click="clearAllContext"
-                style="margin-left: 0px;margin-right: 0px;width: 100%;">
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 清除会话列表
               </div>
             </div>
@@ -888,6 +891,7 @@ export default {
       this.ftCurrent = "";
       //清除当前选择的模型
       this.pcCurrent = "";
+      this.SettingStatus = 5
       this.sessionCurrent = ""
       this.cutSetting = 1
       this.chatWindowInfo = {
@@ -1074,13 +1078,34 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: rgb(91 162 78);
+  background-color: rgb(66, 70, 86);
   border: 0;
   transition: 0.3s;
-  box-shadow: 0px 0px 5px 0px rgb(26, 230, 7);
+  box-shadow: 0px 0px 5px 0px rgb(84, 89, 110);
 
   &:hover {
-    box-shadow: 0px 0px 10px 0px rgb(26, 230, 7);
+    box-shadow: 0px 0px 10px 0px rgb(91, 219, 239);
+  }
+}
+
+.weitiao {
+  margin-top: 10px;
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
+  height: 50px;
+  background-color: rgb(66, 70, 86);
+  border-radius: 15px;
+  border: 2px solid rgb(34, 135, 225);
+  padding: 10px;
+  box-sizing: border-box;
+  transition: 0.2s;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 100;
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -1089,13 +1114,13 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: rgb(149, 42, 255);
+  background-color: rgb(66, 70, 86);
   border: 0;
   transition: 0.3s;
-  box-shadow: 0px 0px 5px 0px rgb(56, 0, 112);
+  box-shadow: 0px 0px 5px 0px rgb(84, 89, 110);
 
   &:hover {
-    box-shadow: 0px 0px 10px 0px rgb(56, 0, 112);
+    box-shadow: 0px 0px 10px 0px rgb(91, 219, 239);
   }
 }
 
@@ -1152,6 +1177,10 @@ export default {
   width: 90%;
 }
 
+.settingButton {
+  width: 99%;
+}
+
 .block {
   margin-top: 5%;
 
@@ -1203,7 +1232,7 @@ export default {
 
       .s-wrapper {
         padding-left: 10px;
-        height: 75vh;
+        height: 70vh;
         margin-top: 10px;
         overflow: hidden;
         overflow-y: scroll;

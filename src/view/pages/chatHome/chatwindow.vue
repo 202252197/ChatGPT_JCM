@@ -39,7 +39,13 @@
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0">
-              <markdown-it-vue :content="item.msg.trim()" :options="markdownOption" />
+              <el-row :gutter="20">
+                <el-col :span="6"></el-col>
+              </el-row>
+              <div><button>按钮</button></div>
+
+
+              <markdown-it-vue :content="item.msg.trim()"  />
             </div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img :src="item.msg" alt="表情" v-if="item.extend.imgType == 1" style="width: 100px; height: 100px" />
@@ -155,11 +161,6 @@ export default {
   },
   data() {
     return {
-      //markdown配置项
-      markdownOption: {
-
-
-      },
       //是否显示表情和录音按钮
       buttonStatus: true,
       //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
