@@ -11,9 +11,12 @@
 > 🤭记得点个小星星
 
 # 部署步骤
+
+## 感觉麻烦的可以直接下载应用程序使用
+https://wweu.lanzoub.com/ik1JV0r2ybpa (蓝奏云下载地址)
+
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
-
 
 ## 下载依赖包
 ```
@@ -30,43 +33,14 @@ npm run serve
 npm run build
 ```
 
-## 设置自动读取APIKEY
+## OpenAI-Key设置以及自定义设置
 在.env.serve中添加代码
 ```
 VUE_APP_OPENAI_API_KEY='你的openai api key'
 ```
+在/src/store/mutation-types.js
+可以在此文件中设置AI头像+用户头像+用户名称
 
-
-# 技术栈
-
-|  名称   | 版本  |
-|  ----  | ----  |
-| vue  | 2.6.14 |
-| element-ui  | 2.15.12 |
-| NodeJS  | 14.21.3 |
-| npm  | 6.14.18 |
-
-# 项目进度
-
-|  接口   | 描述  |
-|  ----  | ----  |
-| List Models  | 获取模型列表 |
-| Chat Completion  | GPT3.5模型 |
-| Completion  | GPT3.5以下模型 |
-| Create Image  | 根据描述生成图片 |
-| Create image edit  | 根据上传的图片结合输入的描述生成图片 |
-| Create Image Variation  | 根据上传的图片生成变体图片 |
-| Create transcription  | 音频识别文字 |
-| Create translation    | 英语音频识别 |
-| fine-tune    | 创建微调，微调列表已经实现 |
-| Files    | 上传文件，文件列表已经实现 |
-| 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑,多窗口上下文对话 |
-| 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图 |
-| 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |
-| 更换聊天窗口背景    | 支持输入背景图片URL |
-| 更换主题    | 待开发 |
-| 界面多语言    | 待开发 |
-| More    | 待开发 |
 
 # Docker部署
 
@@ -81,8 +55,48 @@ docker build -t jcm-chatgpt .
 docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 ```
 
+# 技术栈
+
+|  名称   | 版本  |
+|  ----  | ----  |
+| vue  | 2.6.14 |
+| element-ui  | 2.15.12 |
+| NodeJS  | 14.21.3 |
+| npm  | 6.14.18 |
+
+# 项目进度
+
+|  接口   | 描述  | 
+|  ----  | ----  |
+| List Models  | 获取模型列表 | 
+| Chat Completion  | gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301模型 |
+| Completion  | text-davinci-003, text-davinci-002, text-curie-001, text-babbage-001, text-ada-001, davinci, curie, babbage, ada模型 |
+| Create Image  | 根据描述生成图片 |
+| Create image edit  | 根据上传的图片结合输入的描述生成图片 |
+| Create Image Variation  | 根据上传的图片生成变体图片 |
+| Create transcription  | 语音转换为文字 |
+| Create translation    | 一个或多个来源语言的语音或音频文件翻译成目标语言 |
+| Create fine-tune    | 创建微调 |
+| List fine-tunes    | 微调列表 |
+| Cancel fine-tune    | 取消微调 |
+| Delete fine-tune model    | 删除微调模型 |
+| List files    | 文件列表 |
+| Upload file    | 上传文件 |
+| 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑,多窗口上下文对话 |
+| 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图 |
+| 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |
+| 更换聊天窗口背景    | 支持输入背景图片URL，取消此功能没太大意义 |
+| 更换主题    | 待开发 |
+| 界面多语言    | 待开发 |
+| More    | 待开发 |
+
+
 # 多模型ChatGPT群4
 ![webui2.0](https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg)
+
+# 创作不易-给点鼓励
+![赞助](https://i.328888.xyz/2023/03/25/iAqxqa.jpeg)
+
 
 # 个人说明
 14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言，然后到大数据的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。

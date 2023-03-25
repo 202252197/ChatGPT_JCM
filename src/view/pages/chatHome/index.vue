@@ -333,11 +333,11 @@
               </div>
               <div class="fineTune boxinput" @click="hidenCancelFine" v-if="cancelFineStatus"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                隐藏微调
+                隐藏已取消的微调
               </div>
               <div class="fineTune boxinput" @click="showCancelFine" v-else
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                显示微调
+                显示已取消的微调
               </div>
               <div class="fineTune boxinput" @click="deleteFine"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
@@ -626,6 +626,8 @@ export default {
       fileList: [],
       //微调模型列表
       fineTuningList: [],
+      //微调模型缓存列表
+      fineTuningCacheList:[],
       //模型列表
       personList: [],
       //会话列表
@@ -703,9 +705,19 @@ export default {
     //显示取消过的微调模型
     showCancelFine(){
       this.cancelFineStatus=true
+    
     },
     hidenCancelFine(){
       this.cancelFineStatus=false
+      this.example()
+    
+    },
+    async example() {
+        // To use ESM in CommonJS, you can use a dynamic import
+        
+        const api = new ChatGPTAPI({ apiKey: process.env.VUE_APP_OPENAI_API_KEY })
+        const res = await api.sendMessage('Hello World!')
+        console.log(res.text)
     },
     //导入会话列表触发的方法
     importFromJsonArrAll() {
@@ -794,6 +806,7 @@ export default {
     getFineTunessList(key) {
       getFineTunesList(key).then((res) => {
         this.fineTuningList = res
+        this.fineTuningCacheList = res
       }).catch(e => {
         this.$message({
           message: "获取微调列表失败哦~",
