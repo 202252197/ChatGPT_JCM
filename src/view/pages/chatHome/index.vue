@@ -289,15 +289,15 @@
             <div v-show="SettingStatus == 2">
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="英文录音识别专用" placement="top">
-                  <span class="demonstration">英文识别</span>
+                <el-tooltip class="item" effect="dark" content="语音转文字" placement="top">
+                  <span class="demonstration">语音转文字</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
               </div>
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="请选你录音说的语言，以便于更快更精准的识别" placement="top">
+                <el-tooltip class="item" effect="dark" content="将一个或多个来源语言的语音或音频文件翻译成目标语言" placement="top">
                   <span class="demonstration">language</span>
                 </el-tooltip>
                 <div>
