@@ -13,9 +13,9 @@
         </li>
       </ul>
     </div>
-    <div class="own-pic">
+    <!-- <div class="own-pic">
         <HeadPortrait :imgUrl="imgUrl"></HeadPortrait>
-    </div>
+    </div> -->
   </div>
 </template>
 

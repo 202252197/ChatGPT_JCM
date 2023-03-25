@@ -34,7 +34,8 @@
       </el-row>
 
     </div>
-    <div class="botoom" :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }">
+   
+    <div class="botoom" style="background-color: rgb(66, 70, 86);" > <!-- :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }" -->
       <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
@@ -108,7 +109,7 @@
         <textarea id="textareaMsg" class="inputs"
           style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;" maxlength="2000"
           rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
-          autocomplete="off" v-model="inputMsg" @keyup.enter="sendText"></textarea>
+          autocomplete="off" v-model="inputMsg" @keyup.enter="sendText" placeholder="在此输入您的提示词~"></textarea>
         <!--发送-->
         <div v-if="acqStatus">
           <div class="send boxinput" @click="sendText">
@@ -157,9 +158,6 @@ export default {
     },
   },
   watch: {
-    frinedInfo() {
-      this.getFriendChatMsg();
-    },
   },
   data() {
     return {
@@ -178,11 +176,10 @@ export default {
       contentBackImageUrl: "https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780",
       updateImage: null,
       // 是否隐藏对话框上方介绍（空间局促时隐藏）
-      personInfoSpan: [2, 17, 5],
+      personInfoSpan: [1, 17, 5],
     };
   },
   mounted() {
-    this.getFriendChatMsg();
   },
 
   created() {
@@ -203,7 +200,7 @@ export default {
         this.personInfoSpan = [14, 0, 10];
       } else {
         this.buttonStatus = true
-        this.personInfoSpan = [2, 17, 5];
+        this.personInfoSpan = [1, 17, 5];
       };
     },
     //赋值对话列表
@@ -314,21 +311,6 @@ export default {
       this.$message({
         message: this.frinedInfo.id + ":" + "客观稍等片刻，马上告诉您！~",
       });
-    },
-    //获取聊天记录
-    getFriendChatMsg() {
-      //   let params = {
-      //     frinedId: this.frinedInfo.id,
-      //   };
-      //   getChatMsg(params).then((res) => {
-      //     this.chatList = res;
-      //     this.chatList.forEach((item) => {
-      //       if (item.chatType == 2 && item.extend.imgType == 2) {
-      //         this.srcImgList.push(item.msg);
-      //       }
-      //     });
-      // this.scrollBottom();
-      //   });
     },
     //发送信息
     sendMsg(msgList) {
@@ -522,6 +504,7 @@ export default {
                   } else {
                     const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
                     _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
+                    _this.scrollBottom();
                   }
                 }
               });
@@ -800,8 +783,6 @@ textarea::-webkit-scrollbar-thumb {
   position: relative;
 
   .top {
-    margin-bottom: 20px;
-
     &::after {
       content: "";
       display: block;
@@ -849,7 +830,7 @@ textarea::-webkit-scrollbar-thumb {
 
   .botoom {
     width: 100%;
-    height: 83vh;
+    height: 85vh;
     background-size: 100% 100%;
     // background-color: rgb(50, 54, 68);
     border-radius: 20px;
@@ -889,10 +870,9 @@ textarea::-webkit-scrollbar-thumb {
         .chat-text {
           float: left;
           max-width: 90%;
-          padding: 20px;
+          padding: 10px;
           border-radius: 20px 20px 20px 5px;
-          background-color: rgb(113 207 130);
-          color: #fff;
+          background-color: #fff;
         }
 
         .chat-img {
@@ -943,9 +923,9 @@ textarea::-webkit-scrollbar-thumb {
         .chat-text {
           float: right;
           max-width: 90%;
-          padding: 20px;
+          padding: 10px;
           border-radius: 20px 20px 5px 20px;
-          background-color: rgb(113 207 130);
+          background-color: #fff;
           color: #000;
         }
 
@@ -995,7 +975,7 @@ textarea::-webkit-scrollbar-thumb {
       .boxinput {
         width: 50px;
         height: 50px;
-        background-color: rgb(66, 70, 86);
+        background-color: #86909c;
         border-radius: 15px;
         border: 1px solid rgb(80, 85, 103);
         position: relative;

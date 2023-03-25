@@ -1,6 +1,6 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft" style="width:24%" v-show="showPersonList">
+    <div class="chatLeft" style="width:22%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
         <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3634" width="40" height="40">
@@ -20,12 +20,12 @@
         <el-row :gutter="24">
           <el-col :span="6">
             <div class="setting">
-              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting">
-              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
+              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -572,7 +572,7 @@ export default {
       //0是聊天设置，1是图片设置
       SettingStatus: 0,
       //0是模型列表，1是会话列表
-      cutSetting: 0,
+      cutSetting: 1,
       //余额信息
       moneryInfo: {
         totalGranted: 0,
@@ -633,7 +633,7 @@ export default {
       //模型列表缓存
       personListCache: [],
       //是否显示聊天窗口
-      showChatWindow: false,
+      showChatWindow: true,
       //当前窗口的对话模型信息
       chatWindowInfo: {},
       //图片大小参数列表
@@ -670,6 +670,15 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   mounted() {
+    this.chatWindowInfo = {
+        img: "",
+        name: "ChatGPT-3.5",
+        detail: "chatgpt v3.5 所基于的模型",
+        lastMsg: "chatgpt v3.5 所基于的模型",
+        id: "gpt-3.5-turbo",
+        headImg: AI_HEAD_IMG_URL,
+        showHeadImg: true
+    }
     if (this.SettingInfo.KeyMsg) {
       this.getModelList(this.SettingInfo.KeyMsg);
     }
@@ -776,7 +785,7 @@ export default {
         this.updateMoneyInfo()
       }).catch(e => {
         this.$message({
-          message: "OpenAI Key有问题哦~",
+          message: "获取模型列表失败哦~",
           type: "error",
         });
       })
@@ -787,7 +796,7 @@ export default {
         this.fineTuningList = res
       }).catch(e => {
         this.$message({
-          message: "OpenAI Key有问题哦~",
+          message: "获取微调列表失败哦~",
           type: "error",
         });
       })
@@ -798,7 +807,7 @@ export default {
         this.fileList = res
       }).catch(e => {
         this.$message({
-          message: "OpenAI Key有问题哦~",
+          message: "获取文件列表失败哦~",
           type: "error",
         });
       })
@@ -868,7 +877,7 @@ export default {
         });
       }).catch(e => {
         this.$message({
-          message: "OpenAI Key有问题哦~",
+          message: "获取模型列表失败哦~",
           type: "error",
         });
       })
