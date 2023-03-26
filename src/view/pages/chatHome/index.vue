@@ -627,6 +627,8 @@ export default {
       modelSearch: "",
       //文件列表
       fileList: [],
+      //文件缓存列表
+      fineTuningSearch:[],
       //微调模型列表
       fineTuningList: [],
       //微调模型缓存列表
@@ -691,6 +693,8 @@ export default {
     this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
     this.$watch('SettingInfo.contentImageUrl', this.watchContentImageUrl);
     this.$watch('modelSearch', this.watchModelSearch);
+    this.$watch('fineTuningSearch', this.watchFineTuningSearch);
+    this.$watch('fileSearch', this.watchFileSearch);
     this.$watch('SettingInfo.openChangePicture', this.watchOpenChangePicture);
     this.$watch('SettingInfo.openProductionPicture', this.watchOpenProductionPicture);
   },
@@ -708,10 +712,11 @@ export default {
     //显示取消过的微调模型
     showCancelFine() {
       this.cancelFineStatus = true
-
+      this.fineTuningList=this.fineTuningCacheList
     },
     hidenCancelFine() {
       this.cancelFineStatus = false
+      this.fineTuningList=this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
     },
     //导入会话列表触发的方法
     importFromJsonArrAll() {
@@ -775,7 +780,6 @@ export default {
     },
     //获取模型列表
     getModelList(key) {
-
       getModels(key).then((modelsRes) => {
         // 提取fineTunesRes集合中所有id属性值
         getFineTunesList(key).then((fineTunesRes) => {
@@ -812,6 +816,7 @@ export default {
     getFilessList(key) {
       getFilesList(key).then((res) => {
         this.fileList = res
+        this.fileCacheList = res
       }).catch(e => {
         this.$message({
           message: "获取文件列表失败哦~",
@@ -858,6 +863,24 @@ export default {
         this.$refs.chatWindow.updateContentImageUrl(newVal)
       } else {
         this.$refs.chatWindow.updateContentImageUrl("https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780")
+      }
+    },
+    //监听fineTuningSearch属性的变化
+    watchFineTuningSearch:function (newVal, oldVal) {
+      if (this.fineTuningList.length !== 0) {
+        this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
+      }
+      if (newVal == "") {
+        this.fineTuningList = this.fineTuningCacheList
+      }
+    },
+    //监听fileSearch属性的变化
+    watchFileSearch:function(newVal, oldVal) {
+      if (this.fileList.length !== 0) {
+        this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
+      }
+      if (newVal == "") {
+        this.fileList = this.fileCacheList
       }
     },
     // 监听modelSearch属性的变化

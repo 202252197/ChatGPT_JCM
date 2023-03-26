@@ -549,11 +549,17 @@ export default {
           }),
           headers: {
             Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            "Content-Type": "application/json"
           },
         }
         ).then(response => {
+          if(response.status==404){
+            this.$message.error("模型已被删除或已取消...")
+            this.$nextTick(() => {
+              this.acqStatus = true
+            });
+            return
+          }
           const reader = response.body.getReader();
 
           function readStream(reader) {
@@ -582,15 +588,14 @@ export default {
             this.acqStatus = true
           });
           readStream(reader);
-        });
+        })
       } catch (error) {
-        console.error(error);
+        
       }
 
     },
     resetUpdate() {
       this.updateImage = null
-      alert("更新的文件已重置")
     },
     //获取窗口高度并滚动至最底层
     scrollBottom() {
