@@ -1,14 +1,18 @@
 # OpenAI Manage  Web
 声明：此项目只发布于 GitHub，基于 Apache2.0 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
-项目使用Vue2进行开发，给大家提供一个好看的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，星星超过1000个随机抽10个群聊活跃的用户送独有的openai key。
+项目使用Vue2进行开发，给大家提供一个好看的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，星星超过1000个随机送10个openai key给群聊活跃的人。
 
-## 模型
-![webui4.5](https://i.328888.xyz/2023/03/22/1wH85.jpeg)
-## 会话
-![webui4.5](https://i.328888.xyz/2023/03/22/1wbqZ.jpeg)
-## 微调模型列表
-![webui4.5](https://i.328888.xyz/2023/03/22/1wpyX.jpeg)
 > 🤭记得点个小星星
+
+## 会话
+![webui4.5](https://i.328888.xyz/2023/03/26/iDIKfd.jpeg)
+## 模型
+![webui4.5](https://i.328888.xyz/2023/03/26/iDIvcN.jpeg)
+## 微调模型列表
+![webui4.5](https://i.328888.xyz/2023/03/26/iDIsno.jpeg)
+## 文件
+![webui4.5](https://i.328888.xyz/2023/03/26/iDIEoE.jpeg)
+
 
 # 部署步骤
 
@@ -93,10 +97,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 
 # 多模型ChatGPT群4
 ![webui2.0](https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg)
-
-# 创作不易-给点鼓励
-![赞助](https://i.328888.xyz/2023/03/25/iAqxqa.jpeg)
-
 
 # 个人说明
 14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言，然后到大数据的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
