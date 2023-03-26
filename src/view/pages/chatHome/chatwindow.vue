@@ -115,12 +115,12 @@
           <Emoji v-show="showEmoji" @sendEmoji="sendEmoji" @closeEmoji="clickEmoji"></Emoji>
         </div>
         <!--输入框-->
-        <!-- <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.shift.enter="newLine" :rows="rows"  @keydown.enter.prevent placeholder="在此输入您的提示词~"></el-input> -->
-        <textarea id="textareaMsg" ref="textInput" class="textarea"
+        <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.shift.enter="newLine" :rows="rows"  @keydown.enter.prevent placeholder="在此输入您的提示词~"></el-input>
+        <!-- <textarea id="textareaMsg" ref="textInput" class="textarea"
           style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
           maxlength="2000" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
-          autocomplete="off" v-model="inputMsg" @keydown.shift.enter="newLine" :rows="rows" @keydown.enter.prevent
-          placeholder="在此输入您的提示词~"></textarea>
+          autocomplete="off" v-model="inputMsg" @keydown.shift.enter="newLine"  @keydown.enter.prevent
+          placeholder="在此输入您的提示词~"></textarea> -->
         <!--发送-->
         <div>
           <div class="send boxinput" @click="sendText">
@@ -761,6 +761,26 @@ export default {
 
 
 <style lang="scss" scoped>
+
+::v-deep{
+  .el-textarea__inner{
+  background-color: rgb(66, 70, 86);
+    border-radius: 15px;
+    border: 2px solid rgb(34, 135, 225);
+    /* padding: 10px; */
+    box-sizing: border-box;
+    transition: 0.2s;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 100;
+    /* margin: 0 20px; */
+    width: 98%;
+    height: 100%;
+
+}
+} 
+
+
 textarea::-webkit-scrollbar {
   width: 3px;
   /* 设置滚动条宽度 */
@@ -843,18 +863,18 @@ textarea::-webkit-scrollbar-thumb {
 
 
   .textarea {
-    width: 95%;
-    height: 50px;
-    background-color: rgb(66, 70, 86);
-    border-radius: 15px;
-    border: 2px solid rgb(34, 135, 225);
-    padding: 10px;
-    box-sizing: border-box;
-    transition: 0.2s;
-    font-size: 20px;
-    color: #fff;
-    font-weight: 100;
-    margin: 0 20px;
+    // width: 95%;
+    // height: 50px;
+    // background-color: rgb(66, 70, 86);
+    // border-radius: 15px;
+    // border: 2px solid rgb(34, 135, 225);
+    // padding: 10px;
+    // box-sizing: border-box;
+    // transition: 0.2s;
+    // font-size: 20px;
+    // color: #fff;
+    // font-weight: 100;
+    // margin: 0 20px;
 
     &:focus {
       outline: none;
