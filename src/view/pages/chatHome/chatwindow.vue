@@ -34,21 +34,30 @@
       </el-row>
 
     </div>
-   
-    <div class="botoom" style="background-color: rgb(66, 70, 86);" > <!-- :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }" -->
+    <div v-show="!acqStatus">
+      <div class="line"></div>
+    </div>
+
+    <div class="botoom" style="background-color:rgb(50, 54, 68);">
+      <!-- :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }" -->
       <div class="chat-content" id="chat-content" ref="chatContent">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0">
               <el-row :gutter="20">
-                <el-col :span="2" >
-                  <svg t="1679666016648" @click="$copy(item.msg,'已复制')" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6241" width="22" height="22"><path d="M661.333333 234.666667A64 64 0 0 1 725.333333 298.666667v597.333333a64 64 0 0 1-64 64h-469.333333A64 64 0 0 1 128 896V298.666667a64 64 0 0 1 64-64z m-21.333333 85.333333H213.333333v554.666667h426.666667v-554.666667z m191.829333-256a64 64 0 0 1 63.744 57.856l0.256 6.144v575.701333a42.666667 42.666667 0 0 1-85.034666 4.992l-0.298667-4.992V149.333333H384a42.666667 42.666667 0 0 1-42.368-37.674666L341.333333 106.666667a42.666667 42.666667 0 0 1 37.674667-42.368L384 64h447.829333z" fill="#909399" p-id="6242"></path></svg>
+                <el-col :span="2">
+                  <svg t="1679666016648" @click="$copy(item.msg, '已复制')" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="6241" width="22" height="22">
+                    <path
+                      d="M661.333333 234.666667A64 64 0 0 1 725.333333 298.666667v597.333333a64 64 0 0 1-64 64h-469.333333A64 64 0 0 1 128 896V298.666667a64 64 0 0 1 64-64z m-21.333333 85.333333H213.333333v554.666667h426.666667v-554.666667z m191.829333-256a64 64 0 0 1 63.744 57.856l0.256 6.144v575.701333a42.666667 42.666667 0 0 1-85.034666 4.992l-0.298667-4.992V149.333333H384a42.666667 42.666667 0 0 1-42.368-37.674666L341.333333 106.666667a42.666667 42.666667 0 0 1 37.674667-42.368L384 64h447.829333z"
+                      fill="#909399" p-id="6242"></path>
+                  </svg>
                 </el-col>
-                <el-col :span="21" >
+                <el-col :span="21">
                 </el-col>
               </el-row>
 
-              <markdown-it-vue :content="item.msg.trim()"  />
+              <markdown-it-vue :content="item.msg.trim()" />
             </div>
             <div class="chat-img" v-if="item.chatType == 1">
               <img :src="item.msg" alt="表情" v-if="item.extend.imgType == 1" style="width: 100px; height: 100px" />
@@ -106,25 +115,18 @@
           <Emoji v-show="showEmoji" @sendEmoji="sendEmoji" @closeEmoji="clickEmoji"></Emoji>
         </div>
         <!--输入框-->
-        <textarea id="textareaMsg" class="inputs"
-          style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;" maxlength="2000"
-          rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
-          autocomplete="off" v-model="inputMsg" @keyup.enter="sendText" placeholder="在此输入您的提示词~"></textarea>
+        <!-- <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.shift.enter="newLine" :rows="rows"  @keydown.enter.prevent placeholder="在此输入您的提示词~"></el-input> -->
+        <textarea id="textareaMsg" ref="textInput" class="textarea"
+          style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
+          maxlength="2000" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
+          autocomplete="off" v-model="inputMsg" @keydown.shift.enter="newLine" :rows="rows" @keydown.enter.prevent
+          placeholder="在此输入您的提示词~"></textarea>
         <!--发送-->
-        <div v-if="acqStatus">
+        <div>
           <div class="send boxinput" @click="sendText">
             <img src="@/assets/img/emoji/rocket.png" alt="" />
           </div>
         </div>
-        <!--等待-->
-        <div v-else>
-          <div class="send boxinput" @click="waitMsg">
-            <div class="spinner">
-              <img src="@/assets/img/shuaxin.png" alt="AI回答中" />
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -161,6 +163,7 @@ export default {
   },
   data() {
     return {
+      rows: 1,
       //是否显示表情和录音按钮
       buttonStatus: true,
       //是否在接收消息中，如果是则true待发送状态，如果是false则是等待消息转圈状态
@@ -176,7 +179,7 @@ export default {
       contentBackImageUrl: "https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780",
       updateImage: null,
       // 是否隐藏对话框上方介绍（空间局促时隐藏）
-      personInfoSpan: [1, 17, 5],
+      personInfoSpan: [2, 17, 5],
     };
   },
   mounted() {
@@ -200,8 +203,14 @@ export default {
         this.personInfoSpan = [14, 0, 10];
       } else {
         this.buttonStatus = true
-        this.personInfoSpan = [1, 17, 5];
+        this.personInfoSpan = [2, 17, 5];
       };
+    },
+    newLine(event) {
+      this.rows += 1;
+      let text = this.$refs.textInput.value;
+      text += '\n';
+      this.$refs.textInput.value = text;
     },
     //赋值对话列表
     assignmentMesList(msgList) {
@@ -319,7 +328,8 @@ export default {
     },
     //发送文字信息
     sendText() {
-      document.getElementById("textareaMsg").style.height = "26px";
+      this.rows = 1;
+      // document.getElementById("textareaMsg").style.height = "26px";
       this.$nextTick(() => {
         this.acqStatus = false
       })
@@ -358,6 +368,7 @@ export default {
 
           this.sendMsg(chatMsg);
           this.inputMsg = "";
+
           createImageEdit(formData, this.settingInfo.KeyMsg).then(data => {
             for (var imgInfo of data) {
               let imgResMsg = {
@@ -374,8 +385,8 @@ export default {
               this.sendMsg(imgResMsg);
               this.srcImgList.push(imgInfo.url);
             }
-            this.acqStatus = true
             this.updateImage = null
+            this.acqStatus = true
           })
           return
         }
@@ -467,6 +478,7 @@ export default {
       params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
+
       const currentResLocation = this.chatList.length - 1
       let _this = this
       try {
@@ -512,9 +524,10 @@ export default {
             });
           }
           readStream(reader);
+          this.$nextTick(() => {
+            this.acqStatus = true
+          });
         });
-
-        this.acqStatus = true;
       } catch (error) {
         console.error(error);
       }
@@ -522,7 +535,6 @@ export default {
     async completion(params, chatBeforResMsg) {
       params.stop = " END"
       params.prompt = this.inputMsg
-      // A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
       params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
@@ -566,10 +578,11 @@ export default {
               return readStream(reader);
             });
           }
+          this.$nextTick(() => {
+            this.acqStatus = true
+          });
           readStream(reader);
         });
-
-        this.acqStatus = true;
       } catch (error) {
         console.error(error);
       }
@@ -828,6 +841,26 @@ textarea::-webkit-scrollbar-thumb {
     }
   }
 
+
+  .textarea {
+    width: 95%;
+    height: 50px;
+    background-color: rgb(66, 70, 86);
+    border-radius: 15px;
+    border: 2px solid rgb(34, 135, 225);
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.2s;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 100;
+    margin: 0 20px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   .botoom {
     width: 100%;
     height: 85vh;
@@ -870,7 +903,7 @@ textarea::-webkit-scrollbar-thumb {
         .chat-text {
           float: left;
           max-width: 90%;
-          padding: 10px;
+          padding: 15px;
           border-radius: 20px 20px 20px 5px;
           background-color: #fff;
         }
@@ -923,9 +956,9 @@ textarea::-webkit-scrollbar-thumb {
         .chat-text {
           float: right;
           max-width: 90%;
-          padding: 10px;
+          padding: 15px;
           border-radius: 20px 20px 5px 20px;
-          background-color: #fff;
+          background-color: #95ec69;
           color: #000;
         }
 
@@ -975,9 +1008,10 @@ textarea::-webkit-scrollbar-thumb {
       .boxinput {
         width: 50px;
         height: 50px;
-        background-color: #86909c;
+        background-color: rgb(50, 54, 68);
         border-radius: 15px;
         border: 1px solid rgb(80, 85, 103);
+        box-shadow: 0px 0px 5px 0px rgb(0, 136, 255);
         position: relative;
         cursor: pointer;
 
@@ -993,29 +1027,18 @@ textarea::-webkit-scrollbar-thumb {
 
       .emoji {
         transition: 0.3s;
-
-        &:hover {
-          background-color: rgb(46, 49, 61);
-          border: 1px solid rgb(71, 73, 82);
-        }
-
         width: 50px;
         min-width: 50px;
       }
 
       .luyin {
+        color: #fff;
         margin-left: 1.5%;
         font-size: 30px;
         text-align: center;
         transition: 0.3s;
         width: 50px;
         min-width: 50px;
-
-        &:hover {
-          color: #fff;
-          background-color: rgb(46, 49, 61);
-          border: 1px solid rgb(71, 73, 82);
-        }
       }
 
       .inputs {
@@ -1048,5 +1071,80 @@ textarea::-webkit-scrollbar-thumb {
         }
       }
     }
+  }
+}
+
+
+.line {
+  position: relative;
+  width: 94%;
+  margin-left: 2%;
+  height: 2px;
+  background: linear-gradient(to right, red, yellow, green);
+  animation: shrink-and-expand 2s ease-in-out infinite;
+
+}
+
+.line::before,
+.line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: inherit;
+}
+
+.line::before {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  left: 0;
+  transform-origin: left;
+  animation: shrink-left 2s ease-in-out infinite;
+}
+
+.line::after {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  right: 0;
+  transform-origin: right;
+  animation: shrink-right 2s ease-in-out infinite;
+}
+
+@keyframes shrink-and-expand {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+
+  50% {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes shrink-left {
+
+  0%,
+  50% {
+    transform: scaleX(1);
+  }
+
+  50.1%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes shrink-right {
+
+  0%,
+  50% {
+    transform: scaleX(1);
+  }
+
+  50.1%,
+  100% {
+    transform: scaleX(0);
   }
 }</style>
