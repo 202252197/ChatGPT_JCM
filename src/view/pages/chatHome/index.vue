@@ -19,22 +19,22 @@
       <div class="online-person" style="margin-top: 5%;">
         <el-row :gutter="24">
           <el-col :span="6">
-            <div class="setting">
+            <div class="setting" style="text-align: center;">
               <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="setting">
+            <div class="setting" style="text-align: center;">
               <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="setting">
+            <div class="setting" style="text-align: center;">
               <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">微调</span>
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="setting">
+            <div class="setting" style="text-align: center;">
               <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">文件</span>
             </div>
           </el-col>
@@ -305,6 +305,9 @@
           <!--微调-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 3">
+              <div class="fineTune boxinput" @click="retrieveFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                检索微调
+              </div>
               <div class="fineTune boxinput" @click="cancelFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 取消微调
               </div>
@@ -552,9 +555,9 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import { AI_HEAD_IMG_URL } from '@/store/mutation-types'
-import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel } from "@/api/getData";
+import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel,retrieveFineTune } from "@/api/getData";
 import { saveAs } from 'file-saver';
-
+import {  getNowTime, JCMFormatDate,JCMFormatTimestamp } from "@/util/util";
 export default {
   name: "App",
   components: {
@@ -868,10 +871,18 @@ export default {
     //监听fineTuningSearch属性的变化
     watchFineTuningSearch:function (newVal, oldVal) {
       if (this.fineTuningList.length !== 0) {
-        this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
+        if(!this.cancelFineStatus){
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded").filter(fineTuning => fineTuning.id.includes(newVal))
+        }else{
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
+        }
       }
       if (newVal == "") {
-        this.fineTuningList = this.fineTuningCacheList
+        if(!this.cancelFineStatus){
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
+        }else{
+          this.fineTuningList = this.fineTuningCacheList
+        }
       }
     },
     //监听fileSearch属性的变化
@@ -1113,6 +1124,73 @@ export default {
         }).catch(e => {
           console.log(e)
           this.$message.error("取消微调模型失败~")
+        })
+      }
+    },
+    //检索微调
+    retrieveFine(){
+      if (!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId) {
+        this.$message.error("只能检索的微调模型哦~")
+      } else {
+        console.log(this.fineTuningInfo.fineTunesId)
+        retrieveFineTune(this.fineTuningInfo.fineTunesId, this.SettingInfo.KeyMsg).then((res) => {
+          let context="`微调任务ID:`"+res.id+"  \n"
+                  +"`任务类型:`"+res.object+"  \n"
+                  +"`模型的类型:`"+res.model+"  \n"
+                  +"`微调任务的创建时间:`"+JCMFormatTimestamp(res.created_at)+"  \n"
+                  +"`微调的事件列表`  \n"
+                  +"| 对象 | 日志级别 | 信息 | 创建时间  |\n"
+                  +"| :------: | :------: | :------: | :------: |\n";
+          res.events.forEach(obj => {
+            context += `| ${obj.object} | ${obj.level} | ${obj.message} | ${ JCMFormatTimestamp(obj.created_at) } |\n`;
+          });
+          context +="\n `微调的模型ID:`"+ res.fine_tuned_model 
+                  +"\n\n `微调使用的参数:` \n"
+                  +"| 属性 | 设置的值 | \n"
+                  +"| :------: | :------: | \n";
+          for (let prop in res.hyperparams) {
+            if (res.hyperparams.hasOwnProperty(prop)) {
+              context += `| ${prop} | ${res.hyperparams[prop]} |\n`;
+            }
+          }
+         context+="\n`用户所属组:`"+res.organization_id
+                +"\n\n`训练结果文件列表:`\n\n"
+                +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |    \n"
+                +"| :------: | :------: | :------: | :------: | :------: | \n";
+          res.result_files.forEach(obj => {
+            context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
+          });   
+          context+="\n`状态:`"+res.status+"\n"
+                 +"\n\n`训练的文件列表:`\n\n"
+                 +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+                +"| :------: | :------: | :------: | :------: | :------: | \n";
+          res.training_files.forEach(obj => {
+            context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
+          }); 
+          if(res.validation_files.length==0){
+            context+="\n\n`验证的文件列表:没有`\n\n"
+          }else{
+            context+="\n\n`验证的文件列表:`\n\n"
+            +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+             +"| :------: | :------: | :------: | :------: | :------: | \n";
+            res.validation_files.forEach(obj => {
+              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
+            }); 
+          }
+          context+="\n`最后更新时间戳:`"+JCMFormatTimestamp(res.updated_at);
+         let retrieveFineTuneMsg = {
+            headImg: AI_HEAD_IMG_URL,
+            name: res.fine_tuned_model,
+            time: JCMFormatDate(getNowTime()),
+            msg: context,
+            chatType: 0, 
+            uid: res.id, 
+          };
+          this.$refs.chatWindow.sendMsg(retrieveFineTuneMsg)
+          console.log(res)
+        }).catch(e => {
+          console.log(e)
+          this.$message.error("检索微调模型失败~")
         })
       }
     },

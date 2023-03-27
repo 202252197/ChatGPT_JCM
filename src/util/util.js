@@ -136,6 +136,20 @@ export function JCMFormatDate(dateStr) {
   return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
 }
 
+
+//将时间戳转换为正常时间
+export function JCMFormatTimestamp(timestamp){
+  const date = new Date(timestamp * 1000); // 转换为Date对象
+  const options = {    // 背景时间的格式选项
+      year: 'numeric',  // 年份（4位数字）
+      month: 'long',    // 月份的全称
+      day: 'numeric',   // 天（数字）
+      hour: 'numeric',  // 小时（数字）
+      minute: 'numeric',// 分钟（数字）
+      second: 'numeric' // 秒钟（数字）
+  };
+  return date.toLocaleDateString('zh-CN', options);
+}
 /**
  * 复制到剪切板
  */

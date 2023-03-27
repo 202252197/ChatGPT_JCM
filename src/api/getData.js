@@ -221,16 +221,15 @@ export const getFineTunesList = token => {
 }
 
 
-// 列出微调
+// 检索微调信息
 export const retrieveFineTune = (fineTuneId, token) => {
   return axios({
     method: 'get',
     baseURL: `${baseUrl}/v1/fine-tunes/` + fineTuneId,
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data"'
-    },
-    data: fineTuneId
+      'Content-Type': 'application/json'
+    }
   }).then(res => {
     return res.data;
   })
@@ -252,7 +251,7 @@ export const cancelFineTune = (fineTuneId, token) => {
   })
 }
 
-// 取消微调
+// 获取微调事件列表
 export const getFineTuneEventsList = (fineTuneId, token) => {
   return axios({
     method: 'get',
@@ -267,7 +266,7 @@ export const getFineTuneEventsList = (fineTuneId, token) => {
   })
 }
 
-// 删除微调
+// 删除微调模型
 export const deleteFineTuneModel = (model, token) => {
   return axios({
     method: 'delete',

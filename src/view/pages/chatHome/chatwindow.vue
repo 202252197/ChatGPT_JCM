@@ -17,9 +17,9 @@
         </el-col>
         <el-col :span="personInfoSpan[2]">
           <div class="other-fun">
-            <label @click="sc">
+            <!-- <label @click="sc">
               <span class="iconfont icon-snapchat"></span>
-            </label>
+            </label> -->
             <label for="docFile">
               <span class="iconfont icon-wenjian"></span>
             </label>
@@ -115,7 +115,8 @@
           <Emoji v-show="showEmoji" @sendEmoji="sendEmoji" @closeEmoji="clickEmoji"></Emoji>
         </div>
         <!--输入框-->
-        <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.shift.enter="newLine" :rows="rows"  @keydown.enter.prevent placeholder="在此输入您的提示词~"></el-input>
+        <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.enter.stop
+            @keydown.enter.shift.prevent="insertLineBreak" placeholder="在此输入您的提示词~"></el-input>
         <!-- <textarea id="textareaMsg" ref="textInput" class="textarea"
           style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
           maxlength="2000" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
@@ -485,6 +486,7 @@ export default {
         await fetch(
           base.baseUrl + '/v1/chat/completions', {
           method: "POST",
+          timeout: 10000 ,
           body: JSON.stringify({
             ...params
           }),
@@ -516,13 +518,15 @@ export default {
                   } else {
                     const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
                     _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                    _this.scrollBottom();
+                   
                   }
                 }
               });
+           
               return readStream(reader);
             });
           }
+          _this.scrollBottom();
           readStream(reader);
           this.$nextTick(() => {
             this.acqStatus = true
@@ -544,6 +548,7 @@ export default {
         await fetch(
           base.baseUrl + '/v1/completions', {
           method: "POST",
+          timeout: 10000 ,
           body: JSON.stringify({
             ...params
           }),
@@ -638,7 +643,9 @@ export default {
           message: "请上传一个有效的PNG文件~",
           type: "warning",
         });
-        this.acqStatus = true
+        this.$nextTick(() => {
+          this.acqStatus = true
+        });
         return;
       }
 
@@ -648,7 +655,9 @@ export default {
           message: "请上传一个小于4MB的文件~",
           type: "warning",
         });
-        this.acqStatus = true
+        this.$nextTick(() => {
+          this.acqStatus = true
+        });
         return;
       }
 
@@ -659,7 +668,9 @@ export default {
           type: "info",
         });
         e.target.files = null;
-        this.acqStatus = true
+        this.$nextTick(() => {
+          this.acqStatus = true
+        });
         return
       }
       // 通过验证后，上传文件
@@ -785,7 +796,12 @@ export default {
 }
 } 
 
-
+.hljs {
+  background-color: #211f1f !important ;
+    border-radius: 20px !important;
+  box-shadow: 0px 0px 9px 0px #000000 !important;
+    color: #ffff !important;
+}
 textarea::-webkit-scrollbar {
   width: 3px;
   /* 设置滚动条宽度 */
@@ -868,19 +884,6 @@ textarea::-webkit-scrollbar-thumb {
 
 
   .textarea {
-    // width: 95%;
-    // height: 50px;
-    // background-color: rgb(66, 70, 86);
-    // border-radius: 15px;
-    // border: 2px solid rgb(34, 135, 225);
-    // padding: 10px;
-    // box-sizing: border-box;
-    // transition: 0.2s;
-    // font-size: 20px;
-    // color: #fff;
-    // font-weight: 100;
-    // margin: 0 20px;
-
     &:focus {
       outline: none;
     }
