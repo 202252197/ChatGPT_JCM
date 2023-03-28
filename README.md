@@ -17,7 +17,7 @@
 # 部署步骤
 
 ## 感觉麻烦的可以直接下载应用程序使用
-https://wweu.lanzoub.com/ik1JV0r2ybpa (蓝奏云下载地址)
+https://wweu.lanzoub.com/iSKF90rckdyh (蓝奏云下载地址)
 
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
