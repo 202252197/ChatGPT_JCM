@@ -214,7 +214,14 @@
                 <el-slider class="astrict" v-model="SettingInfo.PresencePenalty" :step="0.1" :min="-2"
                   :max="2"></el-slider>
               </div>
-              <div style="height: 30px;"></div>
+              <!-- <div class="block">
+                <el-tooltip class="item" effect="dark" content="开启读文模式" placement="top">
+                  <span class="demonstration">开启读文模式</span>
+                </el-tooltip>
+                <el-switch v-model="SettingInfo.readefile" :width="defaulWidth"
+                  style="margin-left: 15%;"></el-switch>
+              </div>
+              <div style="height: 30px;"></div> -->
             </div>
           </el-collapse-transition>
 
@@ -590,6 +597,7 @@ export default {
       batch_sizeStr: "",
       //全部的设置参数
       SettingInfo: {
+        readefile:false,
         inputStatus:true,
         translateEnglish: false,
         openProductionPicture: false,

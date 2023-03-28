@@ -130,7 +130,7 @@
 
 <script>
 import { animation, getNowTime, JCMFormatDate } from "@/util/util";
-import { getChatMsg, getCompletion, getChatCompletion, createImage, createImageEdit, createImageVariations, createTranscription, createTranslation } from "@/api/getData";
+import { getChatMsg, getCompletion, getChatCompletion, createImage, createImageEdit, createImageVariations, createTranscription, createTranslation,createEmbeddings } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -159,6 +159,7 @@ export default {
   },
   data() {
     return {
+      fileArrays:[],
       inputsStatus:true,
       rows: 1,
       //是否显示表情和录音按钮
@@ -327,8 +328,57 @@ export default {
       this.chatList.push(msgList);
       this.scrollBottom();
     },
+    // 在组件或页面外部声明计算余弦相似度的函数
+    cosineSimilarity(a, b) {
+      const dotProduct = a.reduce((acc, curr, i) => acc + curr * b[i], 0);
+      const normA = Math.sqrt(a.reduce((acc, curr) => acc + curr * curr, 0));
+      const normB = Math.sqrt(b.reduce((acc, curr) => acc + curr * curr, 0));
+      return dotProduct / (normA * normB);
+    },
     //发送文字信息
     sendText() {
+      // if(this.settingInfo.readefile){
+      //   console.log("看看能获取到不")
+      //   console.log(this.fileArrays)
+      //   const formData = new FormData();
+      //   formData.append("model", "text-embedding-ada-002");
+      //   formData.append("input", "吕世昊是谁?");
+      //   createEmbeddings(formData,this.settingInfo.KeyMsg).then(data => {
+      //     console.log("文本的地址")
+      //     const inputEmbedding=data.data[0]
+      //     // const similarText = this.findMostSimilarEmbedding(, this.fileArrays);
+
+      //     // 计算每个句子embedding与输入数据embedding之间的相似度
+      //     const similarities = this.cosineSimilarity(this.fileArrays.embedding, inputEmbedding.embedding)
+      //     const similaritiesArr=[];
+      //     console.log("測測")
+      //     console.log(similarities)
+      //     similaritiesArr.push(similarities)
+      //     // 对相似度进行排名，选择与输入数据最相似的句子或文章段落作为匹配结果
+      //     const topMatchIndex = similaritiesArr.reduce((maxIndex, similarity, index) => similarity > similaritiesArr[maxIndex] ? index : maxIndex, 0)
+          
+      //     console.log("你他吗是什么东西")
+      //     console.log(topMatchIndex)
+      //     const topMatchText = sentences[topMatchIndex]
+      //     console.log('最匹配的句子是：', topMatchText)
+      //     // console.log('最相似的文本为：', similarText);
+      //   })
+
+        
+      //   // const configuration = new Configuration({
+      //   //   apiKey:  ,
+      //   // });
+      //   // const openai = new OpenAIApi(configuration);
+      //   // const response = openai.embeddings({
+      //   //   model: 'text-embedding-ada-002',
+      //   //   input:"text"
+      //   // });
+      //   // console.log(response)
+
+      //   // alert("开启了")
+
+      //   return
+      // }
       this.rows = 1;
       // document.getElementById("textareaMsg").style.height = "26px";
       this.$nextTick(() => {
@@ -723,8 +773,36 @@ export default {
       })
       e.target.files = null;
     },
+   
     //发送文件
     sendFile(e) {
+      // let file = e.target.files[0];
+      // let reader = new FileReader();
+      // reader.readAsText(file);
+      // let _this=this
+      // reader.onload = function(event) {
+      //   let text = event.target.result;
+      //   //处理文件数据
+      //   const delimiters = ['.', '?', '!', '\n',':',","];
+      //   let result = [];
+      //   for (let i = 0; i < text.length; i++) {
+      //     let current = '';
+      //     while (i < text.length && !delimiters.includes(text[i])) {
+      //       current += text[i];
+      //       i++;
+      //     }
+      //     // 加入句子，并去除前后空格
+      //     if (current.trim()) {
+      //       result.push(current.trim());
+      //     }
+      //   }
+      //   const formData = new FormData()
+      //   formData.append("model", "text-embedding-ada-002");
+      //   formData.append("input", result);
+      //   createEmbeddings(formData,_this.settingInfo.KeyMsg).then(data => {
+      //     _this.fileArrays = data.data[0]
+      //   })
+      // };  
       const dateNow = JCMFormatDate(getNowTime());
       let chatMsg = {
         headImg: USER_HEAD_IMG_URL,

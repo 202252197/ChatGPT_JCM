@@ -373,6 +373,23 @@ export const retrieveFileContent = (file, token) => {
 
 
 
+// 检索文件内容
+export const createEmbeddings = (params, token) => {
+  return axios({
+    method: 'post',
+    baseURL: `${baseUrl}/v1/embeddings`,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    data:params
+  }).then(response => {
+    console.log(response)
+    return response.data
+  })
+}
+
+
 // 获取账号余额信息
 export const getMoneyInfo = token => {
   return axios({
