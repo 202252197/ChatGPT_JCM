@@ -1,3 +1,10 @@
+<!--
+ * @Autor: zzz
+ * @Description: 
+ * @Date: 2023-03-24 10:59:00
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2023-03-28 20:54:12
+-->
 <!DOCTYPE html>
 <html lang="">
 
@@ -5,7 +12,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="icon" href="<%= htmlWebpackPlugin.options.url %>favicon.ico">
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
@@ -23,6 +30,11 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+  <% if (!htmlWebpackPlugin.options.process.browser) { %>
+    <script>
+      if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/').replace(/\\/g, '\\\\')
+    </script>
+  <% } %>
 </body>
 
 </html>

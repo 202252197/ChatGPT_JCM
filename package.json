@@ -20,6 +20,7 @@
     "core-js": "^3.29.1",
     "element-ui": "^2.15.13",
     "file-saver": "^2.0.5",
+    "html-webpack-plugin": "^5.5.0",
     "html2canvas": "^1.4.1",
     "markdown-it-vue": "^1.1.7",
     "mockjs": "^1.1.0",

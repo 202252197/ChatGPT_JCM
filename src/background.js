@@ -1,81 +1,98 @@
-'use strict'
+const { app, BrowserWindow,globalShortcut,ipcMain,screen,protocol  } = require('electron')
+import path from "path";
 
-import { app, protocol, BrowserWindow } from 'electron'
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-const isDevelopment = process.env.NODE_ENV !== 'production'
+let mainWindow
+function createWindow() {
+    mainWindow = new BrowserWindow({
+        width: 1000,
+        height: 800,
+        frame: false,
+        webPreferences: {
+          nodeIntegration: true,
+          enableRemoteModule: true,
+          contextIsolation: false,
+          webSecurity: false,
+        },
+        menu: null
+    })
+    mainWindow.loadURL(process.env.IS_ELECTRON?'http://localhost:8080':`file://${__dirname}/index.html`)
+    mainWindow.on('closed', function() {
+        mainWindow = null
+    })
 
-// Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
-])
+    // 注册快捷键
+    // 打开 DevTools 工具
+    globalShortcut.register('Ctrl+Shift+Alt+I', () => {
+      mainWindow.webContents.openDevTools()
+    })
+    // 退出app
+    globalShortcut.register('esc', () => {
+        app.quit()
+    })
 
-async function createWindow() {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+    // 开发环境下，打开dev工具
+    if ( process.env.NODE_ENV === "development"){
+      mainWindow.webContents.openDevTools()
     }
-  })
 
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
-  } else {
-    createProtocol('app')
-    // Load the index.html when not in development
-    win.loadURL('app://./index.html')
-  }
+    windowMove(mainWindow);
 }
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+/**
+ * 窗口移动
+ * @param win
+ */
+function windowMove(win) {
+
+  let winStartPosition = {x: 0, y: 0};
+  let mouseStartPosition = {x: 0, y: 0};
+  let movingInterval = null;
+
+  /**
+   * 窗口移动事件
+   */
+  ipcMain.on("window-move-open", (events, canMoving) => {
+    if (canMoving) {
+      // 读取原位置
+      const winPosition = win.getPosition();
+      winStartPosition = { x: winPosition[0], y: winPosition[1] };
+      mouseStartPosition = screen.getCursorScreenPoint();
+      // 清除
+      if (movingInterval) {
+        clearInterval(movingInterval);
+      }
+      // 新开
+      movingInterval = setInterval(() => {
+        // 实时更新位置
+        const cursorPosition = screen.getCursorScreenPoint();
+        const x = winStartPosition.x + cursorPosition.x - mouseStartPosition.x;
+        const y = winStartPosition.y + cursorPosition.y - mouseStartPosition.y;
+        win.setPosition(x, y, true);
+      }, 20);
+    } else {
+      clearInterval(movingInterval);
+      movingInterval = null;
+    }
+  });
+
+}
+
+app.on('ready', ()=>{
+  createWindow();
+})
+
+app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) createWindow()
+app.on('will-quit', () => {
+    globalShortcut.unregisterAll()
 })
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    try {
-      await installExtension(VUEJS_DEVTOOLS)
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
-    }
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createWindow()
   }
-  createWindow()
 })
-
-// Exit cleanly on request from parent process in development mode.
-if (isDevelopment) {
-  if (process.platform === 'win32') {
-    process.on('message', (data) => {
-      if (data === 'graceful-exit') {
-        app.quit()
-      }
-    })
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
-  }
-}
