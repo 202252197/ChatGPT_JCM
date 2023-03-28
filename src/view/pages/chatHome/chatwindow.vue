@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="chatInputs">
+      <div class="chatInputs" v-show="inputsStatus">
         <!--表情-->
         <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus">
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
@@ -117,11 +117,6 @@
         <!--输入框-->
         <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.enter.stop
             @keydown.enter.shift.prevent="insertLineBreak" placeholder="在此输入您的提示词~"></el-input>
-        <!-- <textarea id="textareaMsg" ref="textInput" class="textarea"
-          style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
-          maxlength="2000" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off"
-          autocomplete="off" v-model="inputMsg" @keydown.shift.enter="newLine"  @keydown.enter.prevent
-          placeholder="在此输入您的提示词~"></textarea> -->
         <!--发送-->
         <div>
           <div class="send boxinput" @click="sendText">
@@ -164,6 +159,7 @@ export default {
   },
   data() {
     return {
+      inputsStatus:true,
       rows: 1,
       //是否显示表情和录音按钮
       buttonStatus: true,
@@ -184,6 +180,7 @@ export default {
     };
   },
   mounted() {
+    this.inputsStatus=this.settingInfo.inputStatus
   },
 
   created() {
@@ -195,6 +192,9 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    updateInputsStatus(status){
+      this.inputsStatus=status;
+    },
     //监听窗口的变化
     handleResize() {
       if (window.innerWidth <= 700) {
@@ -518,15 +518,14 @@ export default {
                   } else {
                     const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
                     _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                   
+                    _this.scrollBottom();
                   }
                 }
               });
-           
               return readStream(reader);
             });
           }
-          _this.scrollBottom();
+          _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
           readStream(reader);
           this.$nextTick(() => {
             this.acqStatus = true
@@ -592,6 +591,7 @@ export default {
           this.$nextTick(() => {
             this.acqStatus = true
           });
+          _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
           readStream(reader);
         })
       } catch (error) {
@@ -796,11 +796,17 @@ export default {
 }
 } 
 
-.hljs {
+pre {
   background-color: #211f1f !important ;
-    border-radius: 20px !important;
+  border-radius: 20px !important;
   box-shadow: 0px 0px 9px 0px #000000 !important;
-    color: #ffff !important;
+  color: #ffff !important;
+}
+.hljs{
+  background-color: #211f1f !important ;
+  border-radius: 20px !important;
+  box-shadow: 0px 0px 9px 0px #000000 !important;
+  color: #ffff !important;
 }
 textarea::-webkit-scrollbar {
   width: 3px;

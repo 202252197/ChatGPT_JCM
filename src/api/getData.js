@@ -1,6 +1,7 @@
 import base from './index'
 import { AI_HEAD_IMG_URL } from '../store/mutation-types'
 import { generateUUID } from "@/util/util";
+
 let axios = base.axios
 let baseUrl = base.baseUrl
 
@@ -297,14 +298,29 @@ export const getFilesList = token => {
       let fileObj = {
         img: "",
         name: file.filename,
-        detail: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
-        lastMsg: "文件ID是:"+file.id+",文件大小是:"+file.bytes/1024/1024+"MB",
+        detail: "文件ID是:"+file.id+",文件大小是:"+(file.bytes/1024/1024).toFixed(2)+"MB",
+        lastMsg: "文件ID是:"+file.id+",文件大小是:"+(file.bytes/1024/1024).toFixed(2)+"MB",
         id: file.filename,
         createTime: file.created_at,
+        fileId:file.id
       }
       fileObjs.push(fileObj)
     });
     return fileObjs.sort((a, b) => b.createTime - a.createTime);
+  })
+}
+
+// 删除文件
+export const deleteFile = (file, token) => {
+  return axios({
+    method: 'delete',
+    baseURL: `${baseUrl}/v1/files/` + file,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    return res.data;
   })
 }
 
@@ -324,6 +340,37 @@ export const uploadFile = (formData, token) => {
     return res.data;
   })
 }
+
+
+// 检索文件
+export const retrieveFile = (file, token) => {
+  return axios({
+    method: 'get',
+    baseURL: `${baseUrl}/v1/files/` + file,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  }).then(res => {
+    return res.data;
+  })
+}
+
+// 检索文件内容
+export const retrieveFileContent = (file, token) => {
+
+  // return axios({
+  //   method: 'get',
+  //   baseURL: `${baseUrl}v1/files/`+file+`/content`,
+  //   headers: {
+  //     'Authorization': 'Bearer ' + token
+  //   }
+  // }).then(response => {
+  //   const writer = fs.createWriteStream('./file.txt')
+  //   response.data.pipe(writer)
+  // })
+}
+
 
 
 // 获取账号余额信息

@@ -24,6 +24,7 @@
     "markdown-it-vue": "^1.1.7",
     "mockjs": "^1.1.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
+    "openai": "^3.2.1",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
     "vue": "^2.6.14",
