@@ -22,6 +22,7 @@ https://wweu.lanzoub.com/ik1JV0r2ybpa (蓝奏云下载地址)
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
 
+# web端
 ## 下载依赖包
 ```
 npm install
@@ -35,6 +36,22 @@ npm run serve
 ## 编译
 ```
 npm run build
+```
+
+# win/mac端
+## 下载依赖包
+```
+npm install
+```
+
+## 运行
+```
+npm run electron:serve
+```
+
+## 编译
+```
+npm run electron:build
 ```
 
 ## OpenAI-Key设置以及自定义设置
