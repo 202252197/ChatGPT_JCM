@@ -617,8 +617,6 @@ export default {
           training_file: "",
           validation_file: undefined,
           model: "curie",
-          n_epochs: 4,
-          batch_size:null,
           learning_rate_multiplier: undefined,
           prompt_loss_weight: 0.01,
           compute_classification_metrics: false,
@@ -864,6 +862,7 @@ export default {
       };
     },
     watchBatchSizeToInt: function (newVal, oldVal) {
+      console.log("测试是是是")
       if (newVal) {
         this.SettingInfo.batchSize = parseInt(newVal)
       }
