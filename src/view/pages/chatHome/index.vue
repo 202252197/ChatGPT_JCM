@@ -367,7 +367,7 @@
                       <span class="demonstration" style="">nEpochs</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" placeholder="训练次数" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number" placeholder="训练次数" />
                   </div>
 
                   <div class="block">
@@ -377,7 +377,7 @@
                       <span class="demonstration" style="">batchSize</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.batch_sizeStr" placeholder="每批数据的大小" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" type="number" placeholder="每批数据的大小" />
                   </div>
 
                   <div class="block">
@@ -387,7 +387,7 @@
                       <span class="demonstration" style="">learningRateMultiplier</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" placeholder="学习率" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" type="number" placeholder="学习率" />
                   </div>
 
                   <div class="block">
@@ -395,7 +395,7 @@
                       <span class="demonstration" style="">classificationNClasses</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_n_classes"
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_n_classes" type="number"
                       placeholder="分类任务中的类数" />
                   </div>
 
@@ -405,7 +405,7 @@
                       <span class="demonstration" style="">classificationPositiveClass</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class"
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class" 
                       placeholder="二元分类中的正类" />
                   </div>
 
@@ -477,7 +477,7 @@
                 删除文件
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFile"  style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                查看文件
+                检索文件
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFileContent"  style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 查看文件内容
@@ -539,13 +539,13 @@
           <!--界面设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 7">
-              <div class="block">
+              <!-- <div class="block">
                 <el-tooltip class="item" effect="dark" content="将图片的url路径填入此处即可设置聊天背景。" placement="top">
                   <span class="demonstration">聊天背景</span>
                 </el-tooltip>
                 <input class="inputs" v-model="SettingInfo.contentImageUrl" placeholder="设置聊天界面的背景URL"
                   style="margin-top: 10px; width: 100%; margin-left: 0px;margin-right: 0px;" />
-              </div>
+              </div> -->
 
             </div>
           </el-collapse-transition>
@@ -615,15 +615,12 @@ export default {
         contentImageUrl: "",
         fineTunes: {
           training_file: "",
-          validation_file: undefined,
+          validation_file: "",
+          batch_size: "",
           model: "curie",
           n_epochs: 4,
-          learning_rate_multiplier: undefined,
           prompt_loss_weight: 0.01,
           compute_classification_metrics: false,
-          classification_n_classes: undefined,
-          classification_positive_class: undefined,
-          classification_betas: undefined,
           suffix: ""
         }
       },
@@ -709,10 +706,6 @@ export default {
     this.$watch('modelSearch', this.watchModelSearch);
     this.$watch('fineTuningSearch', this.watchFineTuningSearch);
     this.$watch('fileSearch', this.watchFileSearch);
-    
-    this.$watch('SettingInfo.batch_sizeStr', this.batchSizeToInt);
-    this.$watch('SettingInfo.openChangePicture', this.watchOpenChangePicture);
-    this.$watch('SettingInfo.openProductionPicture', this.watchOpenProductionPicture);
   },
   filters: {
     //截取数据到小数点后几位
@@ -720,7 +713,98 @@ export default {
       return parseFloat(value).toFixed(digit)
     }
   },
+  watch: {
+    SettingInfo: {
+      handler: function (newVal, oldVal) {
+        if (newVal.openChangePicture) {
+          this.SettingInfo.openProductionPicture = false
+        }
+        if (newVal.openProductionPicture) {
+          this.SettingInfo.openChangePicture = false
+        }
+        if (newVal.fineTunes.batch_size) {
+          this.SettingInfo.fineTunes.batch_size = parseInt(newVal.fineTunes.batch_size)
+        }
+        if (newVal.fineTunes.learning_rate_multiplier) {
+          this.SettingInfo.fineTunes.learning_rate_multiplier = parseInt(newVal.fineTunes.learning_rate_multiplier)
+        }
+        if (newVal.fineTunes.classification_n_classes) {
+          this.SettingInfo.fineTunes.classification_n_classes = parseInt(newVal.fineTunes.classification_n_classes)
+        }
+        if (newVal.fineTunes.classification_positive_class) {
+          this.SettingInfo.fineTunes.classification_positive_class = parseInt(newVal.fineTunes.classification_positive_class)
+        }
+        if (newVal.fineTunes.classification_betas) {
+          this.SettingInfo.fineTunes.classification_betas = newVal.fineTunes.classification_betas.split(",").map(str=>parseInt(str))
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
+    // 监听contentImageUrl属性的变化
+    watchContentImageUrl: function (newVal, oldVal) {
+      if (newVal) {
+        this.$refs.chatWindow.updateContentImageUrl(newVal)
+      } else {
+        this.$refs.chatWindow.updateContentImageUrl("https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780")
+      }
+    },
+    //监听fineTuningSearch属性的变化
+    watchFineTuningSearch:function (newVal, oldVal) {
+      if (this.fineTuningList.length !== 0) {
+        if(!this.cancelFineStatus){
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded").filter(fineTuning => fineTuning.id.includes(newVal))
+        }else{
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
+        }
+      }
+      if (newVal == "") {
+        if(!this.cancelFineStatus){
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
+        }else{
+          this.fineTuningList = this.fineTuningCacheList
+        }
+      }
+    },
+    //监听fileSearch属性的变化
+    watchFileSearch:function(newVal, oldVal) {
+      if (this.fileList.length !== 0) {
+        this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
+      }
+      if (newVal == "") {
+        this.fileList = this.fileCacheList
+      }
+    },
+    // 监听modelSearch属性的变化
+    watchModelSearch: function (newVal, oldVal) {
+      if (this.personList.length !== 0) {
+        this.personList = this.personListCache.filter(person => person.id.includes(newVal))
+      }
+      if (newVal == "") {
+        this.personList = this.personListCache
+      }
+    },
+    // 监听KeyMsg属性的变化
+    watchKeyMsg: function (newVal, oldVal) {
+      //获取模型列表
+      getModels(newVal).then((res) => {
+        //保存OpenAI key到session中
+        this.personList = res;
+        this.personListCache = res;
+        //获取余额信息
+        getMoneyInfo(newVal).then((res) => {
+          this.moneryInfo.totalGranted = res.total_granted;
+          this.moneryInfo.totalUsed = res.total_used;
+          this.moneryInfo.totalAvailable = res.total_available;
+        });
+      }).catch(e => {
+        this.$message({
+          message: "获取模型列表失败哦~",
+          type: "error",
+        });
+      })
+    },
      //显示或者隐藏取消过的微调模型
     showOrHidenCancelFine(status){
       this.cancelFineStatus = status 
@@ -801,10 +885,6 @@ export default {
           this.personList = models;
           this.personListCache = models;
         })
-        // console.log("auto click.")
-        // if (this.personList.length > 0) {
-        //   this.clickPerson(this.personList[0])
-        // }
         this.updateMoneyInfo()
       }).catch(e => {
         this.$message({
@@ -859,86 +939,6 @@ export default {
         this.showSetupList = true;
       };
     },
-    watchBatchSizeToInt: function (newVal, oldVal) {
-      console.log("测试是是是")
-      if (newVal) {
-        this.SettingInfo.batchSize = parseInt(newVal)
-      }
-    },
-    // 监听openChangePicture属性的变化
-    watchOpenChangePicture: function (newVal, oldVal) {
-      if (newVal) {
-        this.SettingInfo.openProductionPicture = false
-      }
-    },
-    watchOpenProductionPicture: function (newVal, oldVal) {
-      if (newVal) {
-        this.SettingInfo.openChangePicture = false
-      }
-    },
-    // 监听contentImageUrl属性的变化
-    watchContentImageUrl: function (newVal, oldVal) {
-      if (newVal) {
-        this.$refs.chatWindow.updateContentImageUrl(newVal)
-      } else {
-        this.$refs.chatWindow.updateContentImageUrl("https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780")
-      }
-    },
-    //监听fineTuningSearch属性的变化
-    watchFineTuningSearch:function (newVal, oldVal) {
-      if (this.fineTuningList.length !== 0) {
-        if(!this.cancelFineStatus){
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded").filter(fineTuning => fineTuning.id.includes(newVal))
-        }else{
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
-        }
-      }
-      if (newVal == "") {
-        if(!this.cancelFineStatus){
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
-        }else{
-          this.fineTuningList = this.fineTuningCacheList
-        }
-      }
-    },
-    //监听fileSearch属性的变化
-    watchFileSearch:function(newVal, oldVal) {
-      if (this.fileList.length !== 0) {
-        this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
-      }
-      if (newVal == "") {
-        this.fileList = this.fileCacheList
-      }
-    },
-    // 监听modelSearch属性的变化
-    watchModelSearch: function (newVal, oldVal) {
-      if (this.personList.length !== 0) {
-        this.personList = this.personListCache.filter(person => person.id.includes(newVal))
-      }
-      if (newVal == "") {
-        this.personList = this.personListCache
-      }
-    },
-    // 监听KeyMsg属性的变化
-    watchKeyMsg: function (newVal, oldVal) {
-      //获取模型列表
-      getModels(newVal).then((res) => {
-        //保存OpenAI key到session中
-        this.personList = res;
-        this.personListCache = res;
-        //获取余额信息
-        getMoneyInfo(newVal).then((res) => {
-          this.moneryInfo.totalGranted = res.total_granted;
-          this.moneryInfo.totalUsed = res.total_used;
-          this.moneryInfo.totalAvailable = res.total_available;
-        });
-      }).catch(e => {
-        this.$message({
-          message: "获取模型列表失败哦~",
-          type: "error",
-        });
-      })
-    },
     // 更新当前余额
     updateMoneyInfo() {
       getMoneyInfo(this.SettingInfo.KeyMsg).then((res) => {
@@ -990,7 +990,7 @@ export default {
       this.fineTuningInfo = {};
       this.SettingStatus = 0
       this.cutSetting = 0
-      this.showChatWindow = false;
+      // this.showChatWindow = false;
     },
     //会话列表被点击
     sessionClick() {
@@ -1007,14 +1007,14 @@ export default {
         headImg: AI_HEAD_IMG_URL,
         showHeadImg: true
       }
-      this.showChatWindow = true;
+      // this.showChatWindow = true;
     },
     //微调模型列表被点击
     fineTuningClick() {
       this.clearCurrent()
       this.SettingStatus = 3;
       this.cutSetting = 2
-      this.showChatWindow = false;
+      // this.showChatWindow = false;
       //获取微调模型列表
       this.getFineTunessList(this.SettingInfo.KeyMsg)
     },
@@ -1112,8 +1112,6 @@ export default {
     //模型被点击
     clickPerson(info) {
       this.storeStatus = 0;
-      //显示当前聊天窗口
-      this.showChatWindow = true;
       //传入当前聊天窗口信息
       this.chatWindowInfo = info;
       //设置当前被点击的对象
@@ -1129,8 +1127,6 @@ export default {
     //微调模型被点击
     clickFineTuning(info) {
       this.storeStatus = 1;
-      //显示当前聊天窗口
-      this.showChatWindow = true;
       //传入当前聊天窗口信息
       this.chatWindowInfo = info;
       //设置当前被点击的对象
@@ -1149,10 +1145,6 @@ export default {
       }
       this.fiCurrent=info.fileId
       this.fileInfo=info
-      //显示当前聊天窗口
-      this.showChatWindow = true;
-      
-      this.$refs.chatWindow.updateInputsStatus(false)
     },
     //删除文件
     deleteOnFile(){
