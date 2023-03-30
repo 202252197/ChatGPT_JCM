@@ -29,7 +29,6 @@
 ![webui4.5](https://i.328888.xyz/2023/03/26/iDIEoE.jpeg)
 
 
-
 # 部署步骤
 
 ## 感觉麻烦的可以直接下载应用程序使用
@@ -130,8 +129,8 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 
 
 # OpenAI交流群
-![webui2.0](https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg)
-![webui2.0](https://i.328888.xyz/2023/03/28/iWUyDz.jpeg) 
+![webui2.0](https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg =100x100)
+![webui2.0](https://i.328888.xyz/2023/03/28/iWUyDz.jpeg =100x100) 
 兄弟们如果群满的话加上方V拉进去
 
 
