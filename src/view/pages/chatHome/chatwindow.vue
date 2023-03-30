@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="chatInputs" v-show="inputsStatus">
+      <div class="chatInputs" >
         <!--表情-->
         <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus">
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
@@ -180,9 +180,7 @@ export default {
       personInfoSpan: [2, 17, 5],
     };
   },
-  mounted() {
-    this.inputsStatus=this.settingInfo.inputStatus
-  },
+
 
   created() {
     window.addEventListener('resize', this.handleResize)
@@ -193,9 +191,6 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    updateInputsStatus(status){
-      this.inputsStatus=status;
-    },
     //监听窗口的变化
     handleResize() {
       if (window.innerWidth <= 700) {
