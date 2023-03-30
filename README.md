@@ -129,8 +129,11 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 
 
 # OpenAI交流群
-<img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="100px" height="100px"/>
-<img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="100px" height="100px"/>
+<div>
+<img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
+</div>
+
 兄弟们如果群满的话加上方V拉进去
 
 
