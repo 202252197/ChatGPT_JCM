@@ -4,7 +4,7 @@
       <el-header>
         <transition name="el-zoom-in-top">
           <div v-show="show" class="transition-box">
-            <h3>L V S H I H A O</h3>
+            <h3>JUN CHEN MO</h3>
           </div>
         </transition>
       </el-header>

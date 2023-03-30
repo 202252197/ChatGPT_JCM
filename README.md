@@ -5,6 +5,9 @@
 声明：此项目只发布于 GitHub，基于 Apache2.0 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
 项目使用Vue2进行开发，给大家提供一个好看的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对openai进行入门了解使用，后期会接入后端，实现更丰富的功能。
 
+<a href="https://github.com/202252197">
+  <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
+</a>
 <p align="left">
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/stars/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/last-commit/202252197/ChatGPT_JCM" /></a>
@@ -13,9 +16,7 @@
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/license/202252197/ChatGPT_JCM" /></a>
 <a href="https://t.me/TestFlightCN" ><img src="https://img.shields.io/badge/Telegram-Channel-blue.svg?logo=telegram" /></a>
 </p>
-<a href="https://github.com/202252197">
-  <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
-</a>
+
 
 > 🤭记得点个小星星
 
