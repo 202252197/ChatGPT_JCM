@@ -15,10 +15,4 @@ module.exports = defineConfig({
   devServer: {
     hot: true,//自动保存
   },
-  pluginOptions: {
-    electronBuilder: {
-      customFileProtocol: "./",
-      nodeIntegration:true
-    }
-  }
 })
