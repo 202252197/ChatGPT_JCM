@@ -9,8 +9,7 @@
     "electron:serve": "vue-cli-service electron:serve --mode serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "build:macos": "tauri build tauri build --target universal-apple-darwin",
-    "build-client": "tauri build "
+    "build-client": "tauri build"
 
   },
   "exports": {
