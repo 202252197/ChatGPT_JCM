@@ -37,25 +37,19 @@ https://wweu.lanzoub.com/iSKF90rckdyh (蓝奏云下载地址)
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
 
-## 设置npm源 （一定要执行哦否则可能下载失败）
-npm config set registry http://registry.npm.taobao.org/
-npm config set electron_mirror="https://npm.taobao.org/mirrors/electron/"
-npm config set electron_builder_binaries_mirror="http://npm.taobao.org/mirrors/electron-builder-binaries/"
 
-## 下载依赖包
+## 本地部署
 ```
+pnpm install
+pnpm run serve
+pnpm run build
+// 或者 
 npm install
-```
-
-## 运行
-```
 npm run serve
-```
-
-## 编译
-```
 npm run build
+
 ```
+ 
 
 ## OpenAI-Key设置以及自定义设置
 ### 在.env.serve中添加代码
@@ -86,9 +80,8 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 |  ----  | ----  |
 | vue  | 2.6.14 |
 | element-ui  | 2.15.12 |
-| NodeJS  | 14.21.3 |
-| npm  | 6.14.18 |
-| electron  | 11.5.0 |
+| NodeJS  | 14+ |
+| tauri  | 1.2.3 |
 
 # 项目进度（对标OpenAI官方接口文档）
 
@@ -145,7 +138,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 ## 使用tauri构建client
-
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
