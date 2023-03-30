@@ -133,6 +133,8 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
+## 使用tauri构建client
+
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
