@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode serve",
-    "build": "vue-cli-service build --mode serve",
-    "build-client": "tauri build"
-
+    "build": "vue-cli-service build --mode serve"
   },
   "exports": {
     "./tiktoken": "./dist/tiktoken.js",
@@ -33,8 +31,6 @@
     "@vue/cli-service": "~5.0.0",
     "babel-plugin-component": "^1.1.1",
     "vue-template-compiler": "^2.6.14",
-    "wasm-loader": "^1.3.0",
-    "@tauri-apps/cli": "^1.2.3",
-    "@tauri-apps/api": "^1.2.0"
+    "wasm-loader": "^1.3.0"
   }
 }
