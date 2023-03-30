@@ -338,26 +338,22 @@ export default {
     //发送文字信息
     sendText() {
       // if(this.settingInfo.readefile){
-      //   console.log("看看能获取到不")
       //   console.log(this.fileArrays)
       //   const formData = new FormData();
       //   formData.append("model", "text-embedding-ada-002");
       //   formData.append("input", "吕世昊是谁?");
       //   createEmbeddings(formData,this.settingInfo.KeyMsg).then(data => {
-      //     console.log("文本的地址")
       //     const inputEmbedding=data.data[0]
       //     // const similarText = this.findMostSimilarEmbedding(, this.fileArrays);
 
       //     // 计算每个句子embedding与输入数据embedding之间的相似度
       //     const similarities = this.cosineSimilarity(this.fileArrays.embedding, inputEmbedding.embedding)
       //     const similaritiesArr=[];
-      //     console.log("測測")
       //     console.log(similarities)
       //     similaritiesArr.push(similarities)
       //     // 对相似度进行排名，选择与输入数据最相似的句子或文章段落作为匹配结果
       //     const topMatchIndex = similaritiesArr.reduce((maxIndex, similarity, index) => similarity > similaritiesArr[maxIndex] ? index : maxIndex, 0)
           
-      //     console.log("你他吗是什么东西")
       //     console.log(topMatchIndex)
       //     const topMatchText = sentences[topMatchIndex]
       //     console.log('最匹配的句子是：', topMatchText)
@@ -374,8 +370,6 @@ export default {
       //   //   input:"text"
       //   // });
       //   // console.log(response)
-
-      //   // alert("开启了")
 
       //   return
       // }

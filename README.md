@@ -14,7 +14,6 @@
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/release/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/downloads/202252197/ChatGPT_JCM/total" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/license/202252197/ChatGPT_JCM" /></a>
-<a href="https://t.me/TestFlightCN" ><img src="https://img.shields.io/badge/Telegram-Channel-blue.svg?logo=telegram" /></a>
 </p>
 
 

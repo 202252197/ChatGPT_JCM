@@ -138,9 +138,9 @@
     <div class="chatLeft" v-show="showSetupList">
 
       <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
-        总余额：${{ this.moneryInfo.totalGranted | numFilterReservedTwo }}<br />
-        可用余额：${{ this.moneryInfo.totalAvailable | numFilterReservedSix }}<br />
-        消耗余额：${{ moneryInfo.totalUsed | numFilterReservedSix }}<br />
+        总余额：${{ this.moneryInfo.totalGranted | numFilterReserved(2) }}<br />
+        可用余额：${{ this.moneryInfo.totalAvailable | numFilterReserved(4) }}<br />
+        消耗余额：${{ moneryInfo.totalUsed | numFilterReserved(4) }}<br />
       </el-card>
 
       <div class="online-person">
@@ -318,11 +318,11 @@
               <div class="fineTune boxinput" @click="cancelFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 取消微调
               </div>
-              <div class="fineTune boxinput" @click="hidenCancelFine" v-if="cancelFineStatus"
+              <div class="fineTune boxinput" @click="showOrHidenCancelFine(false)" v-if="cancelFineStatus"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 隐藏已取消的微调
               </div>
-              <div class="fineTune boxinput" @click="showCancelFine" v-else
+              <div class="fineTune boxinput" @click="showOrHidenCancelFine(true)" v-else
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 显示已取消的微调
               </div>
@@ -617,6 +617,7 @@ export default {
           training_file: "",
           validation_file: undefined,
           model: "curie",
+          n_epochs: 4,
           learning_rate_multiplier: undefined,
           prompt_loss_weight: 0.01,
           compute_classification_metrics: false,
@@ -714,25 +715,22 @@ export default {
     this.$watch('SettingInfo.openProductionPicture', this.watchOpenProductionPicture);
   },
   filters: {
-    numFilterReservedSix(value) {
-      // 截取当前数据到小数点后两位
-      return parseFloat(value).toFixed(4)
-    },
-    numFilterReservedTwo(value) {
-      // 截取当前数据到小数点后两位
-      return parseFloat(value).toFixed(2)
+    //截取数据到小数点后几位
+    numFilterReserved(value,digit) {
+      return parseFloat(value).toFixed(digit)
     }
   },
   methods: {
-    //显示取消过的微调模型
-    showCancelFine() {
-      this.cancelFineStatus = true
-      this.fineTuningList=this.fineTuningCacheList
+     //显示或者隐藏取消过的微调模型
+    showOrHidenCancelFine(status){
+      this.cancelFineStatus = status 
+      if(this.cancelFineStatus==true){
+        this.fineTuningList = this.fineTuningCacheList
+      }else{
+        this.fineTuningList=this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
+      }
     },
-    hidenCancelFine() {
-      this.cancelFineStatus = false
-      this.fineTuningList=this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
-    },
+  
     //导入会话列表触发的方法
     importFromJsonArrAll() {
       this.$refs.onupdateJosnArrAll.click(); // 触发选择文件的弹框
@@ -996,6 +994,7 @@ export default {
     },
     //会话列表被点击
     sessionClick() {
+      //清除当前点击的状态
       this.clearCurrent()
       this.SettingStatus = 5
       this.cutSetting = 1
