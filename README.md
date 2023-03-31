@@ -28,11 +28,7 @@ https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
 
 
 ## 本地部署
-```
-pnpm install
-pnpm run serve
-pnpm run build
-// 或者 
+ 
 npm install
 npm run serve
 npm run build
