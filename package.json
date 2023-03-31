@@ -4,16 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode serve",
-<<<<<<< HEAD
-    "build": "vue-cli-service build --mode serve",
-    "build-client": "tauri build"
-=======
     "build": "vue-cli-service build --mode serve"
->>>>>>> b58b46506158569aaf1bdfe6a52479edb2a133b3
-  },
-  "exports": {
-    "./tiktoken": "./dist/tiktoken.js",
-    "./tiktoken_bg.wasm": "./dist/tiktoken_bg.wasm"
   },
   "main": "background.js",
   "dependencies": {
