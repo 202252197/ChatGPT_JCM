@@ -1321,7 +1321,11 @@ export default {
 .top-right {
   right: 5px;
 }
-
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 .boxinput {
   height: 30px;
   line-height: 50px;

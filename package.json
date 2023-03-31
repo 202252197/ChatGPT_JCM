@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve --mode serve",
     "build": "vue-cli-service build --mode serve",
     "build-client": "tauri build"
-
   },
   "exports": {
     "./tiktoken": "./dist/tiktoken.js",
