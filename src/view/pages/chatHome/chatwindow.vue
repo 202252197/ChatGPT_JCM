@@ -510,13 +510,69 @@ export default {
       }
     },
     async chatCompletion(params, chatBeforResMsg) {
-      let conversation = this.contextualAssemblyData();
-      params.messages = conversation.map(item => {
-        return {
-          role: item.speaker === 'user' ? 'user' : 'assistant',
-          content: item.text
-        }
-      })
+      let textContext = this.inputMsg;
+      let itemContent;
+      let noUrlNetMessage;
+      if(this.settingInfo.openNet){
+        let context = "max_results="+this.settingInfo.max_results+"&q="+textContext+"&region=us-en";
+        await fetch(
+            'https://search.freechatgpt.cc/search?'+context
+        ).then(response => response.json())
+          .then(
+            data => {
+              let netMessage="Web search results:  ";
+              noUrlNetMessage = netMessage+"\n\n";
+              for (let i = 0; i < data.length ; i++) {
+                netMessage += "["+(i+1)+"] \""+data[i].body.substring(0, 400)+"\"  ";
+                netMessage += "URL:"+data[i].href+"  ";
+                noUrlNetMessage += "["+(i+1)+"] \""+data[i].body.substring(0, 400)+"\"     \n\n";
+              }
+              const date = new Date();
+              const year = date.getFullYear();
+              const month = date.getMonth() + 1;
+              const day = date.getDate();
+              const formattedDate = `${year}/${month}/${day}`;
+              netMessage = netMessage.substring(0,1500)
+
+              netMessage+="Current date:"+formattedDate+"  ";
+              netMessage+=
+                "Instructions: Using the provided web search results, write a comprehensive reply to the given query. " +
+                "Make sure to cite results using [[number](URL)] notation after the reference. If the provided search " +
+                "results refer to multiple subjects with the same name, write separate answers for each subject." +
+                "Query: "+textContext +
+                "Reply in 中文";
+              noUrlNetMessage += " 您的问题: "+textContext;
+              itemContent = {};
+              itemContent.time=JCMFormatDate(getNowTime());
+              itemContent.msg=netMessage;
+              itemContent.chatType=0;
+              itemContent.name="网络";
+              itemContent.headImg="http://175.178.88.119/img/search.png";
+              itemContent.uid=this.frinedInfo.id;
+              this.chatList.push(itemContent);
+
+              let conversation=this.contextualAssemblyData();
+
+              params.messages=conversation.map(item => {
+                return {
+                    role: item.speaker === 'user' ? 'user' : 'assistant',
+                    content: item.text
+                }
+              })
+
+              itemContent.msg=noUrlNetMessage;
+            }
+            );
+      }else{
+        let conversation=this.contextualAssemblyData();
+        params.messages=conversation.map(item => {
+          return {
+            role: item.speaker === 'user' ? 'user' : 'assistant',
+            content: item.text
+          }
+        })
+      }
+
       params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);

@@ -172,6 +172,21 @@
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
+                <div class="block">
+                    <el-tooltip class="item" effect="dark" content="打开之后联网查询" placement="top">
+                        <span class="demonstration">联网</span>
+                    </el-tooltip>
+                    <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
+
+                <div class="block" v-show="SettingInfo.openNet">
+                    <el-tooltip class="item" effect="dark" content="指定联网查询数据的数量，不建议太大。" placement="top">
+                        <span class="demonstration" style="">max_results</span>
+                    </el-tooltip>
+
+                    <el-slider class="astrict" v-model="SettingInfo.max_results" :step="1" :min="0" :max="6"></el-slider>
+                </div>
+
               <div class="block">
                 <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
                   <span class="demonstration" style="">max_tokens</span>
@@ -613,6 +628,8 @@ export default {
         size: "256x256",
         language: "zh",
         contentImageUrl: "",
+        openNet:false,
+        max_results:3,
         fineTunes: {
           training_file: "",
           validation_file: "",
