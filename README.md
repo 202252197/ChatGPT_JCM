@@ -110,7 +110,7 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 # 知识星球
 感谢大家支持（如果有不会搭建或者其他问题可以来此星球解决一切问题）
 <div>
-<img src="https://i.328888.xyz/2023/04/02/iHEGW3.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/02/iHEGW3.jpeg" alt="drawing" width="300px" height="400px"/>
 <img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 
