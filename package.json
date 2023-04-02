@@ -14,7 +14,6 @@
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "markdown-it-vue": "^1.1.7",
-    "mockjs": "^1.1.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "openai": "^3.2.1",
     "sass": "^1.60.0",

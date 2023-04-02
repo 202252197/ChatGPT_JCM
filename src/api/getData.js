@@ -186,6 +186,8 @@ export const createFineTune = (formData, token) => {
     data: formData
   }).then(res => {
     return res.data;
+  }).catch(e => {
+    console.log(e)
   })
 }
 

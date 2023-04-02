@@ -4,3 +4,5 @@ export const AI_HEAD_IMG_URL="https://th.bing.com/th?id=ODL.3e2fbff4543f0d3632d3
 export const USER_HEAD_IMG_URL="https://avatars.githubusercontent.com/u/40659515?v=4"
 //用户名称设置
 export const USER_NAME="君尘陌"
+
+

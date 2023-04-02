@@ -247,7 +247,7 @@ export default {
     //组装上下文数据
     contextualAssemblyData() {
       const conversation = []
-      for (var chat of this.chatList) {
+      for (var chat of this.chatList.filter(chat=>chat.chatType===0)) {
         if (chat.uid == 'jcm') {
           let my = { 'speaker': 'user', 'text': chat.msg }
           conversation.push(my)
@@ -268,14 +268,9 @@ export default {
         this.recording = true
         this.recorder.start()
         // 在这里使用录音器
-        this.$message({
-          message: "开始录音咯！",
-        });
+        this.$message.success("开始录音咯~")
       }).catch((error) => {
-        this.$message({
-          type: "error",
-          message: "获取音频流失败啦！",
-        });
+        this.$message.error("获取音频流失败啦~")
       });
     },
     //停止录音
@@ -310,15 +305,7 @@ export default {
           })
         }
       }
-      this.$message({
-        message: "结束录音咯！",
-      });
-    },
-    //发送消息时等待
-    waitMsg() {
-      this.$message({
-        message: this.frinedInfo.id + ":" + "客观稍等片刻，马上告诉您！~",
-      });
+      this.$message.success("结束录音咯~")
     },
     //发送信息
     sendMsg(msgList) {
@@ -384,10 +371,7 @@ export default {
           this.$nextTick(() => {
             this.acqStatus = true
           });
-          this.$message({
-            message: "编辑图片模式：请您聊天窗口右上角先上传图片，再发送修改的内容~",
-            type: "warning",
-          });
+          this.$message.warning("编辑图片模式：请您聊天窗口右上角先上传图片，再发送修改的内容~")
           return
         } else {
           // 通过验证后，上传文件
@@ -471,11 +455,14 @@ export default {
         } else {
           //如果是文字模式则进入
           params.model = this.frinedInfo.id,
-            params.max_tokens = this.settingInfo.MaxTokens,
-            params.temperature = this.settingInfo.Temperature,
-            params.top_p = this.settingInfo.TopP,
-            params.presence_penalty = this.settingInfo.PresencePenalty,
-            params.frequency_penalty = this.settingInfo.FrequencyPenalty
+          params.max_tokens = this.settingInfo.chat.MaxTokens,
+          params.temperature = this.settingInfo.chat.Temperature,
+          params.top_p = this.settingInfo.chat.TopP,
+          params.n = this.settingInfo.chat.n,
+          params.stream = this.settingInfo.chat.stream,
+          params.stop = this.settingInfo.chat.stop,
+          params.presence_penalty = this.settingInfo.chat.PresencePenalty,
+          params.frequency_penalty = this.settingInfo.chat.FrequencyPenalty
 
           let chatBeforResMsg = {
             headImg: AI_HEAD_IMG_URL,
@@ -503,10 +490,7 @@ export default {
         this.$nextTick(() => {
           this.acqStatus = true
         });
-        this.$message({
-          message: "消息不能为空哦~",
-          type: "warning",
-        });
+        this.$message.warning("消息不能为空哦~")
       }
     },
     async chatCompletion(params, chatBeforResMsg) {
@@ -517,7 +501,6 @@ export default {
           content: item.text
         }
       })
-      params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
 
@@ -533,41 +516,45 @@ export default {
           }),
           headers: {
             Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            "Content-Type": "application/json"
           },
         }
         ).then(response => {
-          const reader = response.body.getReader();
-
-          function readStream(reader) {
-            return reader.read().then(({ done, value }) => {
-              if (done) {
-                return;
-              }
-              if (!_this.chatList[currentResLocation].reminder) {
-                _this.chatList[currentResLocation].reminder = "";
-              }
-              let decoded = new TextDecoder().decode(value);
-              decoded = _this.chatList[currentResLocation].reminder + decoded;
-              let decodedArray = decoded.split("data: ");
-
-              decodedArray.forEach(decoded => {
-                if (decoded !== "") {
-                  if (decoded.trim() === "[DONE]") {
-                    return;
-                  } else {
-                    const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
-                    _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                    _this.scrollBottom();
-                  }
+            const reader = response.body.getReader();
+            function readStream(reader) {
+              return reader.read().then(({ done, value }) => {
+                if (done) {
+                  return;
                 }
+                if (!_this.chatList[currentResLocation].reminder) {
+                  _this.chatList[currentResLocation].reminder = "";
+                }
+               
+                let decoded = new TextDecoder().decode(value);
+                if(params.stream){
+                  decoded = _this.chatList[currentResLocation].reminder + decoded;
+                  let decodedArray = decoded.split("data: ");
+
+                  decodedArray.forEach(decoded => {
+                    if (decoded !== "") {
+                      if (decoded.trim() === "[DONE]") {
+                        return;
+                      } else {
+                        const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
+                        _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
+                        _this.scrollBottom();
+                      }
+                    }
+                  });
+                  return readStream(reader);
+                }else{
+                  _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + JSON.parse(decoded).choices[0].message.content
+                }
+                
               });
-              return readStream(reader);
-            });
-          }
-          _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
-          readStream(reader);
+            }
+            // _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
+            readStream(reader);
           this.$nextTick(() => {
             this.acqStatus = true
           });
@@ -577,9 +564,11 @@ export default {
       }
     },
     async completion(params, chatBeforResMsg) {
-      params.stop = " END"
+      if(this.settingInfo.chat.suffix!==""){
+        params.suffix = this.settingInfo.chat.suffix  //chat没有
+      }
+      params.echo = this.settingInfo.chat.echo,  //chat没有
       params.prompt = this.inputMsg
-      params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
       const currentResLocation = this.chatList.length - 1
@@ -609,30 +598,33 @@ export default {
 
           function readStream(reader) {
             return reader.read().then(({ done, value }) => {
-              if (done) {
-                return;
-              }
-              let decodeds = new TextDecoder().decode(value);
-
-              let decodedArray = decodeds.split("data: ")
-
-              decodedArray.forEach(decoded => {
-                if (decoded !== "") {
-                  if (decoded.trim() === "[DONE]") {
-                    return;
-                  } else {
-                    const response = JSON.parse(decoded).choices[0].text;
-                    _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                  }
+                if (done) {
+                  return;
                 }
-              });
-              return readStream(reader);
+                let decodeds = new TextDecoder().decode(value);
+                if(params.stream){
+                let decodedArray = decodeds.split("data: ")
+
+                decodedArray.forEach(decoded => {
+                  if (decoded !== "") {
+                    if (decoded.trim() === "[DONE]") {
+                      return;
+                    } else {
+                      const response = JSON.parse(decoded).choices[0].text;
+                      _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
+                    }
+                  }
+                });
+                return readStream(reader);
+              }else{
+                _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + JSON.parse(decodeds).choices[0].text
+              }
             });
           }
           this.$nextTick(() => {
             this.acqStatus = true
           });
-          _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
+          // _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
           readStream(reader);
         })
       } catch (error) {
@@ -680,10 +672,7 @@ export default {
 
       // 验证文件类型是否为PNG格式
       if (file.type !== "image/png") {
-        this.$message({
-          message: "请上传一个有效的PNG文件~",
-          type: "warning",
-        });
+        this.$message.warning("请上传一个有效的PNG文件~")
         this.$nextTick(() => {
           this.acqStatus = true
         });
@@ -692,10 +681,7 @@ export default {
 
       // 验证文件大小是否小于4MB
       if (file.size > 4 * 1024 * 1024) {
-        this.$message({
-          message: "请上传一个小于4MB的文件~",
-          type: "warning",
-        });
+        this.$message.warning("请上传一个小于4MB的文件~")
         this.$nextTick(() => {
           this.acqStatus = true
         });
@@ -704,10 +690,7 @@ export default {
 
       if (this.settingInfo.openChangePicture) {
         this.updateImage = file
-        this.$message({
-          message: "图片上传完成啦，请给我提示进行编辑~",
-          type: "info",
-        });
+        this.$message.info("图片上传完成啦，请给我提示进行编辑~")
         e.target.files = null;
         this.$nextTick(() => {
           this.acqStatus = true

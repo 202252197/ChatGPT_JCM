@@ -13,6 +13,6 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: './',
   devServer: {
-    hot: true,//自动保存
+    hot: true//自动保存
   },
 })

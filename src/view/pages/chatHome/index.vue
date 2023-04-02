@@ -2,17 +2,10 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:22%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
-        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          p-id="3634" width="40" height="40">
-          <path
-            d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z"
-            fill="#ffffff" p-id="3635"></path>
-          <path
-            d="M514 559c-7.8 0-15.5-2-22.4-6L270.9 425.4c-21.5-12.4-28.8-39.8-16.4-61.3 12.4-21.5 39.8-28.8 61.3-16.4l198.1 114.5 189.7-110.9c21.4-12.5 48.9-5.3 61.4 16.1 12.5 21.4 5.3 48.9-16.1 61.4l-212.2 124c-7 4.1-14.9 6.2-22.7 6.2z"
-            fill="#ffffff" p-id="3636"></path>
-          <path
-            d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z"
-            fill="#ffffff" p-id="3637"></path>
+        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3634" width="40" height="40">
+          <path d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z" fill="#ffffff" p-id="3635"></path>
+          <path d="M514 559c-7.8 0-15.5-2-22.4-6L270.9 425.4c-21.5-12.4-28.8-39.8-16.4-61.3 12.4-21.5 39.8-28.8 61.3-16.4l198.1 114.5 189.7-110.9c21.4-12.5 48.9-5.3 61.4 16.1 12.5 21.4 5.3 48.9-16.1 61.4l-212.2 124c-7 4.1-14.9 6.2-22.7 6.2z" fill="#ffffff" p-id="3636"></path>
+          <path d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z" fill="#ffffff" p-id="3637"></path>
         </svg>
         <h2>OpenAI Manage</h2>
       </div>
@@ -40,7 +33,7 @@
           </el-col>
         </el-row>
         <div v-show="cutSetting == 0">
-          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;" placeholder="模型名称"/>
+          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;" placeholder="模型名称" />
           <div class="s-wrapper">
             <div class="personList" v-for="personInfo in personList" :key="personInfo.id"
               @click="clickPerson(personInfo)">
@@ -50,7 +43,7 @@
         </div>
 
         <div v-show="cutSetting == 1">
-          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;" placeholder="会话名称"/>
+          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;" placeholder="会话名称" />
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList" :key="sessionInfo.id" @click="clickSession(sessionInfo)">
               <Session :sessionInfo="sessionInfo" :pcCurrent="sessionCurrent"></Session>
@@ -70,7 +63,7 @@
 
         <div v-show="cutSetting == 3">
           <input class="inputs" v-model="fileSearch" style=" margin-top: 10px;" placeholder="文件名称" />
-         
+
           <div class="s-wrapper">
             <div class="personList" v-for="(fileInfo, index) in fileList" :key="index" @click="clickFile(fileInfo)">
               <File :fileInfo="fileInfo" :pcCurrent="fiCurrent"></File>
@@ -83,43 +76,23 @@
     <div class="chatRight">
       <!-- <router-view></router-view> -->
       <div class="top-left" @click="toggleLeft">
-        <svg t="1679366341860" class="icon" v-show="!showPersonList" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
-          <path
-            d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z"
-            fill="#BDD2EF" p-id="5765"></path>
-          <path
-            d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z"
-            fill="#2867CE" p-id="5766"></path>
+        <svg t="1679366341860" class="icon" v-show="!showPersonList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
+          <path d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z" fill="#BDD2EF" p-id="5765"></path>
+          <path d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z" fill="#2867CE" p-id="5766"></path>
         </svg>
-        <svg t="1679366707602" class="icon" v-show="showPersonList" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
-          <path
-            d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z"
-            fill="#BDD2EF" p-id="7552"></path>
-          <path
-            d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z"
-            fill="#2867CE" p-id="7553"></path>
+        <svg t="1679366707602" class="icon" v-show="showPersonList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
+          <path d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z" fill="#BDD2EF" p-id="7552"></path>
+          <path d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z" fill="#2867CE" p-id="7553"></path>
         </svg>
       </div>
       <div class="top-right" @click="toggleRight">
-        <svg t="1679366707602" class="icon" v-show="!showSetupList" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
-          <path
-            d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z"
-            fill="#BDD2EF" p-id="7552"></path>
-          <path
-            d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z"
-            fill="#2867CE" p-id="7553"></path>
+        <svg t="1679366707602" class="icon" v-show="!showSetupList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
+          <path d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z" fill="#BDD2EF" p-id="7552"></path>
+          <path d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z" fill="#2867CE" p-id="7553"></path>
         </svg>
-        <svg t="1679366341860" class="icon" v-show="showSetupList" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
-          <path
-            d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z"
-            fill="#BDD2EF" p-id="5765"></path>
-          <path
-            d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z"
-            fill="#2867CE" p-id="5766"></path>
+        <svg t="1679366341860" class="icon" v-show="showSetupList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
+          <path d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z" fill="#BDD2EF" p-id="5765"></path>
+          <path d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z" fill="#2867CE" p-id="5766"></path>
         </svg>
       </div>
       <div v-if="showChatWindow">
@@ -127,11 +100,8 @@
           @personCardSort="personCardSort"></ChatWindow>
       </div>
       <div class="showIcon" v-else>
-        <svg t="1679552353056" class="icon iconfont icon-snapchat" viewBox="0 0 1024 1024" version="1.1"
-          xmlns="http://www.w3.org/2000/svg" p-id="3488" width="200" height="200">
-          <path
-            d="M992.33 416.37c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-63.96h63.98c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-95.94c0.01-8.48-3.36-16.62-9.35-22.62-6-6-14.14-9.37-22.62-9.36h-95.94V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96H544.6V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98s-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98S224.8 14.95 224.8 32.61v63.96h-95.94c-8.48 0-16.62 3.36-22.62 9.36s-9.36 14.14-9.36 22.62v95.94H32.92c-17.67 0-31.98 14.32-31.98 31.98s14.32 31.98 31.98 31.98h63.96v63.96H32.92c-17.67 0-31.98 14.32-31.98 31.98 0 17.67 14.32 31.98 31.98 31.98h63.96v63.97H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.65 14.31 31.97 31.97 31.97h63.96v63.98H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.66 14.31 31.97 31.97 31.97h63.96v63.98H32.92C15.26 736.18 0.95 750.5 0.95 768.15s14.31 31.97 31.97 31.97h63.96v95.95a31.944 31.944 0 0 0 9.36 22.62c6 5.99 14.14 9.36 22.62 9.35h95.94v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h95.94c8.48 0.02 16.62-3.35 22.62-9.35s9.37-14.14 9.35-22.62v-95.95h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98V672.2h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.98h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.97h63.98zM864.41 864.1H160.84V160.53h703.57V864.1zM406.82 580.42h79.2l15.48 61.56h67.68l-83.16-267.84h-77.04l-83.16 267.84h65.52l15.48-61.56z m18-72.36c6.84-26.64 14.04-57.96 20.52-86.04h1.44c7.2 27.36 14.04 59.4 21.24 86.04l5.76 22.68h-54.72l5.76-22.68zM697.7 641.98h-64.44V374.14h64.44v267.84z"
-            p-id="3489"></path>
+        <svg t="1679552353056" class="icon iconfont icon-snapchat" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" width="200" height="200">
+          <path d="M992.33 416.37c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-63.96h63.98c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-95.94c0.01-8.48-3.36-16.62-9.35-22.62-6-6-14.14-9.37-22.62-9.36h-95.94V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96H544.6V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98s-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98S224.8 14.95 224.8 32.61v63.96h-95.94c-8.48 0-16.62 3.36-22.62 9.36s-9.36 14.14-9.36 22.62v95.94H32.92c-17.67 0-31.98 14.32-31.98 31.98s14.32 31.98 31.98 31.98h63.96v63.96H32.92c-17.67 0-31.98 14.32-31.98 31.98 0 17.67 14.32 31.98 31.98 31.98h63.96v63.97H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.65 14.31 31.97 31.97 31.97h63.96v63.98H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.66 14.31 31.97 31.97 31.97h63.96v63.98H32.92C15.26 736.18 0.95 750.5 0.95 768.15s14.31 31.97 31.97 31.97h63.96v95.95a31.944 31.944 0 0 0 9.36 22.62c6 5.99 14.14 9.36 22.62 9.35h95.94v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h95.94c8.48 0.02 16.62-3.35 22.62-9.35s9.37-14.14 9.35-22.62v-95.95h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98V672.2h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.98h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.97h63.98zM864.41 864.1H160.84V160.53h703.57V864.1zM406.82 580.42h79.2l15.48 61.56h67.68l-83.16-267.84h-77.04l-83.16 267.84h65.52l15.48-61.56z m18-72.36c6.84-26.64 14.04-57.96 20.52-86.04h1.44c7.2 27.36 14.04 59.4 21.24 86.04l5.76 22.68h-54.72l5.76-22.68zM697.7 641.98h-64.44V374.14h64.44v267.84z" p-id="3489"></path>
         </svg>
       </div>
     </div>
@@ -145,22 +115,9 @@
 
       <div class="online-person">
         <el-row :gutter="20">
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 0"
-              :class="{ active: SettingStatus === 0 }">对话</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 1"
-              :class="{ active: SettingStatus === 1 }">图片</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 2"
-              :class="{ active: SettingStatus === 2 }">音频</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 3"
-              :class="{ active: SettingStatus === 3 }">微调</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 4"
-              :class="{ active: SettingStatus === 4 }">文件</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 5"
-              :class="{ active: SettingStatus === 5 }">会话</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 6"
-              :class="{ active: SettingStatus === 6 }">识图</span></el-col>
-          <el-col :span="6"><span class="setting" @click="SettingStatus = 7"
-              :class="{ active: SettingStatus === 7 }">设置</span></el-col>
+          <el-col :span="6" v-for="(setting, index) in settings" :key="index"> <span class="setting"
+              @click="SettingStatus = index" :class="{ active: SettingStatus === index }"> {{ setting.name }} </span>
+          </el-col>
         </el-row>
 
         <div class="s-wrapper" style="height: 68vh;">
@@ -172,12 +129,21 @@
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
+
+              <div class="block">
+                <el-tooltip class="item" effect="dark" content="在生成文本末尾添加的文本片段" placement="top">
+                  <span class="demonstration">suffix</span>
+                </el-tooltip>
+
+                <input class="weitiao" v-model="SettingInfo.chat.suffix" placeholder="末尾添加的文本片段" />
+              </div>
+
               <div class="block">
                 <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
                   <span class="demonstration" style="">max_tokens</span>
                 </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.MaxTokens" :step="1" :min="0" :max="2048"></el-slider>
+                <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0" :max="2048"></el-slider>
               </div>
 
               <div class="block">
@@ -186,7 +152,7 @@
                   <span class="demonstration">temperature(0~2)</span>
                 </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.Temperature" :step="0.1" :min="0" :max="2"></el-slider>
+                <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0" :max="2"></el-slider>
               </div>
 
               <div class="block">
@@ -195,7 +161,37 @@
                   <span class="demonstration" s>top_p(0~1)</span>
                 </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.TopP" :step="0.1" :min="0" :max="1"></el-slider>
+                <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
+              </div>
+
+              <div class="block">
+                <el-tooltip class="item" effect="dark" content="此参数会生成许多完成" placement="top">
+                  <span class="demonstration" s>n</span>
+                </el-tooltip>
+
+                <input class="weitiao" v-model="SettingInfo.chat.n" placeholder="提示生成的答案次数" type="number" />
+              </div>
+
+              <div class="block">
+                <el-tooltip class="item" effect="dark" content="开启流式输出" placement="top">
+                  <span class="demonstration">stream</span>
+                </el-tooltip>
+                <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+              </div>
+
+              <div class="block">
+                <el-tooltip class="item" effect="dark" content="回显提示词" placement="top">
+                  <span class="demonstration">echo</span>
+                </el-tooltip>
+                <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
+              </div>
+
+              <div class="block">
+                <el-tooltip class="item" effect="dark" content="设置模型停止生成文本的令牌" placement="top">
+                  <span class="demonstration" s>stop</span>
+                </el-tooltip>
+
+                <input class="weitiao" v-model="SettingInfo.chat.stop" placeholder="停止生成文本的令牌" />
               </div>
 
               <div class="block">
@@ -203,7 +199,7 @@
                   <span class="demonstration">frequency_penalty(-2~2)</span>
                 </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.FrequencyPenalty" :step="0.1" :min="-2"
+                <el-slider class="astrict" v-model="SettingInfo.chat.FrequencyPenalty" :step="0.1" :min="-2"
                   :max="2"></el-slider>
               </div>
 
@@ -211,7 +207,7 @@
                 <el-tooltip class="item" effect="dark" content="指定降低重复话题出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
                   <span class="demonstration">presence_penalty(-2~2)</span>
                 </el-tooltip>
-                <el-slider class="astrict" v-model="SettingInfo.PresencePenalty" :step="0.1" :min="-2"
+                <el-slider class="astrict" v-model="SettingInfo.chat.PresencePenalty" :step="0.1" :min="-2"
                   :max="2"></el-slider>
               </div>
               <!-- <div class="block">
@@ -337,12 +333,11 @@
                 <div v-show="showFineSetting">
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
-                      <span class="demonstration" style="">trainingFile<span style="color: red;">*</span></span>
+                      <span class="demonstration">trainingFile<span style="color: red;">*</span></span>
                     </el-tooltip>
 
                     <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" />
                   </div>
-
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="包含验证数据的文件ID" placement="top">
@@ -355,7 +350,7 @@
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="您可以选择ada、babbage、curie、davinci或者是你自己通过微调训练的模型名称"
                       placement="top">
-                      <span class="demonstration" style="">model</span>
+                      <span class="demonstration">model</span>
                     </el-tooltip>
 
                     <input class="weitiao" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" />
@@ -364,7 +359,7 @@
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="通过调整n_epochs的数量，可以控制模型的训练时期和训练次数，从而影响模型的性能和收敛速度"
                       placement="top">
-                      <span class="demonstration" style="">nEpochs</span>
+                      <span class="demonstration">nEpochs</span>
                     </el-tooltip>
 
                     <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number" placeholder="训练次数" />
@@ -374,23 +369,25 @@
                     <el-tooltip class="item" effect="dark"
                       content="较大的 batch_size可以加快模型的训练速度、模型的稳定性和泛化能力，较小的 batch_size 可以减少内存和计算资源的使用、提高模型在测试数据上的性能"
                       placement="top">
-                      <span class="demonstration" style="">batchSize</span>
+                      <span class="demonstration">batchSize</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" type="number" placeholder="每批数据的大小" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" type="number"
+                      placeholder="每批数据的大小" />
                   </div>
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark"
                       content="可以控制微调训练期间使用的学习率是预训练模型使用的学习率的多少倍。例如，如果您设置为2.0，则微调训练期间使用的学习率将是预训练模型使用的学习率的两倍。"
                       placement="top">
-                      <span class="demonstration" style="">learningRateMultiplier</span>
+                      <span class="demonstration">learningRateMultiplier</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" type="number" placeholder="学习率" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" type="number"
+                      placeholder="学习率" />
                   </div>
 
-                  <div class="block">
+                  <!-- <div class="block">
                     <el-tooltip class="item" effect="dark" content="分类任务中的类数,此参数对于多类分类是必需的" placement="top">
                       <span class="demonstration" style="">classificationNClasses</span>
                     </el-tooltip>
@@ -405,7 +402,7 @@
                       <span class="demonstration" style="">classificationPositiveClass</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class" 
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_positive_class"  type="text"
                       placeholder="二元分类中的正类" />
                   </div>
 
@@ -415,8 +412,8 @@
                       <span class="demonstration" style="">classificationBetas</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_betas" placeholder="分类贝塔" />
-                  </div>
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.classification_betas" placeholder="分类贝塔" type="text" />
+                  </div> -->
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="最多 40 个字符的字符串，将添加到微调的模型名称中。" placement="top">
@@ -436,7 +433,7 @@
                       :max="1" style="width: 95%;"></el-slider>
                   </div>
 
-
+                  <!-- 
                   <div class="block">
                     <el-tooltip class="item" effect="dark" content="用于确定是否在训练过程中计算分类特定的指标，例如准确率和F-1分数,可以在结果文件中查看这些指标."
                       placement="top">
@@ -446,7 +443,7 @@
                       <el-switch v-model="SettingInfo.fineTunes.compute_classification_metrics" :width="defaulWidth"
                         style="margin-top: 15px;margin-left: 35%;"></el-switch>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="fineTune boxinput" @click="createFine"
                     style="margin-left: 0px;margin-right: 0px;width: 99%; background-color: #409EFF;">
@@ -460,10 +457,10 @@
           <!--文件-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 4">
-              <div class="fineTune boxinput" @click="uploadFile" style="margin-left: 0px;margin-right: 0px;width: 99%;"> 
+              <div class="fineTune boxinput" @click="uploadFile" style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 <input type="file" ref="fileInput" style="display: none;" @change="onFileChange">
-                <svg t="1679458974300" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  p-id="1590" width="30" height="30">
+                <svg t="1679458974300" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="1590" width="30" height="30">
                   <path
                     d="M567.466667 634.325333v234.666667a21.333333 21.333333 0 0 1-21.333334 21.333333h-42.666666a21.333333 21.333333 0 0 1-21.333334-21.333333v-234.666667H413.866667a8.533333 8.533333 0 0 1-6.826667-13.653333l110.933333-147.925333a8.533333 8.533333 0 0 1 13.653334 0l110.933333 147.925333a8.533333 8.533333 0 0 1-6.826667 13.653333h-68.266666z"
                     fill="#ffffff" p-id="1591"></path>
@@ -476,10 +473,12 @@
               <div class="fineTune boxinput" @click="deleteOnFile" style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 删除文件
               </div>
-              <div class="fineTune boxinput" @click="retrieveOnFile"  style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="fineTune boxinput" @click="retrieveOnFile"
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 检索文件
               </div>
-              <div class="fineTune boxinput" @click="retrieveOnFileContent"  style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="fineTune boxinput" @click="retrieveOnFileContent"
+                style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 查看文件内容
               </div>
             </div>
@@ -488,7 +487,7 @@
           <!--会话-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 5">
-              <div class="fineTune boxinput" @click="newSession" style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="newSession">
                 <svg t="1679215361568" class="icon" viewBox="0 0 1024 1024" version="1.1"
                   xmlns="http://www.w3.org/2000/svg" p-id="3128" width="25" height="25">
                   <path
@@ -500,30 +499,25 @@
                 </svg>
                 创建会话
               </div>
-              <div class="fineTune boxinput" @click="clearCurrentContext"
-                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="clearCurrentContext">
                 清空当前会话内容
               </div>
-              <div class="fineTune boxinput" @click="exportObjArrToJson"
-                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="exportObjArrToJson">
                 导出当前会话内容
               </div>
-              <div class="fineTune boxinput" @click="importFromJsonArr"
-                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="importFromJsonArr">
                 导入当前会话内容
                 <input type="file" ref="onupdateJosnArr" @change="handleFileUpload" style="display: none;">
               </div>
-              <div class="fineTune boxinput" @click="exportObjArrAllToJson"
+              <div class="session boxinput" @click="exportObjArrAllToJson"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导出会话列表
               </div>
-              <div class="fineTune boxinput" @click="importFromJsonArrAll"
-                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="importFromJsonArrAll">
                 导入会话列表
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
-              <div class="fineTune boxinput" @click="clearAllContext"
-                style="margin-left: 0px;margin-right: 0px;width: 99%;">
+              <div class="session boxinput" @click="clearAllContext">
                 清除会话列表
               </div>
             </div>
@@ -562,9 +556,9 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import { AI_HEAD_IMG_URL } from '@/store/mutation-types'
-import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel,retrieveFineTune,deleteFile,retrieveFile,retrieveFileContent } from "@/api/getData";
+import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel, retrieveFineTune, deleteFile, retrieveFile, retrieveFileContent } from "@/api/getData";
 import { saveAs } from 'file-saver';
-import {  getNowTime, JCMFormatDate,JCMFormatTimestamp } from "@/util/util";
+import { getNowTime, JCMFormatDate, JCMFormatTimestamp } from "@/util/util";
 const { Configuration, OpenAIApi } = require("openai");
 export default {
   name: "App",
@@ -576,8 +570,16 @@ export default {
   },
   data() {
     return {
-      fileSearch:"",
-      sessionSearch:"",
+      settings: [{ name: '对话', active: true },
+                { name: '图片', active: false },
+                { name: '音频', active: false },
+                { name: '微调', active: false },
+                { name: '文件', active: false },
+                { name: '会话', active: false },
+                { name: '识图', active: false },
+                { name: '设置', active: false }],
+      fileSearch: "",
+      sessionSearch: "",
       showFineSetting: false,
       cancelFineStatus: true,
       storeStatus: 0,
@@ -593,35 +595,41 @@ export default {
         totalUsed: 0,
         totalAvailable: 0
       },
-
       batch_sizeStr: "",
       //全部的设置参数
       SettingInfo: {
-        readefile:false,
-        inputStatus:true,
+        KeyMsg: process.env.VUE_APP_OPENAI_API_KEY,
+        readefile: false,
+        inputStatus: true,
         translateEnglish: false,
         openProductionPicture: false,
         openChangePicture: false,
-        KeyMsg: process.env.VUE_APP_OPENAI_API_KEY,
-        MaxTokens: 1000,
-        Temperature: 1,
         TemperatureAudio: 0,
-        TopP: 1,
-        FrequencyPenalty: 0,
-        PresencePenalty: 0,
+      
         n: 1,
         size: "256x256",
         language: "zh",
-        contentImageUrl: "",
+        chat:{
+          suffix:"",
+          MaxTokens: 1000,
+          Temperature: 1,
+          TopP: 1,
+          n:1,
+          stream:true,
+          echo:false,
+          stop:"",
+          FrequencyPenalty: 0,
+          PresencePenalty: 0,
+        },
         fineTunes: {
           training_file: "",
-          validation_file: "",
-          batch_size: "",
           model: "curie",
           n_epochs: 4,
           prompt_loss_weight: 0.01,
-          compute_classification_metrics: false,
           suffix: ""
+          // compute_classification_metrics: false,
+          // classification_betas:"",
+          // classification_positive_class:"",
         }
       },
       //当前点击的文件
@@ -639,7 +647,7 @@ export default {
       //文件列表
       fileList: [],
       //文件缓存列表
-      fineTuningSearch:[],
+      fineTuningSearch: [],
       //微调模型列表
       fineTuningList: [],
       //微调模型缓存列表
@@ -700,20 +708,51 @@ export default {
     if (this.SettingInfo.KeyMsg) {
       this.getModelList(this.SettingInfo.KeyMsg);
     }
-    // 在Vue实例中添加监听函数
-    this.$watch('SettingInfo.KeyMsg', this.watchKeyMsg);
-    this.$watch('SettingInfo.contentImageUrl', this.watchContentImageUrl);
-    this.$watch('modelSearch', this.watchModelSearch);
-    this.$watch('fineTuningSearch', this.watchFineTuningSearch);
     this.$watch('fileSearch', this.watchFileSearch);
   },
   filters: {
     //截取数据到小数点后几位
-    numFilterReserved(value,digit) {
+    numFilterReserved(value, digit) {
       return parseFloat(value).toFixed(digit)
     }
   },
   watch: {
+    modelSearch: {
+      handler: function (newVal, oldVal) {
+        if (this.personList) {
+          this.personList = this.personListCache.filter(person => person.id.includes(newVal))
+        } else {
+          this.personList = this.personListCache
+        }
+      }
+    },
+    fineTuningSearch: {
+      handler: function (newVal, oldVal) {
+        if (this.fineTuningList) {
+          if (!this.cancelFineStatus) {
+            this.fineTuningList = this.fineTuningCacheList.filter(fineTunin => fineTunin.fineTunesStatus === "succeeded").filter(fineTuning => fineTuning.id.includes(newVal))
+          } else {
+            this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
+          }
+        } else {
+          if (!this.cancelFineStatus) {
+            this.fineTuningList = this.fineTuningCacheList.filter(fineTunin => fineTunin.fineTunesStatus === "succeeded")
+          } else {
+            this.fineTuningList = this.fineTuningCacheList
+          }
+        }
+
+      }
+    },
+    fileSearch: {
+      handler: function (newVal, oldVal) {
+        if (this.fileList) {
+          this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
+        } else {
+          this.fileList = this.fileCacheList
+        }
+      }
+    },
     SettingInfo: {
       handler: function (newVal, oldVal) {
         if (newVal.openChangePicture) {
@@ -723,98 +762,49 @@ export default {
           this.SettingInfo.openChangePicture = false
         }
         if (newVal.fineTunes.batch_size) {
-          this.SettingInfo.fineTunes.batch_size = parseInt(newVal.fineTunes.batch_size)
+          let batchSize = parseInt(newVal.fineTunes.batch_size)
+          this.SettingInfo.fineTunes.batch_size = batchSize
+        } else { }
+        if (newVal.fineTunes.validation_file) {
+          this.SettingInfo.fineTunes.validation_file = newVal.fineTunes.validation_file
         }
         if (newVal.fineTunes.learning_rate_multiplier) {
           this.SettingInfo.fineTunes.learning_rate_multiplier = parseInt(newVal.fineTunes.learning_rate_multiplier)
         }
-        if (newVal.fineTunes.classification_n_classes) {
-          this.SettingInfo.fineTunes.classification_n_classes = parseInt(newVal.fineTunes.classification_n_classes)
+        if (newVal.KeyMsg && newVal !== oldVal) {
+          //获取模型列表
+          getModels(newVal).then((res) => {
+            //保存OpenAI key到session中
+            this.personList = res;
+            this.personListCache = res;
+            //获取余额信息
+            getMoneyInfo(newVal).then((res) => {
+              this.moneryInfo.totalGranted = res.total_granted;
+              this.moneryInfo.totalUsed = res.total_used;
+              this.moneryInfo.totalAvailable = res.total_available;
+            });
+          }).catch(e => {
+            this.$message.error("获取模型列表失败哦~~")
+          })
         }
-        if (newVal.fineTunes.classification_positive_class) {
-          this.SettingInfo.fineTunes.classification_positive_class = parseInt(newVal.fineTunes.classification_positive_class)
-        }
-        if (newVal.fineTunes.classification_betas) {
-          this.SettingInfo.fineTunes.classification_betas = newVal.fineTunes.classification_betas.split(",").map(str=>parseInt(str))
-        }
+        // if (newVal.fineTunes.classification_n_classes) {
+        //   this.SettingInfo.fineTunes.classification_n_classes = parseInt(newVal.fineTunes.classification_n_classes)
+        // }
       },
       deep: true
     }
   },
   methods: {
-    // 监听contentImageUrl属性的变化
-    watchContentImageUrl: function (newVal, oldVal) {
-      if (newVal) {
-        this.$refs.chatWindow.updateContentImageUrl(newVal)
-      } else {
-        this.$refs.chatWindow.updateContentImageUrl("https://bpic.51yuansu.com/backgd/cover/00/31/39/5bc8088deeedd.jpg?x-oss-process=image/resize,w_780")
-      }
-    },
-    //监听fineTuningSearch属性的变化
-    watchFineTuningSearch:function (newVal, oldVal) {
-      if (this.fineTuningList.length !== 0) {
-        if(!this.cancelFineStatus){
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded").filter(fineTuning => fineTuning.id.includes(newVal))
-        }else{
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTuning => fineTuning.id.includes(newVal))
-        }
-      }
-      if (newVal == "") {
-        if(!this.cancelFineStatus){
-          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
-        }else{
-          this.fineTuningList = this.fineTuningCacheList
-        }
-      }
-    },
-    //监听fileSearch属性的变化
-    watchFileSearch:function(newVal, oldVal) {
-      if (this.fileList.length !== 0) {
-        this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
-      }
-      if (newVal == "") {
-        this.fileList = this.fileCacheList
-      }
-    },
-    // 监听modelSearch属性的变化
-    watchModelSearch: function (newVal, oldVal) {
-      if (this.personList.length !== 0) {
-        this.personList = this.personListCache.filter(person => person.id.includes(newVal))
-      }
-      if (newVal == "") {
-        this.personList = this.personListCache
-      }
-    },
-    // 监听KeyMsg属性的变化
-    watchKeyMsg: function (newVal, oldVal) {
-      //获取模型列表
-      getModels(newVal).then((res) => {
-        //保存OpenAI key到session中
-        this.personList = res;
-        this.personListCache = res;
-        //获取余额信息
-        getMoneyInfo(newVal).then((res) => {
-          this.moneryInfo.totalGranted = res.total_granted;
-          this.moneryInfo.totalUsed = res.total_used;
-          this.moneryInfo.totalAvailable = res.total_available;
-        });
-      }).catch(e => {
-        this.$message({
-          message: "获取模型列表失败哦~",
-          type: "error",
-        });
-      })
-    },
-     //显示或者隐藏取消过的微调模型
-    showOrHidenCancelFine(status){
-      this.cancelFineStatus = status 
-      if(this.cancelFineStatus==true){
+    //显示或者隐藏取消过的微调模型
+    showOrHidenCancelFine(status) {
+      this.cancelFineStatus = status
+      if (this.cancelFineStatus == true) {
         this.fineTuningList = this.fineTuningCacheList
-      }else{
-        this.fineTuningList=this.fineTuningCacheList.filter(fineTunin=>fineTunin.fineTunesStatus==="succeeded")
+      } else {
+        this.fineTuningList = this.fineTuningCacheList.filter(fineTunin => fineTunin.fineTunesStatus === "succeeded")
       }
     },
-  
+
     //导入会话列表触发的方法
     importFromJsonArrAll() {
       this.$refs.onupdateJosnArrAll.click(); // 触发选择文件的弹框
@@ -887,22 +877,20 @@ export default {
         })
         this.updateMoneyInfo()
       }).catch(e => {
-        this.$message({
-          message: "获取模型列表失败哦~",
-          type: "error",
-        });
+        this.$message.error("获取模型列表失败哦~~")
       })
     },
     //获取微调模型列表
     getFineTunessList(key) {
       getFineTunesList(key).then((res) => {
-        this.fineTuningList = res
         this.fineTuningCacheList = res
+        if (this.cancelFineStatus == true) {
+          this.fineTuningList = this.fineTuningCacheList
+        } else {
+          this.fineTuningList = this.fineTuningCacheList.filter(fineTunin => fineTunin.fineTunesStatus === "succeeded")
+        }
       }).catch(e => {
-        this.$message({
-          message: "获取微调列表失败哦~",
-          type: "error",
-        });
+        this.$message.error("获取模型列表失败哦~~")
       })
     },
     //获取文件列表
@@ -911,10 +899,7 @@ export default {
         this.fileList = res
         this.fileCacheList = res
       }).catch(e => {
-        this.$message({
-          message: "获取文件列表失败哦~",
-          type: "error",
-        });
+        this.$message.error("获取文件列表失败哦~~")
       })
     },
     //监听窗口尺寸的变化
@@ -1018,7 +1003,7 @@ export default {
       //获取微调模型列表
       this.getFineTunessList(this.SettingInfo.KeyMsg)
     },
-    clearCurrent(){
+    clearCurrent() {
       //清除当前选择的模型微调模型
       this.ftCurrent = ""
       //清除当前选择的模型
@@ -1026,7 +1011,7 @@ export default {
       //清除当前选择的会话
       this.sessionCurrent = "";
       //清除当前选择的文件
-      this.fiCurrent= "";
+      this.fiCurrent = "";
     },
     //文件列表被点击
     fileClick() {
@@ -1048,10 +1033,7 @@ export default {
       const file = e.target.files[0];
       // 验证文件类型是否为jsonl格式
       if (!file.name.endsWith('.jsonl')) {
-        this.$message({
-          message: "请上传一个有效的JSONL文件~",
-          type: "warning",
-        });
+        this.$message.warning("请上传一个有效的JSONL文件~~")
         return;
       }
       // 通过验证后，上传文件
@@ -1065,26 +1047,26 @@ export default {
       })
     },
     //检索文件信息
-    retrieveOnFile(){
+    retrieveOnFile() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
         this.$message.error("只能检索文件哦~")
       } else {
         retrieveFile(this.fileInfo.fileId, this.SettingInfo.KeyMsg).then((res) => {
-          let context="`文件ID:`"+res.id+"  \n"
-                  +"`文件名称:`"+res.filename+"  \n"
-                  +"`文件大小:`"+(res.bytes/1024/1024).toFixed(2)+"MB \n"
-                  +"`对象:`"+res.object+"  \n"
-                  +"`状态:`"+res.status+"  \n"
-                  +"`状态描述`"+res.status_details+"  \n"
-                  +"`目的` "+res.purpose+" \n"
-                  +"`文件创建时间`"+JCMFormatTimestamp(res.created_at);
+          let context = "`文件ID:`" + res.id + "  \n"
+            + "`文件名称:`" + res.filename + "  \n"
+            + "`文件大小:`" + (res.bytes / 1024 / 1024).toFixed(2) + "MB \n"
+            + "`对象:`" + res.object + "  \n"
+            + "`状态:`" + res.status + "  \n"
+            + "`状态描述`" + res.status_details + "  \n"
+            + "`目的` " + res.purpose + " \n"
+            + "`文件创建时间`" + JCMFormatTimestamp(res.created_at);
           let retrieveFineTuneMsg = {
             headImg: AI_HEAD_IMG_URL,
             name: res.filename,
             time: JCMFormatDate(getNowTime()),
             msg: context,
-            chatType: 0, 
-            uid: res.id, 
+            chatType: 0,
+            uid: res.id,
           };
           this.$refs.chatWindow.sendMsg(retrieveFineTuneMsg)
           console.log(res)
@@ -1094,17 +1076,17 @@ export default {
       }
     },
     //检索文件内容
-    async retrieveOnFileContent(){
+    async retrieveOnFileContent() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
         this.$message.error("只能检索文件内容哦~")
       } else {
-        try{
+        try {
           const configuration = new Configuration({
-            apiKey:  this.SettingInfo.KeyMsg,
+            apiKey: this.SettingInfo.KeyMsg,
           });
           const openai = new OpenAIApi(configuration);
           const response = await openai.downloadFile(this.fileInfo.fileId);
-        }catch(e){
+        } catch (e) {
           this.$message.error("OpenAI为了减少滥用，免费帐户将无法下载微调训练的文件~")
         }
       }
@@ -1143,11 +1125,11 @@ export default {
         lastMsg: info.lastMsg,
         id: info.id
       }
-      this.fiCurrent=info.fileId
-      this.fileInfo=info
+      this.fiCurrent = info.fileId
+      this.fileInfo = info
     },
     //删除文件
-    deleteOnFile(){
+    deleteOnFile() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
         this.$message.error("只能删除文件哦~")
       } else {
@@ -1175,7 +1157,6 @@ export default {
       } else {
         deleteFineTuneModel(this.fineTuningInfo.name, this.SettingInfo.KeyMsg).then((res) => {
           this.$message.success("恭喜您微调模型删除成功~")
-          console.log(res)
           this.getFineTunessList(this.SettingInfo.KeyMsg)
         }).catch(e => {
           this.$message.error("微调模型删除失败了,模型正在训练中或者中途已取消")
@@ -1198,73 +1179,73 @@ export default {
       }
     },
     //检索微调
-    retrieveFine(){
+    retrieveFine() {
       if (!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId) {
         this.$message.error("只能检索的微调模型哦~")
       } else {
         console.log(this.fineTuningInfo.fineTunesId)
         retrieveFineTune(this.fineTuningInfo.fineTunesId, this.SettingInfo.KeyMsg).then((res) => {
-          let context="`微调任务ID:`"+res.id+"  \n"
-                  +"`任务类型:`"+res.object+"  \n"
-                  +"`模型的类型:`"+res.model+"  \n"
-                  +"`微调任务的创建时间:`"+JCMFormatTimestamp(res.created_at)+"  \n"
-                  +"`微调的事件列表`  \n"
-                  +"| 对象 | 日志级别 | 信息 | 创建时间  |\n"
-                  +"| :------: | :------: | :------: | :------: |\n";
+          let context = "`微调任务ID:`" + res.id + "  \n"
+            + "`任务类型:`" + res.object + "  \n"
+            + "`模型的类型:`" + res.model + "  \n"
+            + "`微调任务的创建时间:`" + JCMFormatTimestamp(res.created_at) + "  \n"
+            + "`微调的事件列表`  \n"
+            + "| 对象 | 日志级别 | 信息 | 创建时间  |\n"
+            + "| :------: | :------: | :------: | :------: |\n";
           res.events.forEach(obj => {
-            context += `| ${obj.object} | ${obj.level} | ${obj.message} | ${ JCMFormatTimestamp(obj.created_at) } |\n`;
+            context += `| ${obj.object} | ${obj.level} | ${obj.message} | ${JCMFormatTimestamp(obj.created_at)} |\n`;
           });
-          context +="\n `微调的模型ID:`"+ res.fine_tuned_model 
-                  +"\n\n `微调使用的参数:` \n"
-                  +"| 属性 | 设置的值 | \n"
-                  +"| :------: | :------: | \n";
+          context += "\n `微调的模型ID:`" + res.fine_tuned_model
+            + "\n\n `微调使用的参数:` \n"
+            + "| 属性 | 设置的值 | \n"
+            + "| :------: | :------: | \n";
           for (let prop in res.hyperparams) {
             if (res.hyperparams.hasOwnProperty(prop)) {
               context += `| ${prop} | ${res.hyperparams[prop]} |\n`;
             }
           }
-         context+="\n`用户所属组:`"+res.organization_id;
+          context += "\n`用户所属组:`" + res.organization_id;
 
-         if(res.result_files.length==0){
-            context+="\n\n`训练结果文件列表:没有`\n\n"
-         }else{
-            context+="\n\n`训练结果文件列表:`\n\n"
-                  +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |    \n"
-                  +"| :------: | :------: | :------: | :------: | :------: | \n";
+          if (res.result_files.length == 0) {
+            context += "\n\n`训练结果文件列表:没有`\n\n"
+          } else {
+            context += "\n\n`训练结果文件列表:`\n\n"
+              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |    \n"
+              + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.result_files.forEach(obj => {
-              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
-            });   
-         }
-          context+="\n`状态:`"+res.status+"\n";
+              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
+            });
+          }
+          context += "\n`状态:`" + res.status + "\n";
 
-          if(res.training_files.length==0){
-            context+="\n\n`训练的文件列表:没有`\n\n"
-          }else{
-            context+="\n\n`训练的文件列表:`\n\n"
-                  +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
-                  +"| :------: | :------: | :------: | :------: | :------: | \n";
+          if (res.training_files.length == 0) {
+            context += "\n\n`训练的文件列表:没有`\n\n"
+          } else {
+            context += "\n\n`训练的文件列表:`\n\n"
+              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+              + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.training_files.forEach(obj => {
-              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
-            }); 
+              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
+            });
           }
-          if(res.validation_files.length==0){
-            context+="\n\n`验证的文件列表:没有`\n\n"
-          }else{
-            context+="\n\n`验证的文件列表:`\n\n"
-            +"| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
-             +"| :------: | :------: | :------: | :------: | :------: | \n";
+          if (res.validation_files.length == 0) {
+            context += "\n\n`验证的文件列表:没有`\n\n"
+          } else {
+            context += "\n\n`验证的文件列表:`\n\n"
+              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+              + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.validation_files.forEach(obj => {
-              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes/1024/1024).toFixed(2)+"MB"} | ${obj.object} | ${obj.status} |  \n`;
-            }); 
+              context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
+            });
           }
-          context+="\n`最后更新时间戳:`"+JCMFormatTimestamp(res.updated_at);
-         let retrieveFineTuneMsg = {
+          context += "\n`最后更新时间戳:`" + JCMFormatTimestamp(res.updated_at);
+          let retrieveFineTuneMsg = {
             headImg: AI_HEAD_IMG_URL,
-            name: res.fine_tuned_model!==null?res.fine_tuned_model:res.id,
+            name: res.fine_tuned_model !== null ? res.fine_tuned_model : res.id,
             time: JCMFormatDate(getNowTime()),
             msg: context,
-            chatType: 0, 
-            uid: res.id, 
+            chatType: 0,
+            uid: res.id,
           };
           this.$refs.chatWindow.sendMsg(retrieveFineTuneMsg)
           console.log(res)
@@ -1321,11 +1302,13 @@ export default {
 .top-right {
   right: 5px;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
 .boxinput {
   height: 30px;
   line-height: 50px;
@@ -1393,6 +1376,24 @@ input[type=number]::-webkit-outer-spin-button {
   border: 0;
   transition: 0.3s;
   box-shadow: 0px 0px 5px 0px rgb(84, 89, 110);
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px rgb(29, 144, 245);
+  }
+}
+
+.session {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(66, 70, 86);
+  border: 0;
+  transition: 0.3s;
+  box-shadow: 0px 0px 5px 0px rgb(84, 89, 110);
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 99%;
 
   &:hover {
     box-shadow: 0px 0px 10px 0px rgb(29, 144, 245);
@@ -1489,7 +1490,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
 
   .chatLeft {
-    width: 280px;
+    width: 17%;
 
     .title {
       color: #fff;
