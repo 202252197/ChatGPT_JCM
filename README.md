@@ -105,6 +105,15 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | More    | 待开发 |
 
 
+# 赞助
+实在是精力忙不过来了兄弟们，一边要处理上百人问的问题，还要一边更新，感谢大家支持（后面后端源码开源还要忙一些）以及要感谢贡献代码的所有大佬
+不需要梯子的方法也有，可以群里讨论一下
+<div>
+<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+</div>
+
+
 # OpenAI交流群
 <div>
 <img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="300px" height="300px"/>
