@@ -122,7 +122,7 @@
             fill="#2867CE" p-id="5766"></path>
         </svg>
       </div>
-      <div v-if="showChatWindow">
+      <div v-if="showChatWindow" v-show="showMainContent">
         <ChatWindow ref="chatWindow" :frinedInfo="chatWindowInfo" :settingInfo="SettingInfo" :storeStatu="storeStatus"
           @personCardSort="personCardSort"></ChatWindow>
       </div>
@@ -677,6 +677,7 @@ export default {
       // 是否隐藏模型列表和功能设置选择列表
       showPersonList: true,
       showSetupList: true,
+      showMainContent: true,
     };
   },
   created() {
@@ -870,10 +871,25 @@ export default {
     toggleLeft() {
       console.log("left clicked")
       this.showPersonList = !this.showPersonList;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      if ( isMobile && (this.showPersonList || this.showSetupList) ){
+          this.showMainContent = false;
+          document.querySelectorAll('.chatLeft')[0].style.width = '100%';
+      }else{
+          this.showMainContent = true;
+          document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+      }
     },
     toggleRight() {
       console.log("right clicked")
       this.showSetupList = !this.showSetupList;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      if ( isMobile && (this.showPersonList || this.showSetupList) ){
+          this.showMainContent = false;
+      }else{
+          this.showMainContent = true;
+          document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+      }
     },
     //获取模型列表
     getModelList(key) {
