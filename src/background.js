@@ -30,10 +30,8 @@ function createWindow() {
         app.quit()
     })
 
-    // 开发环境下，打开dev工具
-    if ( process.env.NODE_ENV === "development"){
-      mainWindow.webContents.openDevTools()
-    }
+    // 打开dev工具
+    mainWindow.webContents.openDevTools()
 
     windowMove(mainWindow);
 }

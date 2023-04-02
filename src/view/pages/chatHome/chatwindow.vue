@@ -46,8 +46,8 @@
             <div class="chat-text" v-if="item.chatType == 0">
               <el-row :gutter="20">
                 <el-col :span="2">
-                  <svg t="1679666016648" @click="$copy(item.msg, '已复制')" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg" p-id="6241" width="22" height="22">
+                  <svg t="1679666016648" @click="$copy(item.msg, '已复制')" class="icon" viewBox="0 0 1024 1024"
+                    version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6241" width="22" height="22">
                     <path
                       d="M661.333333 234.666667A64 64 0 0 1 725.333333 298.666667v597.333333a64 64 0 0 1-64 64h-469.333333A64 64 0 0 1 128 896V298.666667a64 64 0 0 1 64-64z m-21.333333 85.333333H213.333333v554.666667h426.666667v-554.666667z m191.829333-256a64 64 0 0 1 63.744 57.856l0.256 6.144v575.701333a42.666667 42.666667 0 0 1-85.034666 4.992l-0.298667-4.992V149.333333H384a42.666667 42.666667 0 0 1-42.368-37.674666L341.333333 106.666667a42.666667 42.666667 0 0 1 37.674667-42.368L384 64h447.829333z"
                       fill="#909399" p-id="6242"></path>
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="chatInputs" v-show="inputsStatus">
+      <div class="chatInputs">
         <!--表情-->
         <div class="emoji boxinput" @click="clickEmoji" v-show="buttonStatus">
           <img src="@/assets/img/emoji/smiling-face.png" alt="" />
@@ -115,8 +115,10 @@
           <Emoji v-show="showEmoji" @sendEmoji="sendEmoji" @closeEmoji="clickEmoji"></Emoji>
         </div>
         <!--输入框-->
-        <el-input type="textarea"  id="textareaMsg" ref="textInput" :autosize="{}"  class="textarea" v-model="inputMsg" maxlength="2000" style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"  @keydown.enter.stop
-            @keydown.enter.shift.prevent="insertLineBreak" placeholder="在此输入您的提示词~"></el-input>
+        <el-input type="textarea" id="textareaMsg" ref="textInput" :autosize="{}" class="textarea" v-model="inputMsg"
+          maxlength="2000"
+          style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
+          @keydown.enter.stop @keydown.enter.shift.prevent="insertLineBreak" placeholder="在此输入您的提示词~"></el-input>
         <!--发送-->
         <div>
           <div class="send boxinput" @click="sendText">
@@ -130,7 +132,7 @@
 
 <script>
 import { animation, getNowTime, JCMFormatDate } from "@/util/util";
-import { getChatMsg, getCompletion, getChatCompletion, createImage, createImageEdit, createImageVariations, createTranscription, createTranslation,createEmbeddings } from "@/api/getData";
+import { getChatMsg, getCompletion, getChatCompletion, createImage, createImageEdit, createImageVariations, createTranscription, createTranslation, createEmbeddings } from "@/api/getData";
 import HeadPortrait from "@/components/HeadPortrait";
 import Emoji from "@/components/Emoji";
 import FileCard from "@/components/FileCard.vue";
@@ -159,8 +161,8 @@ export default {
   },
   data() {
     return {
-      fileArrays:[],
-      inputsStatus:true,
+      fileArrays: [],
+      inputsStatus: true,
       rows: 1,
       //是否显示表情和录音按钮
       buttonStatus: true,
@@ -180,9 +182,7 @@ export default {
       personInfoSpan: [2, 17, 5],
     };
   },
-  mounted() {
-    this.inputsStatus=this.settingInfo.inputStatus
-  },
+
 
   created() {
     window.addEventListener('resize', this.handleResize)
@@ -193,9 +193,6 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    updateInputsStatus(status){
-      this.inputsStatus=status;
-    },
     //监听窗口的变化
     handleResize() {
       if (window.innerWidth <= 700) {
@@ -338,33 +335,29 @@ export default {
     //发送文字信息
     sendText() {
       // if(this.settingInfo.readefile){
-      //   console.log("看看能获取到不")
       //   console.log(this.fileArrays)
       //   const formData = new FormData();
       //   formData.append("model", "text-embedding-ada-002");
       //   formData.append("input", "吕世昊是谁?");
       //   createEmbeddings(formData,this.settingInfo.KeyMsg).then(data => {
-      //     console.log("文本的地址")
       //     const inputEmbedding=data.data[0]
       //     // const similarText = this.findMostSimilarEmbedding(, this.fileArrays);
 
       //     // 计算每个句子embedding与输入数据embedding之间的相似度
       //     const similarities = this.cosineSimilarity(this.fileArrays.embedding, inputEmbedding.embedding)
       //     const similaritiesArr=[];
-      //     console.log("測測")
       //     console.log(similarities)
       //     similaritiesArr.push(similarities)
       //     // 对相似度进行排名，选择与输入数据最相似的句子或文章段落作为匹配结果
       //     const topMatchIndex = similaritiesArr.reduce((maxIndex, similarity, index) => similarity > similaritiesArr[maxIndex] ? index : maxIndex, 0)
-          
-      //     console.log("你他吗是什么东西")
+
       //     console.log(topMatchIndex)
       //     const topMatchText = sentences[topMatchIndex]
       //     console.log('最匹配的句子是：', topMatchText)
       //     // console.log('最相似的文本为：', similarText);
       //   })
 
-        
+
       //   // const configuration = new Configuration({
       //   //   apiKey:  ,
       //   // });
@@ -374,8 +367,6 @@ export default {
       //   //   input:"text"
       //   // });
       //   // console.log(response)
-
-      //   // alert("开启了")
 
       //   return
       // }
@@ -519,13 +510,69 @@ export default {
       }
     },
     async chatCompletion(params, chatBeforResMsg) {
-      let conversation = this.contextualAssemblyData();
-      params.messages = conversation.map(item => {
-        return {
-          role: item.speaker === 'user' ? 'user' : 'assistant',
-          content: item.text
-        }
-      })
+      let textContext = this.inputMsg;
+      let itemContent;
+      let noUrlNetMessage;
+      if(this.settingInfo.openNet){
+        let context = "max_results="+this.settingInfo.max_results+"&q="+textContext+"&region=us-en";
+        await fetch(
+            'https://search.freechatgpt.cc/search?'+context
+        ).then(response => response.json())
+          .then(
+            data => {
+              let netMessage="Web search results:  ";
+              noUrlNetMessage = netMessage+"\n\n";
+              for (let i = 0; i < data.length ; i++) {
+                netMessage += "["+(i+1)+"] \""+data[i].body.substring(0, 400)+"\"  ";
+                netMessage += "URL:"+data[i].href+"  ";
+                noUrlNetMessage += "["+(i+1)+"] \""+data[i].body.substring(0, 400)+"\"     \n\n";
+              }
+              const date = new Date();
+              const year = date.getFullYear();
+              const month = date.getMonth() + 1;
+              const day = date.getDate();
+              const formattedDate = `${year}/${month}/${day}`;
+              netMessage = netMessage.substring(0,1500)
+
+              netMessage+="Current date:"+formattedDate+"  ";
+              netMessage+=
+                "Instructions: Using the provided web search results, write a comprehensive reply to the given query. " +
+                "Make sure to cite results using [[number](URL)] notation after the reference. If the provided search " +
+                "results refer to multiple subjects with the same name, write separate answers for each subject." +
+                "Query: "+textContext +
+                "Reply in 中文";
+              noUrlNetMessage += " 您的问题: "+textContext;
+              itemContent = {};
+              itemContent.time=JCMFormatDate(getNowTime());
+              itemContent.msg=netMessage;
+              itemContent.chatType=0;
+              itemContent.name="网络";
+              itemContent.headImg="http://175.178.88.119/img/search.png";
+              itemContent.uid=this.frinedInfo.id;
+              this.chatList.push(itemContent);
+
+              let conversation=this.contextualAssemblyData();
+
+              params.messages=conversation.map(item => {
+                return {
+                    role: item.speaker === 'user' ? 'user' : 'assistant',
+                    content: item.text
+                }
+              })
+
+              itemContent.msg=noUrlNetMessage;
+            }
+            );
+      }else{
+        let conversation=this.contextualAssemblyData();
+        params.messages=conversation.map(item => {
+          return {
+            role: item.speaker === 'user' ? 'user' : 'assistant',
+            content: item.text
+          }
+        })
+      }
+
       params.stream = true
       //新增一个空的消息
       this.sendMsg(chatBeforResMsg);
@@ -536,7 +583,7 @@ export default {
         await fetch(
           base.baseUrl + '/v1/chat/completions', {
           method: "POST",
-          timeout: 10000 ,
+          timeout: 10000,
           body: JSON.stringify({
             ...params
           }),
@@ -597,7 +644,7 @@ export default {
         await fetch(
           base.baseUrl + '/v1/completions', {
           method: "POST",
-          timeout: 10000 ,
+          timeout: 10000,
           body: JSON.stringify({
             ...params
           }),
@@ -607,7 +654,7 @@ export default {
           },
         }
         ).then(response => {
-          if(response.status==404){
+          if (response.status == 404) {
             this.$message.error("模型已被删除或已取消...")
             this.$nextTick(() => {
               this.acqStatus = true
@@ -645,7 +692,7 @@ export default {
           readStream(reader);
         })
       } catch (error) {
-        
+
       }
 
     },
@@ -773,7 +820,7 @@ export default {
       })
       e.target.files = null;
     },
-   
+
     //发送文件
     sendFile(e) {
       // let file = e.target.files[0];
@@ -855,10 +902,9 @@ export default {
 
 
 <style lang="scss" scoped>
-
-::v-deep{
-  .el-textarea__inner{
-  background-color: rgb(66, 70, 86);
+::v-deep {
+  .el-textarea__inner {
+    background-color: rgb(66, 70, 86);
     border-radius: 15px;
     border: 2px solid rgb(34, 135, 225);
     /* padding: 10px; */
@@ -871,21 +917,23 @@ export default {
     width: 98%;
     height: 100%;
 
+  }
 }
-} 
 
 pre {
-  background-color: #211f1f !important ;
+  background-color: #211f1f !important;
   border-radius: 20px !important;
   box-shadow: 0px 0px 9px 0px #000000 !important;
   color: #ffff !important;
 }
-.hljs{
-  background-color: #211f1f !important ;
+
+.hljs {
+  background-color: #211f1f !important;
   border-radius: 20px !important;
   box-shadow: 0px 0px 9px 0px #000000 !important;
   color: #ffff !important;
 }
+
 textarea::-webkit-scrollbar {
   width: 3px;
   /* 设置滚动条宽度 */
@@ -1072,6 +1120,7 @@ textarea::-webkit-scrollbar-thumb {
           border-radius: 20px 20px 5px 20px;
           background-color: #95ec69;
           color: #000;
+          word-break: break-all;
         }
 
         .chat-img {
