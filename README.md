@@ -20,19 +20,16 @@
 
 # 部署步骤
 
-## 感觉麻烦的可以直接下载应用程序使用
-https://wweu.lanzoub.com/iSKF90rckdyh (蓝奏云下载地址)
+## 应用程序（暂时不再提供，只提供给赞助者）
 
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
-
 
 ## 本地部署
 ```
 npm install
 npm run serve
 npm run build
-
 ```
  
 
@@ -105,15 +102,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | More    | 待开发 |
 
 
-
-
-# 知识星球
-感谢大家支持（如果有不会搭建或者其他问题可以来此星球解决一切问题）
-<div>
-<img src="https://i.328888.xyz/2023/04/02/iHEGW3.jpeg" alt="drawing" width="300px" height="400px"/>
-<img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
-
 # 个人说明
 非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
 
@@ -121,6 +109,7 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 # 赞助
+开源不易，有需要我帮助可以赞助一下，加一下V联系我。
 <div>
 <img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
 <img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
@@ -129,11 +118,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
 
-![FairyWorld's github stats](https://github-readme-stats.vercel.app/api?username=202252197&show_icons=true&include_all_commits=true&count_private=true&line_height=28&theme=vue-dark)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=202252197&layout=compact&langs_count=12&theme=vue-dark&line_height=28)
-
-[![FairyWorld's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=202252197&theme=dracula)](https://github.com//202252197/ChatGPT_JCM)
-<p align="left">
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/stars/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/last-commit/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/release/202252197/ChatGPT_JCM" /></a>
