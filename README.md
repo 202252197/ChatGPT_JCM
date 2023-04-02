@@ -105,31 +105,26 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | More    | 待开发 |
 
 
-# 赞助
-实在是精力忙不过来了兄弟们，一边要处理上百人问的问题，还要一边更新，感谢大家支持（后面后端源码开源还要忙一些）以及要感谢贡献代码的所有大佬
-不需要梯子的方法也有，可以群里讨论一下
-<div>
-<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
 
 
-# OpenAI交流群
+# 知识星球
+感谢大家支持（如果有不会搭建或者其他问题可以来此星球解决一切问题）
 <div>
-<img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/02/iHEGW3.jpeg" alt="drawing" width="300px" height="300px"/>
 <img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 
-兄弟们如果群满的话加上方V拉进去
-
-
 # 个人说明
-14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言(gecco爬虫、ssm、springboot、dubbo、springCloud和Alibaba...)框架，然后到大数据(Hadoop、spark、flink...)的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
-我后期会录制一些大家提出的问题解决方案，热爱分享，热爱技术，更热爱大家。
+14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言，然后到大数据的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
 
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
+# 赞助
+<div>
+<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+</div>
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
