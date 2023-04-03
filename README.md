@@ -109,10 +109,11 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 # 赞助
-开源不易，有需要我帮助可以赞助一下，加一下V联系我。
+开源不易，有需要我帮助可以赞助一下，加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能。
 <div>
 <img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
 <img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 
 # 免责声明
