@@ -32,6 +32,9 @@ npm run serve
 npm run build
 ```
  
+ # 在线免费体验地址
+ #注意请不要恶意使用，否则以后都不再更新，每两天更新一下，给粉丝们免费使用
+ http://www.multimode-chatgpt.top/#/ChatHome
 
 ## OpenAI-Key设置以及自定义设置
 ### 在.env.serve中添加代码
