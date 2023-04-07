@@ -1,3 +1,4 @@
+import i18n from '@/config/i18n'
 //防抖
 export function debounce(fn) {
   console.log(1)
@@ -59,17 +60,17 @@ export function animation(obj, target, fn1) {
 //判断文件类型
 export function judgeFileType(file) {
   if (file == null || file == "") {
-    alert("请选择要上传的图片!");
+    alert(i18n.t('util_js.select'));
     return false;
   }
   if (file.lastIndexOf('.') == -1) {    //如果不存在"."    
-    alert("路径不正确!");
+    alert(i18n.t('util_js.path'));
     return false;
   }
   var AllImgExt = ".jpg|.jpeg|.gif|.bmp|.png|";
   var extName = file.substring(file.lastIndexOf(".")).toLowerCase();//（把路径中的所有字母全部转换为小写）          
   if (AllImgExt.indexOf(extName + "|") == -1) {
-    ErrMsg = "该文件类型不允许上传。请上传 " + AllImgExt + " 类型的文件，当前文件类型为" + extName;
+    ErrMsg = i18n.t('util_js.notallowed') + AllImgExt + i18n.t('util_js.type') + extName;
     alert(ErrMsg);
     return false;
   }

@@ -9,7 +9,7 @@
     <img src="@/assets/img/fileImg/txt.png" alt="" v-else/>
     <div class="word">
       <span
-        >{{file.name || '未知'}}</span
+        >{{file.name || $t('file_card.unknown')}}</span
       >
       <span>154kb</span>
     </div>

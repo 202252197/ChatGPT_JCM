@@ -17,6 +17,11 @@
         </el-col>
         <el-col :span="personInfoSpan[2]">
           <div class="other-fun">
+            <label @click="changeLanguage">
+              <span class="iconfont">
+                <svg t="1680840158581" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5743" id="mx_n_1680840158585" width="25" height="25"><path d="M424.7 343.4H386c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2zM296.7 343.4H258c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2z" fill="#76798a" p-id="5744"></path><path d="M896 130H128c-23.6 0-42.7 19.1-42.7 42.7v682.7c0 23.6 19.1 42.7 42.7 42.7h768c23.6 0 42.7-19.1 42.7-42.7V172.7c0-23.6-19.1-42.7-42.7-42.7zM170.6 471.4V300.7c0-23.5 19.2-42.7 42.7-42.7h85.3c0-23.5 19.2-42.7 42.7-42.7S384 234.5 384 258h85.3c23.5 0 42.7 19.2 42.7 42.7v170.6c0 23.5-19.2 42.7-42.7 42.7H384v42.8c0 23.5-19.2 42.7-42.7 42.7s-42.7-19.2-42.7-42.7v-42.7h-85.3c-23.5 0-42.7-19.2-42.7-42.7zM512 791.3c-93.1 0-179.6-46.3-231.1-124-6.5-9.7-3.8-23 6-29.5 9.7-6.5 23-3.9 29.5 6 43.7 65.7 116.8 104.9 195.6 104.9 11.8 0 21.3 9.5 21.3 21.3s-9.5 21.3-21.3 21.3z m65.3-525.8c3.9-11.1 16.2-16.9 27.2-13 56.3 19.9 105.6 58.3 138.7 108.2 6.5 9.7 3.8 23-6 29.5-3.6 2.4-7.7 3.6-11.8 3.6-6.9 0-13.7-3.3-17.8-9.5-28.1-42.2-69.8-74.8-117.3-91.6-11.1-3.9-16.9-16.1-13-27.2z m233.4 547.2H640c-23.5 0-42.7-19.2-42.7-42.7V471.5c0-23.5 19.2-42.7 42.7-42.7h169.9c23.8 0 43.7 19.4 43.4 43.2-0.4 23.2-19.4 42.1-42.7 42.1h-126c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h126c23.3 0 42.4 18.9 42.7 42.1 0.4 23.7-19.6 43.2-43.4 43.2H684.7c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h125.2c23.8 0 43.8 19.4 43.5 43.2-0.4 23.2-19.4 42.1-42.7 42.1z" fill="#76798a" p-id="5745"></path></svg>
+              </span>
+            </label>
             <label @click="clearMsgList">
               <span class="iconfont icon-qingchu"></span>
             </label>
@@ -125,7 +130,8 @@
         <el-input type="textarea" id="textareaMsg" ref="textInput" :autosize="{}" class="textarea" v-model="inputMsg"
           maxlength="2000"
           style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
-          @keydown.enter.stop @keydown.enter.shift.prevent="insertLineBreak" placeholder="在此输入您的提示词~"></el-input>
+          @keydown.enter.stop @keydown.enter.shift.prevent="insertLineBreak"
+          :placeholder="$t('placeholder.question')"></el-input>
         <!--发送-->
         <div>
           <div class="send boxinput" @click="sendText">
@@ -201,6 +207,12 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    // 切换语言
+    changeLanguage() {
+      const lang = this.$i18n.locale === "zh" ? "en" : "zh";
+      localStorage.setItem("lang", lang);
+      this.$i18n.locale = lang;
+    },
     //导入当前内容json触发的方法
     importFromJsonArr() {
       this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
@@ -298,9 +310,9 @@ export default {
         this.recording = true
         this.recorder.start()
         // 在这里使用录音器
-        this.$message.success("开始录音咯~")
+        this.$message.success(this.$t('message.start_recording'))
       }).catch((error) => {
-        this.$message.error("获取音频流失败啦~")
+        this.$message.error(this.$t('message.fail_audio'))
       });
     },
     //停止录音
@@ -335,7 +347,7 @@ export default {
           })
         }
       }
-      this.$message.success("结束录音咯~")
+      this.$message.success(this.$t('message.end_recording'))
     },
     //发送信息
     sendMsg(msgList) {
@@ -401,7 +413,7 @@ export default {
           this.$nextTick(() => {
             this.acqStatus = true
           });
-          this.$message.warning("编辑图片模式：请您聊天窗口右上角先上传图片，再发送修改的内容~")
+          this.$message.warning(this.$t('message.edit_picture'))
           return
         } else {
           // 通过验证后，上传文件
@@ -520,7 +532,7 @@ export default {
         this.$nextTick(() => {
           this.acqStatus = true
         });
-        this.$message.warning("消息不能为空哦~")
+        this.$message.warning(this.$t('message.msg_empty'))
       }
     },
     async chatCompletion(params, chatBeforResMsg) {
@@ -676,7 +688,7 @@ export default {
         }
         ).then(response => {
           if (response.status == 404) {
-            this.$message.error("模型已被删除或已取消...")
+            this.$message.error(this.$t('message.model_del'))
             this.$nextTick(() => {
               this.acqStatus = true
             });
@@ -760,7 +772,7 @@ export default {
 
       // 验证文件类型是否为PNG格式
       if (file.type !== "image/png") {
-        this.$message.warning("请上传一个有效的PNG文件~")
+        this.$message.warning(this.$t('message.valid_png'))
         this.$nextTick(() => {
           this.acqStatus = true
         });
@@ -769,7 +781,7 @@ export default {
 
       // 验证文件大小是否小于4MB
       if (file.size > 4 * 1024 * 1024) {
-        this.$message.warning("请上传一个小于4MB的文件~")
+        this.$message.warning(this.$t('message.less_4M'))
         this.$nextTick(() => {
           this.acqStatus = true
         });
@@ -778,7 +790,7 @@ export default {
 
       if (this.settingInfo.openChangePicture) {
         this.updateImage = file
-        this.$message.info("图片上传完成啦，请给我提示进行编辑~")
+        this.$message.info(this.$t('message.upload_complete'))
         e.target.files = null;
         this.$nextTick(() => {
           this.acqStatus = true
