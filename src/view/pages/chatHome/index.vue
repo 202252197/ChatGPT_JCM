@@ -14,7 +14,7 @@
             d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z"
             fill="#ffffff" p-id="3637"></path>
         </svg>
-        <h2>JUN CHEN MO</h2>
+        <h2>OpenAI Manager</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;">
         <el-row :gutter="24">
@@ -556,14 +556,14 @@
               </div> -->
               <div class="session boxinput" @click="exportObjArrAllToJson"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                导出会话列表
+                <span class="iconfont icon-daochu" style="color: #fff;"></span>会话列表
               </div>
               <div class="session boxinput" @click="importFromJsonArrAll">
-                导入会话列表
+                <span class="iconfont icon-daoru" style="color: #fff;"></span>会话列表
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
               <div class="session boxinput" @click="clearAllContext">
-                清除会话列表
+                <span class="iconfont icon-qingchu" style="color: #fff;"></span>会话列表
               </div>
             </div>
           </el-collapse-transition>

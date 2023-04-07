@@ -212,7 +212,7 @@ export default {
       reader.onload = () => {
         const fileContent = reader.result; // 文件内容
         const parsed = JSON.parse(fileContent); // 转换为数组
-        this.chatList=this.chatList.concat(parsed)
+        this.chatList = this.chatList.concat(parsed)
       };
       reader.readAsText(file);
     },
@@ -917,6 +917,15 @@ export default {
 
 
 <style lang="scss" scoped>
+.iconfont:hover {
+  
+   color: rgb(29, 144, 245);
+  .block {
+    opacity: 1;
+  }
+
+}
+
 ::v-deep {
   .el-textarea__inner {
     background-color: rgb(66, 70, 86);
