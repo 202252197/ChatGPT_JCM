@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
 
 const base = {
   axios: axios,
-  baseUrl: 'https://lvshihao-chatgpt.xyz'
+  baseUrl: 'https://api.openai.com'
 }
 
 export default base
