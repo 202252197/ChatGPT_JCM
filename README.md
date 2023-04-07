@@ -9,13 +9,13 @@
 > 🤭记得点个小星星Starred
 
 ## 会话
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIKfd.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/07/iNgA7o.jpeg)
 ## 模型
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIvcN.jpeg)
-## 微调模型列表
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIsno.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/07/iNg0yq.jpeg)
+## 微调模型
+![webui4.5](https://i.328888.xyz/2023/04/07/iNgVGJ.jpeg)
 ## 文件
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIEoE.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/07/iNgtmd.jpeg)
 
 
 # 部署步骤
@@ -105,11 +105,14 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 # 赞助
-开源不易，有需要我帮助可以赞助一下(多少无所谓，看项目对大家有多大帮助🤭)，加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能，可以进入技术交流群。
+开源不易，有需要我帮助可以赞助一下(多少无所谓，看项目对大家有多大帮助🤭)
 <div>
-<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
+  <img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
+  <img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+</div>
+<div>
+  加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能，可以进入技术交流群。
+  <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 
 # 免责声明
