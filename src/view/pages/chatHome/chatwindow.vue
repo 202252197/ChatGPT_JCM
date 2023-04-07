@@ -929,6 +929,15 @@ export default {
 
 
 <style lang="scss" scoped>
+.iconfont:hover {
+  
+   color: rgb(29, 144, 245);
+  .block {
+    opacity: 1;
+  }
+
+}
+
 ::v-deep {
   .el-textarea__inner {
     background-color: rgb(66, 70, 86);
