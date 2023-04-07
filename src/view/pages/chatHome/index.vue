@@ -20,27 +20,27 @@
         <el-row :gutter="24">
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">会话</span>
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">{{$t('session.title')}}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">模型</span>
+              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">{{$t('model.title')}}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">微调</span>
+              <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">{{$t('slightly.title.whole')}}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">文件</span>
+              <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">{{$t('file.title')}}</span>
             </div>
           </el-col>
         </el-row>
         <div v-show="cutSetting == 0">
-          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;" placeholder="模型名称" />
+          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.model_name')" />
           <div class="s-wrapper">
             <div class="personList" v-for="personInfo in personList" :key="personInfo.id"
               @click="clickPerson(personInfo)">
@@ -50,7 +50,7 @@
         </div>
 
         <div v-show="cutSetting == 1">
-          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;" placeholder="会话名称" />
+          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.session_name')" />
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList" :key="sessionInfo.id" @click="clickSession(sessionInfo)">
               <Session :sessionInfo="sessionInfo" :pcCurrent="sessionCurrent"></Session>
@@ -59,7 +59,7 @@
         </div>
 
         <div v-show="cutSetting == 2">
-          <input class="inputs" v-model="fineTuningSearch" style=" margin-top: 10px;" placeholder="微调模型名称" />
+          <input class="inputs" v-model="fineTuningSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.slightly_name')" />
           <div class="s-wrapper">
             <div class="personList" v-for="fineTuningInfo in fineTuningList" :key="fineTuningInfo.id"
               @click="clickFineTuning(fineTuningInfo)">
@@ -69,7 +69,7 @@
         </div>
 
         <div v-show="cutSetting == 3">
-          <input class="inputs" v-model="fileSearch" style=" margin-top: 10px;" placeholder="文件名称" />
+          <input class="inputs" v-model="fileSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.file_name')" />
 
           <div class="s-wrapper">
             <div class="personList" v-for="(fileInfo, index) in fileList" :key="index" @click="clickFile(fileInfo)">
@@ -142,7 +142,7 @@
 
       <div class="online-person">
         <el-row :gutter="20">
-          <el-col :span="6" v-for="(setting, index) in settings" :key="index"> <span class="setting"
+          <el-col :span="6" v-for="(setting, index) in getSettings" :key="index"> <span class="setting"
               @click="SettingStatus = index" :class="{ active: SettingStatus === index }"> {{ setting.name }} </span>
           </el-col>
         </el-row>
@@ -150,22 +150,22 @@
         <div class="s-wrapper" style="height: 78vh;">
 
           <div>
-            <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" type="password"
+            <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
               style="width: 100%; margin-left: 0px;margin-right: 0px;" />
           </div>
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="打开之后联网查询" placement="top">
-                  <span class="demonstration">联网</span>
+                <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
+                  <span class="demonstration">{{$t('model.online_title')}}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
               </div>
 
               <div class="block" v-show="SettingInfo.openNet">
-                <el-tooltip class="item" effect="dark" content="指定联网查询数据的数量，不建议太大。" placement="top">
-                  <span class="demonstration" style="">max_results</span>
+                <el-tooltip class="item" effect="dark" :content="$t('model.max_results_title')" placement="top">
+                  <span class="demonstration" style="">{{$t('model.max_results')}}</span>
                 </el-tooltip>
 
                 <el-slider class="astrict" v-model="SettingInfo.max_results" :step="1" :min="0" :max="6"></el-slider>
@@ -173,16 +173,16 @@
 
               <div v-show="!SettingInfo.openNet">
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="在生成文本末尾添加的文本片段" placement="top">
-                    <span class="demonstration">suffix</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.suffix')" placement="top">
+                    <span class="demonstration">{{$t('model.suffix_title')}}</span>
                   </el-tooltip>
 
-                  <input class="weitiao" v-model="SettingInfo.chat.suffix" placeholder="末尾添加的文本片段" />
+                  <input class="weitiao" v-model="SettingInfo.chat.suffix" :placeholder="$t('placeholder.suffix')" />
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
-                    <span class="demonstration" style="">max_tokens</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.max_tokens')" placement="top">
+                    <span class="demonstration" style="">{{$t('model.max_tokens_title')}}</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0"
@@ -190,9 +190,9 @@
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到2，越高表示越多样化和创造性，越低表示越保守和确定性。"
+                  <el-tooltip class="item" effect="dark" :content="$t('model.temperature')"
                     placement="top">
-                    <span class="demonstration">temperature(0~2)</span>
+                    <span class="demonstration">{{$t('model.temperature_title')}}</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0"
@@ -200,47 +200,47 @@
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定在每个步骤中保留概率最高的单词的比例，范围是0到1，与temperature类似，但更加灵活和稳健。"
+                  <el-tooltip class="item" effect="dark" :content="$t('model.top_p')"
                     placement="top">
-                    <span class="demonstration" s>top_p(0~1)</span>
+                    <span class="demonstration" s>{{$t('model.top_p_title')}}</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="此参数会生成许多完成" placement="top">
-                    <span class="demonstration" s>n</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.n')" placement="top">
+                    <span class="demonstration" s>{{$t('model.n_title')}}</span>
                   </el-tooltip>
 
-                  <input class="weitiao" v-model="SettingInfo.chat.n" placeholder="提示生成的答案次数" type="number" />
+                  <input class="weitiao" v-model="SettingInfo.chat.n" :placeholder="$t('placeholder.response_count')" type="number" />
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="开启流式输出" placement="top">
-                    <span class="demonstration">stream</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.stream')" placement="top">
+                    <span class="demonstration">{{$t('model.stream_title')}}</span>
                   </el-tooltip>
                   <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="回显提示词" placement="top">
-                    <span class="demonstration">echo</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.echo')" placement="top">
+                    <span class="demonstration">{{$t('model.echo_title')}}</span>
                   </el-tooltip>
                   <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="设置模型停止生成文本的令牌" placement="top">
-                    <span class="demonstration" s>stop</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.stop')" placement="top">
+                    <span class="demonstration" s>{{$t('model.stop_title')}}</span>
                   </el-tooltip>
 
-                  <input class="weitiao" v-model="SettingInfo.chat.stop" placeholder="停止生成文本的令牌" />
+                  <input class="weitiao" v-model="SettingInfo.chat.stop" :placeholder="$t('placeholder.stop')" />
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定降低重复单词出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
-                    <span class="demonstration">frequency_penalty(-2~2)</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.frequency_penalty')" placement="top">
+                    <span class="demonstration">{{$t('model.frequency_penalty_title')}}</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.chat.FrequencyPenalty" :step="0.1" :min="-2"
@@ -248,8 +248,8 @@
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" content="指定降低重复话题出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
-                    <span class="demonstration">presence_penalty(-2~2)</span>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.presence_penalty')" placement="top">
+                    <span class="demonstration">{{$t('model.presence_penalty_title')}}</span>
                   </el-tooltip>
                   <el-slider class="astrict" v-model="SettingInfo.chat.PresencePenalty" :step="0.1" :min="-2"
                     :max="2"></el-slider>
@@ -271,24 +271,24 @@
             <div v-show="SettingStatus == 1">
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="打开之后聊天发送的内容为描述图片的信息" placement="top">
-                  <span class="demonstration">产图模式</span>
+                <el-tooltip class="item" effect="dark" :content="$t('image.production_title')" placement="top">
+                  <span class="demonstration">{{$t('image.production')}}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
               </div>
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="打开之后先上传图片，然后再输入提示词进行修改。" placement="top">
-                  <span class="demonstration">改图模式</span>
+                <el-tooltip class="item" effect="dark" :content="$t('image.change_title')" placement="top">
+                  <span class="demonstration">{{$t('image.change')}}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.openChangePicture" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
               </div>
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="图片的大小。" placement="top">
-                  <span class="demonstration">size</span>
+                <el-tooltip class="item" effect="dark" :content="$t('image.size_title')" placement="top">
+                  <span class="demonstration">{{$t('image.size')}}</span>
                 </el-tooltip>
                 <div>
                   <el-select v-model="SettingInfo.size" placeholder="请选择" style="margin-top: 10px;">
@@ -299,8 +299,8 @@
               </div>
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="生成图片的数量。" placement="top">
-                  <span class="demonstration">n(1~10)</span>
+                <el-tooltip class="item" effect="dark" :content="$t('image.count_title')" placement="top">
+                  <span class="demonstration">{{$t('image.count')}}</span>
                 </el-tooltip>
                 <el-slider class="astrict" v-model="SettingInfo.n" :step="1" :min="-1" :max="10"></el-slider>
               </div>
@@ -315,16 +315,16 @@
             <div v-show="SettingStatus == 2">
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="语音转文字" placement="top">
-                  <span class="demonstration">语音转文字</span>
+                <el-tooltip class="item" effect="dark" :content="$t('audio.to_text_title')" placement="top">
+                  <span class="demonstration">{{$t('audio.to_text')}}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
               </div>
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="将一个或多个来源语言的语音或音频文件翻译成目标语言" placement="top">
-                  <span class="demonstration">language</span>
+                <el-tooltip class="item" effect="dark" :content="$t('audio.language_title')" placement="top">
+                  <span class="demonstration">{{$t('audio.language')}}</span>
                 </el-tooltip>
                 <div>
                   <el-select v-model="SettingInfo.language" placeholder="请选择" style="margin-top: 10px;">
@@ -336,9 +336,9 @@
 
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定语音识别的随机性，范围是0到1，越高表示越多样化和创造性，越低表示越保守和确定性。"
+                <el-tooltip class="item" effect="dark" :content="$t('audio.temperature_title')"
                   placement="top">
-                  <span class="demonstration">temperature(0~1)</span>
+                  <span class="demonstration">{{$t('audio.temperature')}}</span>
                 </el-tooltip>
 
                 <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0"
@@ -354,82 +354,82 @@
           <el-collapse-transition>
             <div v-show="SettingStatus == 3">
               <div class="fineTune boxinput" @click="retrieveFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                检索微调
+                {{$t('slightly.retrieveFineTuning')}}
               </div>
               <div class="fineTune boxinput" @click="cancelFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                取消微调
+                {{$t('slightly.cancelFineTuning')}}
               </div>
               <div class="fineTune boxinput" @click="showOrHidenCancelFine(false)" v-if="cancelFineStatus"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                隐藏已取消的微调
+                {{$t('slightly.hideCanceledFineTuning')}}
               </div>
               <div class="fineTune boxinput" @click="showOrHidenCancelFine(true)" v-else
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                显示已取消的微调
+                {{$t('slightly.showCanceledFineTuning')}}
               </div>
               <div class="fineTune boxinput" @click="deleteFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                删除微调模型
+                {{$t('slightly.deleteFineTuningModel')}}
               </div>
               <div class="fineTune boxinput" @click="showFineSetting = !showFineSetting"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                创建微调
+                {{$t('slightly.createFineTuning')}}
               </div>
               <el-collapse-transition>
                 <div v-show="showFineSetting">
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" content="包含训练数据的文件ID" placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.fileIDTrainingData')" placement="top">
                       <span class="demonstration">trainingFile<span style="color: red;">*</span></span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" placeholder="训练数据的文件ID" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" :placeholder="$t('placeholder.trainingDataFileID')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" content="包含验证数据的文件ID" placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.fileIDValidationData')" placement="top">
                       <span class="demonstration" style="">validationFile</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" placeholder="验证数据文件ID" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" :placeholder="$t('placeholder.validationDataFileID')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" content="您可以选择ada、babbage、curie、davinci或者是你自己通过微调训练的模型名称"
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.modelOptions')"
                       placement="top">
                       <span class="demonstration">model</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.model" placeholder="模型名称" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.model" :placeholder="$t('placeholder.modelName')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" content="通过调整n_epochs的数量，可以控制模型的训练时期和训练次数，从而影响模型的性能和收敛速度"
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.epochs')"
                       placement="top">
                       <span class="demonstration">nEpochs</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number" placeholder="训练次数" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number" :placeholder="$t('placeholder.trainingIterations')" />
                   </div>
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark"
-                      content="较大的 batch_size可以加快模型的训练速度、模型的稳定性和泛化能力，较小的 batch_size 可以减少内存和计算资源的使用、提高模型在测试数据上的性能"
+                      :content="$t('slightly.batchSize')"
                       placement="top">
                       <span class="demonstration">batchSize</span>
                     </el-tooltip>
 
                     <input class="weitiao" v-model="SettingInfo.fineTunes.batch_size" type="number"
-                      placeholder="每批数据的大小" />
+                      :placeholder="$t('placeholder.batchSize')" />
                   </div>
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark"
-                      content="可以控制微调训练期间使用的学习率是预训练模型使用的学习率的多少倍。例如，如果您设置为2.0，则微调训练期间使用的学习率将是预训练模型使用的学习率的两倍。"
+                      :content="$t('slightly.learningRate')"
                       placement="top">
                       <span class="demonstration">learningRateMultiplier</span>
                     </el-tooltip>
 
                     <input class="weitiao" v-model="SettingInfo.fineTunes.learning_rate_multiplier" type="number"
-                      placeholder="学习率" />
+                      :placeholder="$t('placeholder.learningRate')" />
                   </div>
 
                   <!-- <div class="block">
@@ -461,16 +461,16 @@
                   </div> -->
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" content="最多 40 个字符的字符串，将添加到微调的模型名称中。" placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.fineTunedName')" placement="top">
                       <span class="demonstration" style="">suffix</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" placeholder="后缀" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" :placeholder="$t('placeholder.ftsuffix')" />
                   </div>
 
                   <div class="block">
                     <el-tooltip class="item" effect="dark"
-                      content="设置较高的值，那么模型在生成文本时会更加注重提示，设置较低的值模型则会更加注重自己的语言模型，生成更自由的文本" placement="top">
+                      :content="$t('slightly.promptAttention')" placement="top">
                       <span class="demonstration" style="">promptLossWeight</span>
                     </el-tooltip>
 
@@ -492,7 +492,7 @@
 
                   <div class="fineTune boxinput" @click="createFine"
                     style="margin-left: 0px;margin-right: 0px;width: 99%; background-color: #409EFF;">
-                    创建
+                    {{$t('slightly.create')}}
                   </div>
                 </div>
               </el-collapse-transition>
@@ -513,18 +513,18 @@
                     d="M768 725.333333a128 128 0 0 0 38.613333-250.112l-39.850666-12.586666-14.506667-39.253334a256.128 256.128 0 0 0-480.554667 0l-14.464 39.253334-39.850666 12.586666A128.085333 128.085333 0 0 0 256 725.333333a42.666667 42.666667 0 0 1 0 85.333334 213.333333 213.333333 0 0 1-64.341333-416.810667 341.461333 341.461333 0 0 1 640.682666 0A213.418667 213.418667 0 0 1 768 810.666667a42.666667 42.666667 0 0 1 0-85.333334z"
                     fill="#ffffff" p-id="1592"></path>
                 </svg>
-                上传文件
+                {{$t('file.upload')}}
               </div>
               <div class="fineTune boxinput" @click="deleteOnFile" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                删除文件
+                {{$t('file.delete')}}
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFile"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                检索文件
+                {{$t('file.retrieve')}}
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFileContent"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                查看文件内容
+                {{$t('file.view')}}
               </div>
             </div>
           </el-collapse-transition>
@@ -542,7 +542,7 @@
                     d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z"
                     fill="#ffffff" p-id="3130"></path>
                 </svg>
-                创建会话
+                {{$t('session.create')}}
               </div>
               <!-- <div class="session boxinput" @click="clearCurrentContext">
                 清空当前会话内容
@@ -556,14 +556,14 @@
               </div> -->
               <div class="session boxinput" @click="exportObjArrAllToJson"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                导出会话列表
+                {{$t('session.export')}}
               </div>
               <div class="session boxinput" @click="importFromJsonArrAll">
-                导入会话列表
+                {{$t('session.import')}}
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
               <div class="session boxinput" @click="clearAllContext">
-                清除会话列表
+                {{$t('session.clear')}}
               </div>
             </div>
           </el-collapse-transition>
@@ -615,15 +615,6 @@ export default {
   },
   data() {
     return {
-      settings: [{ name: '对话', active: true },
-      { name: '图片', active: false },
-      { name: '音频', active: false },
-      { name: '微调', active: false },
-      { name: '文件', active: false },
-      { name: '会话', active: false },
-      { name: '角色', active: false },
-      { name: '设置', active: false }
-    ],
       fileSearch: "",
       sessionSearch: "",
       showFineSetting: false,
@@ -736,6 +727,20 @@ export default {
       showMainContent: true,
     };
   },
+  computed:{
+    // 把获取setting列表的操作放到computed计算属性里来，这样才能动态绑定i18n的值
+    getSettings(){
+      return [{ name: this.$t('model.talk'), active: true },
+       { name: this.$t('image.title'), active: false },
+       { name: this.$t('audio.title'), active: false },
+       { name: this.$t('slightly.title.abbreviation'), active: false },
+       { name: this.$t('file.title'), active: false },
+       { name: this.$t('session.title'), active: false },
+       { name: this.$t('role.title'), active: false },
+       { name: this.$t('setting.title'), active: false }
+      ]
+    }
+  },
   created() {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
@@ -748,8 +753,8 @@ export default {
     this.chatWindowInfo = {
       img: "",
       name: "ChatGPT-3.5",
-      detail: "chatgpt v3.5 所基于的模型",
-      lastMsg: "chatgpt v3.5 所基于的模型",
+      detail: this.$t('index.detail'),
+      lastMsg: this.$t('index.lastMsg'),
       id: "gpt-3.5-turbo",
       headImg: AI_HEAD_IMG_URL,
       showHeadImg: true
@@ -833,7 +838,7 @@ export default {
             //   this.moneryInfo.totalAvailable = res.total_available;
             // });
           }).catch(e => {
-            this.$message.error("获取模型列表失败哦~~")
+            this.$message.error(this.$t('message.get_model_fail'))
           })
         }
         // if (newVal.fineTunes.classification_n_classes) {
@@ -935,7 +940,7 @@ export default {
         })
         this.updateMoneyInfo()
       }).catch(e => {
-        // this.$message.error("获取模型列表失败哦~~")
+        // this.$message.error(this.$t('message.get_model_fail'))
       })
     },
     //获取微调模型列表
@@ -948,7 +953,7 @@ export default {
           this.fineTuningList = this.fineTuningCacheList.filter(fineTunin => fineTunin.fineTunesStatus === "succeeded")
         }
       }).catch(e => {
-        this.$message.error("获取模型列表失败哦~~")
+        this.$message.error(this.$t('message.get_model_fail'))
       })
     },
     //获取文件列表
@@ -957,7 +962,7 @@ export default {
         this.fileList = res
         this.fileCacheList = res
       }).catch(e => {
-        this.$message.error("获取文件列表失败哦~~")
+        this.$message.error(this.$t('message.get_files_fail'))
       })
     },
     //监听窗口尺寸的变化
@@ -1091,7 +1096,7 @@ export default {
       const file = e.target.files[0];
       // 验证文件类型是否为jsonl格式
       if (!file.name.endsWith('.jsonl')) {
-        this.$message.warning("请上传一个有效的JSONL文件~~")
+        this.$message.warning(this.$t('message.valid_json'))
         return;
       }
       // 通过验证后，上传文件
@@ -1099,7 +1104,7 @@ export default {
       formData.append("file", file);
       formData.append("purpose", "fine-tune");
       uploadFile(formData, this.SettingInfo.KeyMsg).then((res) => {
-        this.$copy(res.id, "文件已上传成功,文件ID是" + res.id + ",已经帮您复制啦~")
+        this.$copy(res.id, this.$t('index.up_file_id') + res.id + this.$t('index.copy'))
         //更新文件列表
         this.getFilessList(this.SettingInfo.KeyMsg)
       })
@@ -1107,17 +1112,17 @@ export default {
     //检索文件信息
     retrieveOnFile() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
-        this.$message.error("只能检索文件哦~")
+        this.$message.error(this.$t('message.only_file'))
       } else {
         retrieveFile(this.fileInfo.fileId, this.SettingInfo.KeyMsg).then((res) => {
-          let context = "`文件ID:`" + res.id + "  \n"
-            + "`文件名称:`" + res.filename + "  \n"
-            + "`文件大小:`" + (res.bytes / 1024 / 1024).toFixed(2) + "MB \n"
-            + "`对象:`" + res.object + "  \n"
-            + "`状态:`" + res.status + "  \n"
-            + "`状态描述`" + res.status_details + "  \n"
-            + "`目的` " + res.purpose + " \n"
-            + "`文件创建时间`" + JCMFormatTimestamp(res.created_at);
+          let context = this.$t('index.file_id') + res.id + "  \n"
+            + this.$t('index.file_name') + res.filename + "  \n"
+            + this.$t('index.file_size') + (res.bytes / 1024 / 1024).toFixed(2) + "MB \n"
+            + this.$t('index.obj') + res.object + "  \n"
+            + this.$t('index.status') + res.status + "  \n"
+            + this.$t('index.status_des') + res.status_details + "  \n"
+            + this.$t('index.target') + res.purpose + " \n"
+            + this.$t('index.file_time') + JCMFormatTimestamp(res.created_at);
           let retrieveFineTuneMsg = {
             headImg: AI_HEAD_IMG_URL,
             name: res.filename,
@@ -1129,14 +1134,14 @@ export default {
           this.$refs.chatWindow.sendMsg(retrieveFineTuneMsg)
           console.log(res)
         }).catch(e => {
-          this.$message.error("文件检索失败了~")
+          this.$message.error(this.$t('message.fail_file'))
         })
       }
     },
     //检索文件内容
     async retrieveOnFileContent() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
-        this.$message.error("只能检索文件内容哦~")
+        this.$message.error(this.$t('message.only_file'))
       } else {
         try {
           const configuration = new Configuration({
@@ -1145,7 +1150,7 @@ export default {
           const openai = new OpenAIApi(configuration);
           const response = await openai.downloadFile(this.fileInfo.fileId);
         } catch (e) {
-          this.$message.error("OpenAI为了减少滥用，免费帐户将无法下载微调训练的文件~")
+          this.$message.error(this.$t('message.openai_free'))
         }
       }
     },
@@ -1189,114 +1194,114 @@ export default {
     //删除文件
     deleteOnFile() {
       if (!this.fileInfo || !this.fileInfo.fileId) {
-        this.$message.error("只能删除文件哦~")
+        this.$message.error(this.$t('message.only_del_file'))
       } else {
         deleteFile(this.fileInfo.fileId, this.SettingInfo.KeyMsg).then((res) => {
-          this.$message.success("恭喜您删除成功~")
+          this.$message.success(this.$t('message.del_file_succ'))
           this.getFilessList(this.SettingInfo.KeyMsg)
         }).catch(e => {
-          this.$message.error("文件删除失败了~")
+          this.$message.error(this.$t('message.del_fail'))
         })
       }
     },
     //创建微调
     createFine() {
       createFineTune(this.SettingInfo.fineTunes, this.SettingInfo.KeyMsg).then((res) => {
-        this.$message.success("恭喜您微调创建成功~")
+        this.$message.success(this.$t('message.create_succ'))
         this.getFineTunessList(this.SettingInfo.KeyMsg)
       }).catch(e => {
-        this.$message.error("微调创建失败了...")
+        this.$message.error(this.$t('message.create_fail'))
       })
     },
     //删除微调
     deleteFine() {
       if (!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId) {
-        this.$message.error("只能删除微调中的模型哦~")
+        this.$message.error(this.$t('message.only_del_model'))
       } else {
         deleteFineTuneModel(this.fineTuningInfo.name, this.SettingInfo.KeyMsg).then((res) => {
-          this.$message.success("恭喜您微调模型删除成功~")
+          this.$message.success(this.$t('message.del_model_succ'))
           this.getFineTunessList(this.SettingInfo.KeyMsg)
         }).catch(e => {
-          this.$message.error("微调模型删除失败了,模型正在训练中或者中途已取消")
+          this.$message.error(this.$t('message.del_fail_ing'))
         })
       }
     },
     //取消微调
     cancelFine() {
       if (!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId || this.fineTuningInfo.fineTunesStatus === "succeeded") {
-        this.$message.error("只能取消进行训练中的微调模型哦~")
+        this.$message.error(this.$t('message.only_cancel'))
       } else {
         console.log(this.fineTuningInfo.fineTunesId)
         cancelFineTune(this.fineTuningInfo.fineTunesId, this.SettingInfo.KeyMsg).then((res) => {
-          this.$message.success("成功取消此模型~")
+          this.$message.success(this.$t('message.cancel_succ'))
           this.getFineTunessList(this.SettingInfo.KeyMsg)
         }).catch(e => {
           console.log(e)
-          this.$message.error("取消微调模型失败~")
+          this.$message.error(this.$t('message.cancel_fail'))
         })
       }
     },
     //检索微调
     retrieveFine() {
       if (!this.fineTuningInfo || !this.fineTuningInfo.fineTunesId) {
-        this.$message.error("只能检索的微调模型哦~")
+        this.$message.error(this.$t('message.only_model'))
       } else {
         console.log(this.fineTuningInfo.fineTunesId)
         retrieveFineTune(this.fineTuningInfo.fineTunesId, this.SettingInfo.KeyMsg).then((res) => {
-          let context = "`微调任务ID:`" + res.id + "  \n"
-            + "`任务类型:`" + res.object + "  \n"
-            + "`模型的类型:`" + res.model + "  \n"
-            + "`微调任务的创建时间:`" + JCMFormatTimestamp(res.created_at) + "  \n"
-            + "`微调的事件列表`  \n"
-            + "| 对象 | 日志级别 | 信息 | 创建时间  |\n"
+          let context = this.$t('index.task_id') + res.id + "  \n"
+            + this.$t('index.task_type') + res.object + "  \n"
+            + this.$t('index.model_type') + res.model + "  \n"
+            + this.$t('index.task_time') + JCMFormatTimestamp(res.created_at) + "  \n"
+            + this.$t('index.task_list')
+            + this.$t('index.obj_log_info_time')
             + "| :------: | :------: | :------: | :------: |\n";
           res.events.forEach(obj => {
             context += `| ${obj.object} | ${obj.level} | ${obj.message} | ${JCMFormatTimestamp(obj.created_at)} |\n`;
           });
-          context += "\n `微调的模型ID:`" + res.fine_tuned_model
-            + "\n\n `微调使用的参数:` \n"
-            + "| 属性 | 设置的值 | \n"
+          context += this.$t('index.model_id') + res.fine_tuned_model
+            + this.$t('index.args')
+            + this.$t('index.item_setting')
             + "| :------: | :------: | \n";
           for (let prop in res.hyperparams) {
             if (res.hyperparams.hasOwnProperty(prop)) {
               context += `| ${prop} | ${res.hyperparams[prop]} |\n`;
             }
           }
-          context += "\n`用户所属组:`" + res.organization_id;
+          context += this.$t('index.user_group') + res.organization_id;
 
           if (res.result_files.length == 0) {
-            context += "\n\n`训练结果文件列表:没有`\n\n"
+            context += this.$t('index.results_null')
           } else {
-            context += "\n\n`训练结果文件列表:`\n\n"
-              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |    \n"
+            context += this.$t('index.results')
+              + this.$t('index.table_head')
               + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.result_files.forEach(obj => {
               context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
             });
           }
-          context += "\n`状态:`" + res.status + "\n";
+          context += this.$t('index.statu') + res.status + "\n";
 
           if (res.training_files.length == 0) {
-            context += "\n\n`训练的文件列表:没有`\n\n"
+            context += this.$t('index.files_null')
           } else {
-            context += "\n\n`训练的文件列表:`\n\n"
-              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+            context += this.$t('index.files')
+              + this.$t('index.table_head')
               + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.training_files.forEach(obj => {
               context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
             });
           }
           if (res.validation_files.length == 0) {
-            context += "\n\n`验证的文件列表:没有`\n\n"
+            context += this.$t('index.verifys_null')
           } else {
-            context += "\n\n`验证的文件列表:`\n\n"
-              + "| ID  | 文件名称 | 文件大小 |   对象 | 状态 |  \n"
+            context += this.$t('index.verifys')
+              + this.$t('index.table_head')
               + "| :------: | :------: | :------: | :------: | :------: | \n";
             res.validation_files.forEach(obj => {
               context += `| ${obj.id} | ${obj.filename}  | ${(obj.bytes / 1024 / 1024).toFixed(2) + "MB"} | ${obj.object} | ${obj.status} |  \n`;
             });
           }
-          context += "\n`最后更新时间戳:`" + JCMFormatTimestamp(res.updated_at);
+          context += this.$t('index.last_time') + JCMFormatTimestamp(res.updated_at);
           let retrieveFineTuneMsg = {
             headImg: AI_HEAD_IMG_URL,
             name: res.fine_tuned_model !== null ? res.fine_tuned_model : res.id,
@@ -1309,7 +1314,7 @@ export default {
           console.log(res)
         }).catch(e => {
           console.log(e)
-          this.$message.error("检索微调模型失败~")
+          this.$message.error(this.$t('message.verify_model_fail'))
         })
       }
     },

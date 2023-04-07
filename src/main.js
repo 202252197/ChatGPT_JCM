@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router/index'
 import { copyToClipboard } from '@/util/util'
+import i18n from '@/config/i18n'
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -20,6 +21,7 @@ Vue.prototype.$copy = function (value,mes) {
 }
 
 new Vue({
+  i18n,
   router,
   render: h => h(App),
 }).$mount('#app')
