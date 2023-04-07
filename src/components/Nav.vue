@@ -31,7 +31,7 @@ export default {
     return {
       menuList: [
         "icon-xinxi",
-        "icon-shezhi",
+        "icon-shezhi"
       ],
       current: 0,
       imgUrl: USER_HEAD_IMG_URL

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import "@/assets/font/fonts.css"
+import "@/assets/font/font.css"
 import Home from './view/home.vue'
 
 export default {

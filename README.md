@@ -6,7 +6,7 @@
 声明：此项目只发布于 GitHub，基于 BSD-3-Clause license 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
 项目使用Vue2进行开发，给大家提供一个方便使用的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对openai进行入门了解使用，后期会接入后端，实现更丰富的功能。
 
-> 🤭记得点个小星星
+> 🤭记得点个小星星Starred
 
 ## 会话
 ![webui4.5](https://i.328888.xyz/2023/03/26/iDIKfd.jpeg)
@@ -20,19 +20,16 @@
 
 # 部署步骤
 
-## 感觉麻烦的可以直接下载应用程序使用
-https://wweu.lanzoub.com/iSKF90rckdyh (蓝奏云下载地址)
+## 应用程序（暂时不再提供，只提供给赞助者）
 
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
-
 
 ## 本地部署
 ```
 npm install
 npm run serve
 npm run build
-
 ```
  
 
@@ -104,41 +101,20 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | 增加后端实现更多功能    | 待开发 |
 | More    | 待开发 |
 
-
-# 赞助
-实在是精力忙不过来了兄弟们，一边要处理上百人问的问题，还要一边更新，感谢大家支持（后面后端源码开源还要忙一些）以及要感谢贡献代码的所有大佬
-不需要梯子的方法也有，可以群里讨论一下
-<div>
-<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
-
-
-# OpenAI交流群
-<div>
-<img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
-
-兄弟们如果群满的话加上方V拉进去
-
-
-# 个人说明
-14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言(gecco爬虫、ssm、springboot、dubbo、springCloud和Alibaba...)框架，然后到大数据(Hadoop、spark、flink...)的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
-我后期会录制一些大家提出的问题解决方案，热爱分享，热爱技术，更热爱大家。
-
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
+# 赞助
+开源不易，有需要我帮助可以赞助一下(多少无所谓，看项目对大家有多大帮助🤭)，加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能，可以进入技术交流群。
+<div>
+<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+<img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
+</div>
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
 
-![FairyWorld's github stats](https://github-readme-stats.vercel.app/api?username=202252197&show_icons=true&include_all_commits=true&count_private=true&line_height=28&theme=vue-dark)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=202252197&layout=compact&langs_count=12&theme=vue-dark&line_height=28)
-
-[![FairyWorld's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=202252197&theme=dracula)](https://github.com//202252197/ChatGPT_JCM)
-<p align="left">
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/stars/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/last-commit/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/release/202252197/ChatGPT_JCM" /></a>

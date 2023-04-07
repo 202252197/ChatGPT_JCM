@@ -2,12 +2,19 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:22%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
-        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3634" width="40" height="40">
-          <path d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z" fill="#ffffff" p-id="3635"></path>
-          <path d="M514 559c-7.8 0-15.5-2-22.4-6L270.9 425.4c-21.5-12.4-28.8-39.8-16.4-61.3 12.4-21.5 39.8-28.8 61.3-16.4l198.1 114.5 189.7-110.9c21.4-12.5 48.9-5.3 61.4 16.1 12.5 21.4 5.3 48.9-16.1 61.4l-212.2 124c-7 4.1-14.9 6.2-22.7 6.2z" fill="#ffffff" p-id="3636"></path>
-          <path d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z" fill="#ffffff" p-id="3637"></path>
+        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="3634" width="40" height="40">
+          <path
+            d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z"
+            fill="#ffffff" p-id="3635"></path>
+          <path
+            d="M514 559c-7.8 0-15.5-2-22.4-6L270.9 425.4c-21.5-12.4-28.8-39.8-16.4-61.3 12.4-21.5 39.8-28.8 61.3-16.4l198.1 114.5 189.7-110.9c21.4-12.5 48.9-5.3 61.4 16.1 12.5 21.4 5.3 48.9-16.1 61.4l-212.2 124c-7 4.1-14.9 6.2-22.7 6.2z"
+            fill="#ffffff" p-id="3636"></path>
+          <path
+            d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z"
+            fill="#ffffff" p-id="3637"></path>
         </svg>
-        <h2>OpenAI Manage</h2>
+        <h2>JUN CHEN MO</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;">
         <el-row :gutter="24">
@@ -76,41 +83,61 @@
     <div class="chatRight">
       <!-- <router-view></router-view> -->
       <div class="top-left" @click="toggleLeft">
-        <svg t="1679366341860" class="icon" v-show="!showPersonList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
-          <path d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z" fill="#BDD2EF" p-id="5765"></path>
-          <path d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z" fill="#2867CE" p-id="5766"></path>
+        <svg t="1679366341860" class="icon" v-show="!showPersonList" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
+          <path
+            d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z"
+            fill="#BDD2EF" p-id="5765"></path>
+          <path
+            d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z"
+            fill="#2867CE" p-id="5766"></path>
         </svg>
-        <svg t="1679366707602" class="icon" v-show="showPersonList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
-          <path d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z" fill="#BDD2EF" p-id="7552"></path>
-          <path d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z" fill="#2867CE" p-id="7553"></path>
+        <svg t="1679366707602" class="icon" v-show="showPersonList" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
+          <path
+            d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z"
+            fill="#BDD2EF" p-id="7552"></path>
+          <path
+            d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z"
+            fill="#2867CE" p-id="7553"></path>
         </svg>
       </div>
       <div class="top-right" @click="toggleRight">
-        <svg t="1679366707602" class="icon" v-show="!showSetupList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
-          <path d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z" fill="#BDD2EF" p-id="7552"></path>
-          <path d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z" fill="#2867CE" p-id="7553"></path>
+        <svg t="1679366707602" class="icon" v-show="!showSetupList" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
+          <path
+            d="M514 912c-219.9 0-398.8-178.9-398.8-398.9 0-219.9 178.9-398.8 398.8-398.8s398.8 178.9 398.8 398.8c0 220-178.9 398.9-398.8 398.9z m0-701.5c-166.9 0-302.7 135.8-302.7 302.7S347.1 815.9 514 815.9s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5z"
+            fill="#BDD2EF" p-id="7552"></path>
+          <path
+            d="M402.5 677.3c0-15 5.7-30.1 17.2-41.5l122.6-122.6-122.6-122.6c-22.9-22.9-22.9-60.2 0-83.1 22.9-22.9 60.2-22.9 83.1 0l164.1 164.1c22.9 22.9 22.9 60.2 0 83.1L502.8 718.8c-22.9 22.9-60.2 22.9-83.1 0-11.5-11.4-17.2-26.5-17.2-41.5z"
+            fill="#2867CE" p-id="7553"></path>
         </svg>
-        <svg t="1679366341860" class="icon" v-show="showSetupList" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
-          <path d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z" fill="#BDD2EF" p-id="5765"></path>
-          <path d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z" fill="#2867CE" p-id="5766"></path>
+        <svg t="1679366341860" class="icon" v-show="showSetupList" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="5764" width="30" height="30">
+          <path
+            d="M912.8 513.2C912.8 733.1 733.9 912 514 912S115.2 733.1 115.2 513.2 294.1 114.3 514 114.3s398.8 179 398.8 398.9z m-701.5 0c0 166.9 135.8 302.7 302.7 302.7s302.7-135.8 302.7-302.7S680.9 210.5 514 210.5 211.3 346.3 211.3 513.2z"
+            fill="#BDD2EF" p-id="5765"></path>
+          <path
+            d="M626.8 345.9c0 15-5.7 30.1-17.2 41.5L487.1 510l122.6 122.6c22.9 22.9 22.9 60.2 0 83.1-22.9 22.9-60.2 22.9-83.1 0L362.4 551.6c-22.9-22.9-22.9-60.2 0-83.1l164.1-164.1c22.9-22.9 60.2-22.9 83.1 0 11.5 11.5 17.2 26.5 17.2 41.5z"
+            fill="#2867CE" p-id="5766"></path>
         </svg>
       </div>
-      <div v-if="showChatWindow">
+      <div v-if="showChatWindow" v-show="showMainContent">
         <ChatWindow ref="chatWindow" :frinedInfo="chatWindowInfo" :settingInfo="SettingInfo" :storeStatu="storeStatus"
           @personCardSort="personCardSort"></ChatWindow>
       </div>
       <div class="showIcon" v-else>
-        <svg t="1679552353056" class="icon iconfont icon-snapchat" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" width="200" height="200">
-          <path d="M992.33 416.37c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-63.96h63.98c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-95.94c0.01-8.48-3.36-16.62-9.35-22.62-6-6-14.14-9.37-22.62-9.36h-95.94V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96H544.6V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98s-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98S224.8 14.95 224.8 32.61v63.96h-95.94c-8.48 0-16.62 3.36-22.62 9.36s-9.36 14.14-9.36 22.62v95.94H32.92c-17.67 0-31.98 14.32-31.98 31.98s14.32 31.98 31.98 31.98h63.96v63.96H32.92c-17.67 0-31.98 14.32-31.98 31.98 0 17.67 14.32 31.98 31.98 31.98h63.96v63.97H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.65 14.31 31.97 31.97 31.97h63.96v63.98H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.66 14.31 31.97 31.97 31.97h63.96v63.98H32.92C15.26 736.18 0.95 750.5 0.95 768.15s14.31 31.97 31.97 31.97h63.96v95.95a31.944 31.944 0 0 0 9.36 22.62c6 5.99 14.14 9.36 22.62 9.35h95.94v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h95.94c8.48 0.02 16.62-3.35 22.62-9.35s9.37-14.14 9.35-22.62v-95.95h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98V672.2h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.98h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.97h63.98zM864.41 864.1H160.84V160.53h703.57V864.1zM406.82 580.42h79.2l15.48 61.56h67.68l-83.16-267.84h-77.04l-83.16 267.84h65.52l15.48-61.56z m18-72.36c6.84-26.64 14.04-57.96 20.52-86.04h1.44c7.2 27.36 14.04 59.4 21.24 86.04l5.76 22.68h-54.72l5.76-22.68zM697.7 641.98h-64.44V374.14h64.44v267.84z" p-id="3489"></path>
+        <svg t="1679552353056" class="icon iconfont icon-snapchat" viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="3488" width="200" height="200">
+          <path
+            d="M992.33 416.37c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-63.96h63.98c17.66 0 31.98-14.32 31.98-31.98s-14.32-31.98-31.98-31.98h-63.98v-95.94c0.01-8.48-3.36-16.62-9.35-22.62-6-6-14.14-9.37-22.62-9.36h-95.94V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96H544.6V32.61c0-17.67-14.32-31.98-31.98-31.98-17.67 0-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98s-31.98 14.32-31.98 31.98v63.96h-63.96V32.61c0-17.67-14.32-31.98-31.98-31.98S224.8 14.95 224.8 32.61v63.96h-95.94c-8.48 0-16.62 3.36-22.62 9.36s-9.36 14.14-9.36 22.62v95.94H32.92c-17.67 0-31.98 14.32-31.98 31.98s14.32 31.98 31.98 31.98h63.96v63.96H32.92c-17.67 0-31.98 14.32-31.98 31.98 0 17.67 14.32 31.98 31.98 31.98h63.96v63.97H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.65 14.31 31.97 31.97 31.97h63.96v63.98H32.92c-17.66 0-31.97 14.31-31.97 31.97 0 17.66 14.31 31.97 31.97 31.97h63.96v63.98H32.92C15.26 736.18 0.95 750.5 0.95 768.15s14.31 31.97 31.97 31.97h63.96v95.95a31.944 31.944 0 0 0 9.36 22.62c6 5.99 14.14 9.36 22.62 9.35h95.94v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98 17.67 0 31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h63.96v63.98c0 17.66 14.32 31.98 31.98 31.98s31.98-14.32 31.98-31.98v-63.98h95.94c8.48 0.02 16.62-3.35 22.62-9.35s9.37-14.14 9.35-22.62v-95.95h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98V672.2h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.98h63.98c17.65 0 31.97-14.31 31.97-31.97 0-17.66-14.31-31.97-31.97-31.97h-63.98v-63.97h63.98zM864.41 864.1H160.84V160.53h703.57V864.1zM406.82 580.42h79.2l15.48 61.56h67.68l-83.16-267.84h-77.04l-83.16 267.84h65.52l15.48-61.56z m18-72.36c6.84-26.64 14.04-57.96 20.52-86.04h1.44c7.2 27.36 14.04 59.4 21.24 86.04l5.76 22.68h-54.72l5.76-22.68zM697.7 641.98h-64.44V374.14h64.44v267.84z"
+            p-id="3489"></path>
         </svg>
       </div>
     </div>
     <div class="chatLeft" v-show="showSetupList">
 
       <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
-        总余额：${{ this.moneryInfo.totalGranted | numFilterReserved(2) }}<br />
-        可用余额：${{ this.moneryInfo.totalAvailable | numFilterReserved(4) }}<br />
-        消耗余额：${{ moneryInfo.totalUsed | numFilterReserved(4) }}<br />
       </el-card>
 
       <div class="online-person">
@@ -120,7 +147,7 @@
           </el-col>
         </el-row>
 
-        <div class="s-wrapper" style="height: 68vh;">
+        <div class="s-wrapper" style="height: 78vh;">
 
           <div>
             <input class="inputs" v-model="SettingInfo.KeyMsg" placeholder="请输入OpenAI KEY" type="password"
@@ -129,86 +156,104 @@
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
-
               <div class="block">
-                <el-tooltip class="item" effect="dark" content="在生成文本末尾添加的文本片段" placement="top">
-                  <span class="demonstration">suffix</span>
+                <el-tooltip class="item" effect="dark" content="打开之后联网查询" placement="top">
+                  <span class="demonstration">联网</span>
                 </el-tooltip>
-
-                <input class="weitiao" v-model="SettingInfo.chat.suffix" placeholder="末尾添加的文本片段" />
+                <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
               </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
-                  <span class="demonstration" style="">max_tokens</span>
+              <div class="block" v-show="SettingInfo.openNet">
+                <el-tooltip class="item" effect="dark" content="指定联网查询数据的数量，不建议太大。" placement="top">
+                  <span class="demonstration" style="">max_results</span>
                 </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0" :max="2048"></el-slider>
+                <el-slider class="astrict" v-model="SettingInfo.max_results" :step="1" :min="0" :max="6"></el-slider>
               </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到2，越高表示越多样化和创造性，越低表示越保守和确定性。"
-                  placement="top">
-                  <span class="demonstration">temperature(0~2)</span>
-                </el-tooltip>
+              <div v-show="!SettingInfo.openNet">
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="在生成文本末尾添加的文本片段" placement="top">
+                    <span class="demonstration">suffix</span>
+                  </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0" :max="2"></el-slider>
-              </div>
+                  <input class="weitiao" v-model="SettingInfo.chat.suffix" placeholder="末尾添加的文本片段" />
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定在每个步骤中保留概率最高的单词的比例，范围是0到1，与temperature类似，但更加灵活和稳健。"
-                  placement="top">
-                  <span class="demonstration" s>top_p(0~1)</span>
-                </el-tooltip>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定要生成的最大单词数，不能超过2048。" placement="top">
+                    <span class="demonstration" style="">max_tokens</span>
+                  </el-tooltip>
 
-                <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
-              </div>
+                  <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0"
+                    :max="2048"></el-slider>
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="此参数会生成许多完成" placement="top">
-                  <span class="demonstration" s>n</span>
-                </el-tooltip>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定生成文本的随机性，范围是0到2，越高表示越多样化和创造性，越低表示越保守和确定性。"
+                    placement="top">
+                    <span class="demonstration">temperature(0~2)</span>
+                  </el-tooltip>
 
-                <input class="weitiao" v-model="SettingInfo.chat.n" placeholder="提示生成的答案次数" type="number" />
-              </div>
+                  <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0"
+                    :max="2"></el-slider>
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="开启流式输出" placement="top">
-                  <span class="demonstration">stream</span>
-                </el-tooltip>
-                <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
-              </div>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定在每个步骤中保留概率最高的单词的比例，范围是0到1，与temperature类似，但更加灵活和稳健。"
+                    placement="top">
+                    <span class="demonstration" s>top_p(0~1)</span>
+                  </el-tooltip>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="回显提示词" placement="top">
-                  <span class="demonstration">echo</span>
-                </el-tooltip>
-                <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
-              </div>
+                  <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="设置模型停止生成文本的令牌" placement="top">
-                  <span class="demonstration" s>stop</span>
-                </el-tooltip>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="此参数会生成许多完成" placement="top">
+                    <span class="demonstration" s>n</span>
+                  </el-tooltip>
 
-                <input class="weitiao" v-model="SettingInfo.chat.stop" placeholder="停止生成文本的令牌" />
-              </div>
+                  <input class="weitiao" v-model="SettingInfo.chat.n" placeholder="提示生成的答案次数" type="number" />
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定降低重复单词出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
-                  <span class="demonstration">frequency_penalty(-2~2)</span>
-                </el-tooltip>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="开启流式输出" placement="top">
+                    <span class="demonstration">stream</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
 
-                <el-slider class="astrict" v-model="SettingInfo.chat.FrequencyPenalty" :step="0.1" :min="-2"
-                  :max="2"></el-slider>
-              </div>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="回显提示词" placement="top">
+                    <span class="demonstration">echo</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
+                </div>
 
-              <div class="block">
-                <el-tooltip class="item" effect="dark" content="指定降低重复话题出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
-                  <span class="demonstration">presence_penalty(-2~2)</span>
-                </el-tooltip>
-                <el-slider class="astrict" v-model="SettingInfo.chat.PresencePenalty" :step="0.1" :min="-2"
-                  :max="2"></el-slider>
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="设置模型停止生成文本的令牌" placement="top">
+                    <span class="demonstration" s>stop</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.chat.stop" placeholder="停止生成文本的令牌" />
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定降低重复单词出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
+                    <span class="demonstration">frequency_penalty(-2~2)</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.chat.FrequencyPenalty" :step="0.1" :min="-2"
+                    :max="2"></el-slider>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" content="指定降低重复话题出现概率的程度，范围是0到1，越高表示越避免重复。" placement="top">
+                    <span class="demonstration">presence_penalty(-2~2)</span>
+                  </el-tooltip>
+                  <el-slider class="astrict" v-model="SettingInfo.chat.PresencePenalty" :step="0.1" :min="-2"
+                    :max="2"></el-slider>
+                </div>
               </div>
               <!-- <div class="block">
                 <el-tooltip class="item" effect="dark" content="开启读文模式" placement="top">
@@ -499,7 +544,7 @@
                 </svg>
                 创建会话
               </div>
-              <div class="session boxinput" @click="clearCurrentContext">
+              <!-- <div class="session boxinput" @click="clearCurrentContext">
                 清空当前会话内容
               </div>
               <div class="session boxinput" @click="exportObjArrToJson">
@@ -508,7 +553,7 @@
               <div class="session boxinput" @click="importFromJsonArr">
                 导入当前会话内容
                 <input type="file" ref="onupdateJosnArr" @change="handleFileUpload" style="display: none;">
-              </div>
+              </div> -->
               <div class="session boxinput" @click="exportObjArrAllToJson"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 导出会话列表
@@ -523,7 +568,7 @@
             </div>
           </el-collapse-transition>
 
-          <!--识图-->
+          <!--角色-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 6">
 
@@ -557,7 +602,7 @@ import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import { AI_HEAD_IMG_URL } from '@/store/mutation-types'
 import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel, retrieveFineTune, deleteFile, retrieveFile, retrieveFileContent } from "@/api/getData";
-import { saveAs } from 'file-saver';
+
 import { getNowTime, JCMFormatDate, JCMFormatTimestamp } from "@/util/util";
 const { Configuration, OpenAIApi } = require("openai");
 export default {
@@ -571,13 +616,14 @@ export default {
   data() {
     return {
       settings: [{ name: '对话', active: true },
-                { name: '图片', active: false },
-                { name: '音频', active: false },
-                { name: '微调', active: false },
-                { name: '文件', active: false },
-                { name: '会话', active: false },
-                { name: '识图', active: false },
-                { name: '设置', active: false }],
+      { name: '图片', active: false },
+      { name: '音频', active: false },
+      { name: '微调', active: false },
+      { name: '文件', active: false },
+      { name: '会话', active: false },
+      { name: '角色', active: false },
+      { name: '设置', active: false }
+    ],
       fileSearch: "",
       sessionSearch: "",
       showFineSetting: false,
@@ -605,22 +651,24 @@ export default {
         openProductionPicture: false,
         openChangePicture: false,
         TemperatureAudio: 0,
-      
+
         n: 1,
         size: "256x256",
         language: "zh",
-        chat:{
-          suffix:"",
+        chat: {
+          suffix: "",
           MaxTokens: 1000,
           Temperature: 1,
           TopP: 1,
-          n:1,
-          stream:true,
-          echo:false,
-          stop:"",
+          n: 1,
+          stream: true,
+          echo: false,
+          stop: "",
           FrequencyPenalty: 0,
           PresencePenalty: 0,
         },
+        openNet: false,
+        max_results: 3,
         fineTunes: {
           training_file: "",
           model: "curie",
@@ -685,6 +733,7 @@ export default {
       // 是否隐藏模型列表和功能设置选择列表
       showPersonList: true,
       showSetupList: true,
+      showMainContent: true,
     };
   },
   created() {
@@ -711,10 +760,10 @@ export default {
     this.$watch('fileSearch', this.watchFileSearch);
   },
   filters: {
-    //截取数据到小数点后几位
-    numFilterReserved(value, digit) {
-      return parseFloat(value).toFixed(digit)
-    }
+    // //截取数据到小数点后几位
+    // numFilterReserved(value, digit) {
+    //   return parseFloat(value).toFixed(digit)
+    // }
   },
   watch: {
     modelSearch: {
@@ -778,11 +827,11 @@ export default {
             this.personList = res;
             this.personListCache = res;
             //获取余额信息
-            getMoneyInfo(newVal).then((res) => {
-              this.moneryInfo.totalGranted = res.total_granted;
-              this.moneryInfo.totalUsed = res.total_used;
-              this.moneryInfo.totalAvailable = res.total_available;
-            });
+            // getMoneyInfo(newVal).then((res) => {
+            //   this.moneryInfo.totalGranted = res.total_granted;
+            //   this.moneryInfo.totalUsed = res.total_used;
+            //   this.moneryInfo.totalAvailable = res.total_available;
+            // });
           }).catch(e => {
             this.$message.error("获取模型列表失败哦~~")
           })
@@ -820,34 +869,28 @@ export default {
       };
       reader.readAsText(file);
     },
-    //导入当前内容json触发的方法
-    importFromJsonArr() {
-      this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
+    // //导入当前内容json触发的方法
+    // importFromJsonArr() {
+    //   this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
+    // },
+    // handleFileUpload(event) {
+    //   const file = event.target.files[0];
+    //   const reader = new FileReader();
 
-      reader.onload = () => {
-        const fileContent = reader.result; // 文件内容
-        const parsed = JSON.parse(fileContent); // 转换为数组
-        this.$refs.chatWindow.assignmentMesList(parsed)
-      };
-      reader.readAsText(file);
-    },
+    //   reader.onload = () => {
+    //     const fileContent = reader.result; // 文件内容
+    //     const parsed = JSON.parse(fileContent); // 转换为数组
+    //     this.$refs.chatWindow.assignmentMesList(parsed)
+    //   };
+    //   reader.readAsText(file);
+    // },
     //导出所有会话到json文件
     exportObjArrAllToJson() {
       let jsonString = JSON.stringify(this.sessionList); // 将数组转为JSON字符串
       let blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
       saveAs(blob, "data.json");
     },
-    //导出当前会话到json文件
-    exportObjArrToJson() {
-      const mesList = this.$refs.chatWindow.getMesList()
-      let jsonString = JSON.stringify(mesList); // 将数组转为JSON字符串
-      let blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
-      saveAs(blob, "data.json");
-    },
+ 
     //清除所有的会话内容
     clearAllContext() {
       this.sessionList = []
@@ -860,10 +903,25 @@ export default {
     toggleLeft() {
       console.log("left clicked")
       this.showPersonList = !this.showPersonList;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      if (isMobile && (this.showPersonList || this.showSetupList)) {
+        this.showMainContent = false;
+        document.querySelectorAll('.chatLeft')[0].style.width = '100%';
+      } else {
+        this.showMainContent = true;
+        document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+      }
     },
     toggleRight() {
       console.log("right clicked")
       this.showSetupList = !this.showSetupList;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      if (isMobile && (this.showPersonList || this.showSetupList)) {
+        this.showMainContent = false;
+      } else {
+        this.showMainContent = true;
+        document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+      }
     },
     //获取模型列表
     getModelList(key) {
@@ -877,7 +935,7 @@ export default {
         })
         this.updateMoneyInfo()
       }).catch(e => {
-        this.$message.error("获取模型列表失败哦~~")
+        // this.$message.error("获取模型列表失败哦~~")
       })
     },
     //获取微调模型列表
@@ -924,16 +982,16 @@ export default {
         this.showSetupList = true;
       };
     },
-    // 更新当前余额
-    updateMoneyInfo() {
-      getMoneyInfo(this.SettingInfo.KeyMsg).then((res) => {
-        this.$nextTick(() => {
-          this.moneryInfo.totalGranted = res.total_granted;
-          this.moneryInfo.totalUsed = res.total_used;
-          this.moneryInfo.totalAvailable = res.total_available;
-        })
-      })
-    },
+    // // 更新当前余额
+    // updateMoneyInfo() {
+    //   getMoneyInfo(this.SettingInfo.KeyMsg).then((res) => {
+    //     this.$nextTick(() => {
+    //       this.moneryInfo.totalGranted = res.total_granted;
+    //       this.moneryInfo.totalUsed = res.total_used;
+    //       this.moneryInfo.totalAvailable = res.total_available;
+    //     })
+    //   })
+    // },
     //创建会话
     newSession() {
       //获取当前会话长度
@@ -1498,8 +1556,6 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .online-person {
-      margin-top: 10%;
-
       .onlin-text {
         margin-left: 20%;
         padding-left: 10px;
@@ -1545,5 +1601,4 @@ input[type=number]::-webkit-outer-spin-button {
       }
     }
   }
-}
-</style>
+}</style>
