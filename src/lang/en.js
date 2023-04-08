@@ -104,7 +104,8 @@ export default {
         title: "role"
     },
     setting: {
-        title: "settings"
+        title: "settings",
+        Language: "Chinese Language"
     },
     file_card: {
         unknown: "unknown"

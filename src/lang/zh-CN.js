@@ -104,7 +104,8 @@ export default {
         title: "角色"
     },
     setting: {
-        title: "设置"
+        title: "设置",
+        Language: "英文语言"
     },
     file_card: {
         unknown: "未知"
