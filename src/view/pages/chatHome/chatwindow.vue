@@ -52,7 +52,7 @@
 
     <div class="botoom" style="background-color:rgb(50, 54, 68);">
       <!-- :style="{ backgroundImage: 'url(' + contentBackImageUrl + ')' }" -->
-      <div class="chat-content" id="chat-content" ref="chatContent">
+      <div class="chat-content" id="chat-content" ref="chatContent" @scroll="onScroll">
         <div class="chat-wrapper" v-for="item in chatList" :key="item.id">
           <div class="chat-friend" v-if="item.uid !== 'jcm'">
             <div class="chat-text" v-if="item.chatType == 0">
@@ -128,7 +128,7 @@
         </div>
         <!--输入框-->
         <el-input type="textarea" id="textareaMsg" ref="textInput" :autosize="{}" class="textarea" v-model="inputMsg"
-          maxlength="2000"
+          maxlength="2048"
           style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
           @keydown.enter.stop @keydown.enter.shift.prevent="insertLineBreak"
           :placeholder="$t('placeholder.question')"></el-input>
@@ -174,6 +174,7 @@ export default {
   },
   data() {
     return {
+      isAutoScroll: true,
       fileArrays: [],
       inputsStatus: true,
       rows: 1,
@@ -206,12 +207,6 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    // // 切换语言
-    // changeLanguage() {
-    //   const lang = this.$i18n.locale === "zh" ? "en" : "zh";
-    //   localStorage.setItem("lang", lang);
-    //   this.$i18n.locale = lang;
-    // },
     //导入当前内容json触发的方法
     importFromJsonArr() {
       this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
@@ -237,13 +232,25 @@ export default {
     //监听窗口的变化
     handleResize() {
       if (window.innerWidth <= 700) {
-        this.buttonStatus = false
-        var textareaMsg = document.getElementById("textareaMsg");
-        textareaMsg.style.marginLeft = "0px";
-        this.personInfoSpan = [14, 0, 10];
+        this.$nextTick(() => {
+          document.querySelectorAll('.chat-content')[0].style.height = '93%';
+          this.buttonStatus = false
+          var textareaMsg = document.getElementById("textareaMsg");
+          textareaMsg.style.marginLeft = "0px";
+          this.personInfoSpan = [14, 0, 10];
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+          if (isMobile) {
+            document.querySelectorAll('.chatInputs')[0].style.margin = '0%';
+          } else {
+            document.querySelectorAll('.chatInputs')[0].style.margin = '3%';
+          }
+       });
       } else {
-        this.buttonStatus = true
-        this.personInfoSpan = [1, 17, 6];
+        this.$nextTick(() => {
+          document.querySelectorAll('.chat-content')[0].style.height = '88%';
+          this.buttonStatus = true
+          this.personInfoSpan = [1, 17, 6];
+       });
       };
     },
     newLine(event) {
@@ -268,23 +275,6 @@ export default {
     updateContentImageUrl(imgUrl) {
       this.contentBackImageUrl = imgUrl
     },
-    // //截图
-    // sc() {
-    //   const contentEle = document.querySelector('#chat-content')
-    //   const options = {
-    //     backgroundColor: "rgb(39, 42, 55)" // 设置截图背景颜色
-    //   };
-    //   html2canvas(contentEle, options).then(canvas => {
-    //     canvas.toBlob(blob => {
-    //       const url = URL.createObjectURL(blob);
-    //       const link = document.createElement('a');
-    //       link.download = 'screenshot.png';
-    //       link.href = url;
-    //       link.click();
-    //       URL.revokeObjectURL(url);
-    //     });
-    //   })
-    // },
     //组装上下文数据
     contextualAssemblyData() {
       const conversation = []
@@ -618,6 +608,7 @@ export default {
             },
           }
           ).then(response => {
+            this.isAutoScroll = true;
             const reader = response.body.getReader();
             function readStream(reader) {
               return reader.read().then(({ done, value }) => {
@@ -734,9 +725,23 @@ export default {
     resetUpdate() {
       this.updateImage = null
     },
+    onScroll() {
+      const scrollDom = this.$refs.chatContent;
+      const scrollTop = scrollDom.scrollTop;
+      const offsetHeight = scrollDom.offsetHeight;
+      const scrollHeight = scrollDom.scrollHeight;
+      // 当滚动到底部，设置 isAutoScroll 为 true
+      if (scrollTop + offsetHeight === scrollHeight) {
+        this.isAutoScroll = true;
+      } else {
+        // 否则，用户正在手动滑动，设置为 false，停止自动滚动
+        this.isAutoScroll = false;
+      }
+    },
     //获取窗口高度并滚动至最底层
     scrollBottom() {
       this.$nextTick(() => {
+        if (!this.isAutoScroll) return; // 如果 isAutoScroll 为 false，不执行滚动方法
         const scrollDom = this.$refs.chatContent;
         animation(scrollDom, scrollDom.scrollHeight - scrollDom.offsetHeight);
       });
@@ -950,7 +955,7 @@ export default {
     font-weight: 100;
     /* margin: 0 20px; */
     width: 98%;
-    height: 100%;
+    height: 50px !important; 
 
   }
 }

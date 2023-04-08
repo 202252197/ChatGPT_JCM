@@ -1,6 +1,6 @@
 export default {
     placeholder: {
-        question: "在此输入您的问题~",
+        question: "输入您的问题~",
         openai_key: "请输入OpenAI KEY",
         session_name: "会话名称",
         model_name: "模型名称",

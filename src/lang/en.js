@@ -39,7 +39,7 @@ export default {
         top_p: "Specifies the proportion of words with the highest probability of being retained at each step, ranging from 0 to 1, similar to temperature, but more flexible and robust.",
         n_title: "Result count",
         n: "This parameter produces many results",
-        stream_title: "Streaming output",
+        stream_title: "Stream output",
         stream: "Enable streaming output",
         echo_title: "Echo words",
         echo: "echo prompt word",
@@ -54,7 +54,7 @@ export default {
     },
     slightly: {
         title: {
-            whole: "fine-tuning",
+            whole: "FT",
             abbreviation: "FT"
         },
         retrieveFineTuning: 'Retrieve fine-tuning',

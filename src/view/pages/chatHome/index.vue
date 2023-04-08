@@ -20,27 +20,29 @@
         <el-row :gutter="24">
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">{{$t('session.title')}}</span>
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">{{ $t('session.title') }}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">{{$t('model.title')}}</span>
+              <span class="" @click="modelClick" :class="{ whiteText: cutSetting === 0 }">{{ $t('model.title') }}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">{{$t('slightly.title.whole')}}</span>
+              <span class="" @click="fineTuningClick"
+                :class="{ whiteText: cutSetting === 2 }">{{ $t('slightly.title.whole') }}</span>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">{{$t('file.title')}}</span>
+              <span class="" @click="fileClick" :class="{ whiteText: cutSetting === 3 }">{{ $t('file.title') }}</span>
             </div>
           </el-col>
         </el-row>
         <div v-show="cutSetting == 0">
-          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.model_name')" />
+          <input class="inputs" v-model="modelSearch" style=" margin-top: 10px;"
+            :placeholder="$t('placeholder.model_name')" />
           <div class="s-wrapper">
             <div class="personList" v-for="personInfo in personList" :key="personInfo.id"
               @click="clickPerson(personInfo)">
@@ -50,7 +52,8 @@
         </div>
 
         <div v-show="cutSetting == 1">
-          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.session_name')" />
+          <input class="inputs" v-model="sessionSearch" style=" margin-top: 10px;"
+            :placeholder="$t('placeholder.session_name')" />
           <div class="s-wrapper">
             <div v-for="sessionInfo in sessionList" :key="sessionInfo.id" @click="clickSession(sessionInfo)">
               <Session :sessionInfo="sessionInfo" :pcCurrent="sessionCurrent"></Session>
@@ -59,7 +62,8 @@
         </div>
 
         <div v-show="cutSetting == 2">
-          <input class="inputs" v-model="fineTuningSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.slightly_name')" />
+          <input class="inputs" v-model="fineTuningSearch" style=" margin-top: 10px;"
+            :placeholder="$t('placeholder.slightly_name')" />
           <div class="s-wrapper">
             <div class="personList" v-for="fineTuningInfo in fineTuningList" :key="fineTuningInfo.id"
               @click="clickFineTuning(fineTuningInfo)">
@@ -69,7 +73,8 @@
         </div>
 
         <div v-show="cutSetting == 3">
-          <input class="inputs" v-model="fileSearch" style=" margin-top: 10px;" :placeholder="$t('placeholder.file_name')" />
+          <input class="inputs" v-model="fileSearch" style=" margin-top: 10px;"
+            :placeholder="$t('placeholder.file_name')" />
 
           <div class="s-wrapper">
             <div class="personList" v-for="(fileInfo, index) in fileList" :key="index" @click="clickFile(fileInfo)">
@@ -102,6 +107,7 @@
             fill="#2867CE" p-id="7553"></path>
         </svg>
       </div>
+
       <div class="top-right" @click="toggleRight">
         <svg t="1679366707602" class="icon" v-show="!showSetupList" viewBox="0 0 1024 1024" version="1.1"
           xmlns="http://www.w3.org/2000/svg" p-id="7551" width="30" height="30">
@@ -122,6 +128,7 @@
             fill="#2867CE" p-id="5766"></path>
         </svg>
       </div>
+
       <div v-if="showChatWindow" v-show="showMainContent">
         <ChatWindow ref="chatWindow" :frinedInfo="chatWindowInfo" :settingInfo="SettingInfo" :storeStatu="storeStatus"
           @personCardSort="personCardSort"></ChatWindow>
@@ -135,9 +142,14 @@
         </svg>
       </div>
     </div>
+
     <div class="chatLeft" v-show="showSetupList">
 
       <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
+        <div>
+            <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
+              style="width: 100%; margin-left: 0px;margin-right: 0px;" />
+          </div>
       </el-card>
 
       <div class="online-person">
@@ -147,25 +159,17 @@
           </el-col>
         </el-row>
 
-        <div class="s-wrapper" style="height: 78vh;">
+        <div class="s-wrapper" style="height: 75vh;">
 
-          <div>
-            <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
-              style="width: 100%; margin-left: 0px;margin-right: 0px;" />
-          </div>
+         
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
-              <div class="block">
-                <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
-                  <span class="demonstration">{{$t('model.online_title')}}</span>
-                </el-tooltip>
-                <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
-              </div>
+
 
               <div class="block" v-show="SettingInfo.openNet">
                 <el-tooltip class="item" effect="dark" :content="$t('model.max_results_title')" placement="top">
-                  <span class="demonstration" style="">{{$t('model.max_results')}}</span>
+                  <span class="demonstration" style="">{{ $t('model.max_results') }}</span>
                 </el-tooltip>
 
                 <el-slider class="astrict" v-model="SettingInfo.max_results" :step="1" :min="0" :max="6"></el-slider>
@@ -174,65 +178,15 @@
               <div v-show="!SettingInfo.openNet">
                 <div class="block">
                   <el-tooltip class="item" effect="dark" :content="$t('model.suffix')" placement="top">
-                    <span class="demonstration">{{$t('model.suffix_title')}}</span>
+                    <span class="demonstration">{{ $t('model.suffix_title') }}</span>
                   </el-tooltip>
 
                   <input class="weitiao" v-model="SettingInfo.chat.suffix" :placeholder="$t('placeholder.suffix')" />
                 </div>
 
                 <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.max_tokens')" placement="top">
-                    <span class="demonstration" style="">{{$t('model.max_tokens_title')}}</span>
-                  </el-tooltip>
-
-                  <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0"
-                    :max="2048"></el-slider>
-                </div>
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.temperature')"
-                    placement="top">
-                    <span class="demonstration">{{$t('model.temperature_title')}}</span>
-                  </el-tooltip>
-
-                  <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0"
-                    :max="2"></el-slider>
-                </div>
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.top_p')"
-                    placement="top">
-                    <span class="demonstration" s>{{$t('model.top_p_title')}}</span>
-                  </el-tooltip>
-
-                  <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
-                </div>
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.n')" placement="top">
-                    <span class="demonstration" s>{{$t('model.n_title')}}</span>
-                  </el-tooltip>
-
-                  <input class="weitiao" v-model="SettingInfo.chat.n" :placeholder="$t('placeholder.response_count')" type="number" />
-                </div>
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.stream')" placement="top">
-                    <span class="demonstration">{{$t('model.stream_title')}}</span>
-                  </el-tooltip>
-                  <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
-                </div>
-
-                <div class="block">
-                  <el-tooltip class="item" effect="dark" :content="$t('model.echo')" placement="top">
-                    <span class="demonstration">{{$t('model.echo_title')}}</span>
-                  </el-tooltip>
-                  <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
-                </div>
-
-                <div class="block">
                   <el-tooltip class="item" effect="dark" :content="$t('model.stop')" placement="top">
-                    <span class="demonstration" s>{{$t('model.stop_title')}}</span>
+                    <span class="demonstration" s>{{ $t('model.stop_title') }}</span>
                   </el-tooltip>
 
                   <input class="weitiao" v-model="SettingInfo.chat.stop" :placeholder="$t('placeholder.stop')" />
@@ -240,7 +194,7 @@
 
                 <div class="block">
                   <el-tooltip class="item" effect="dark" :content="$t('model.frequency_penalty')" placement="top">
-                    <span class="demonstration">{{$t('model.frequency_penalty_title')}}</span>
+                    <span class="demonstration">{{ $t('model.frequency_penalty_title') }}</span>
                   </el-tooltip>
 
                   <el-slider class="astrict" v-model="SettingInfo.chat.FrequencyPenalty" :step="0.1" :min="-2"
@@ -249,11 +203,67 @@
 
                 <div class="block">
                   <el-tooltip class="item" effect="dark" :content="$t('model.presence_penalty')" placement="top">
-                    <span class="demonstration">{{$t('model.presence_penalty_title')}}</span>
+                    <span class="demonstration">{{ $t('model.presence_penalty_title') }}</span>
                   </el-tooltip>
                   <el-slider class="astrict" v-model="SettingInfo.chat.PresencePenalty" :step="0.1" :min="-2"
                     :max="2"></el-slider>
                 </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.max_tokens')" placement="top">
+                    <span class="demonstration" style="">{{ $t('model.max_tokens_title') }}</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.chat.MaxTokens" :step="1" :min="0"
+                    :max="2048"></el-slider>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.temperature')" placement="top">
+                    <span class="demonstration">{{ $t('model.temperature_title') }}</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.chat.Temperature" :step="0.1" :min="0"
+                    :max="2"></el-slider>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.top_p')" placement="top">
+                    <span class="demonstration" s>{{ $t('model.top_p_title') }}</span>
+                  </el-tooltip>
+
+                  <el-slider class="astrict" v-model="SettingInfo.chat.TopP" :step="0.1" :min="0" :max="1"></el-slider>
+                </div>
+
+                <!-- <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.n')" placement="top">
+                    <span class="demonstration" s>{{$t('model.n_title')}}</span>
+                  </el-tooltip>
+
+                  <input class="weitiao" v-model="SettingInfo.chat.n" :placeholder="$t('placeholder.response_count')" type="number" />
+                </div> -->
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.stream')" placement="top">
+                    <span class="demonstration">{{ $t('model.stream_title') }}</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.chat.stream" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.echo')" placement="top">
+                    <span class="demonstration">{{ $t('model.echo_title') }}</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.chat.echo" :width="defaulWidth" style="margin-left: 22%;"></el-switch>
+                </div>
+
+                <div class="block">
+                  <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
+                    <span class="demonstration">{{ $t('model.online_title') }}</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
+
               </div>
               <!-- <div class="block">
                 <el-tooltip class="item" effect="dark" content="开启读文模式" placement="top">
@@ -272,7 +282,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('image.production_title')" placement="top">
-                  <span class="demonstration">{{$t('image.production')}}</span>
+                  <span class="demonstration">{{ $t('image.production') }}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.openProductionPicture" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
@@ -280,7 +290,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('image.change_title')" placement="top">
-                  <span class="demonstration">{{$t('image.change')}}</span>
+                  <span class="demonstration">{{ $t('image.change') }}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.openChangePicture" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
@@ -288,7 +298,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('image.size_title')" placement="top">
-                  <span class="demonstration">{{$t('image.size')}}</span>
+                  <span class="demonstration">{{ $t('image.size') }}</span>
                 </el-tooltip>
                 <div>
                   <el-select v-model="SettingInfo.size" placeholder="请选择" style="margin-top: 10px;">
@@ -300,7 +310,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('image.count_title')" placement="top">
-                  <span class="demonstration">{{$t('image.count')}}</span>
+                  <span class="demonstration">{{ $t('image.count') }}</span>
                 </el-tooltip>
                 <el-slider class="astrict" v-model="SettingInfo.n" :step="1" :min="-1" :max="10"></el-slider>
               </div>
@@ -316,7 +326,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('audio.to_text_title')" placement="top">
-                  <span class="demonstration">{{$t('audio.to_text')}}</span>
+                  <span class="demonstration">{{ $t('audio.to_text') }}</span>
                 </el-tooltip>
                 <el-switch v-model="SettingInfo.translateEnglish" :width="defaulWidth"
                   style="margin-left: 15%;"></el-switch>
@@ -324,7 +334,7 @@
 
               <div class="block">
                 <el-tooltip class="item" effect="dark" :content="$t('audio.language_title')" placement="top">
-                  <span class="demonstration">{{$t('audio.language')}}</span>
+                  <span class="demonstration">{{ $t('audio.language') }}</span>
                 </el-tooltip>
                 <div>
                   <el-select v-model="SettingInfo.language" placeholder="请选择" style="margin-top: 10px;">
@@ -336,9 +346,8 @@
 
 
               <div class="block">
-                <el-tooltip class="item" effect="dark" :content="$t('audio.temperature_title')"
-                  placement="top">
-                  <span class="demonstration">{{$t('audio.temperature')}}</span>
+                <el-tooltip class="item" effect="dark" :content="$t('audio.temperature_title')" placement="top">
+                  <span class="demonstration">{{ $t('audio.temperature') }}</span>
                 </el-tooltip>
 
                 <el-slider class="astrict" v-model="SettingInfo.TemperatureAudio" :step="0.1" :min="0"
@@ -354,25 +363,25 @@
           <el-collapse-transition>
             <div v-show="SettingStatus == 3">
               <div class="fineTune boxinput" @click="retrieveFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.retrieveFineTuning')}}
+                {{ $t('slightly.retrieveFineTuning') }}
               </div>
               <div class="fineTune boxinput" @click="cancelFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.cancelFineTuning')}}
+                {{ $t('slightly.cancelFineTuning') }}
               </div>
               <div class="fineTune boxinput" @click="showOrHidenCancelFine(false)" v-if="cancelFineStatus"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.hideCanceledFineTuning')}}
+                {{ $t('slightly.hideCanceledFineTuning') }}
               </div>
               <div class="fineTune boxinput" @click="showOrHidenCancelFine(true)" v-else
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.showCanceledFineTuning')}}
+                {{ $t('slightly.showCanceledFineTuning') }}
               </div>
               <div class="fineTune boxinput" @click="deleteFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.deleteFineTuningModel')}}
+                {{ $t('slightly.deleteFineTuningModel') }}
               </div>
               <div class="fineTune boxinput" @click="showFineSetting = !showFineSetting"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('slightly.createFineTuning')}}
+                {{ $t('slightly.createFineTuning') }}
               </div>
               <el-collapse-transition>
                 <div v-show="showFineSetting">
@@ -381,7 +390,8 @@
                       <span class="demonstration">trainingFile<span style="color: red;">*</span></span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.training_file" :placeholder="$t('placeholder.trainingDataFileID')" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.training_file"
+                      :placeholder="$t('placeholder.trainingDataFileID')" />
                   </div>
 
                   <div class="block">
@@ -389,31 +399,30 @@
                       <span class="demonstration" style="">validationFile</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file" :placeholder="$t('placeholder.validationDataFileID')" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.validation_file"
+                      :placeholder="$t('placeholder.validationDataFileID')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" :content="$t('slightly.modelOptions')"
-                      placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.modelOptions')" placement="top">
                       <span class="demonstration">model</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.model" :placeholder="$t('placeholder.modelName')" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.model"
+                      :placeholder="$t('placeholder.modelName')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark" :content="$t('slightly.epochs')"
-                      placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.epochs')" placement="top">
                       <span class="demonstration">nEpochs</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number" :placeholder="$t('placeholder.trainingIterations')" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.n_epochs" type="number"
+                      :placeholder="$t('placeholder.trainingIterations')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark"
-                      :content="$t('slightly.batchSize')"
-                      placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.batchSize')" placement="top">
                       <span class="demonstration">batchSize</span>
                     </el-tooltip>
 
@@ -422,9 +431,7 @@
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark"
-                      :content="$t('slightly.learningRate')"
-                      placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.learningRate')" placement="top">
                       <span class="demonstration">learningRateMultiplier</span>
                     </el-tooltip>
 
@@ -465,12 +472,12 @@
                       <span class="demonstration" style="">suffix</span>
                     </el-tooltip>
 
-                    <input class="weitiao" v-model="SettingInfo.fineTunes.suffix" :placeholder="$t('placeholder.ftsuffix')" />
+                    <input class="weitiao" v-model="SettingInfo.fineTunes.suffix"
+                      :placeholder="$t('placeholder.ftsuffix')" />
                   </div>
 
                   <div class="block">
-                    <el-tooltip class="item" effect="dark"
-                      :content="$t('slightly.promptAttention')" placement="top">
+                    <el-tooltip class="item" effect="dark" :content="$t('slightly.promptAttention')" placement="top">
                       <span class="demonstration" style="">promptLossWeight</span>
                     </el-tooltip>
 
@@ -492,7 +499,7 @@
 
                   <div class="fineTune boxinput" @click="createFine"
                     style="margin-left: 0px;margin-right: 0px;width: 99%; background-color: #409EFF;">
-                    {{$t('slightly.create')}}
+                    {{ $t('slightly.create') }}
                   </div>
                 </div>
               </el-collapse-transition>
@@ -513,18 +520,18 @@
                     d="M768 725.333333a128 128 0 0 0 38.613333-250.112l-39.850666-12.586666-14.506667-39.253334a256.128 256.128 0 0 0-480.554667 0l-14.464 39.253334-39.850666 12.586666A128.085333 128.085333 0 0 0 256 725.333333a42.666667 42.666667 0 0 1 0 85.333334 213.333333 213.333333 0 0 1-64.341333-416.810667 341.461333 341.461333 0 0 1 640.682666 0A213.418667 213.418667 0 0 1 768 810.666667a42.666667 42.666667 0 0 1 0-85.333334z"
                     fill="#ffffff" p-id="1592"></path>
                 </svg>
-                {{$t('file.upload')}}
+                {{ $t('file.upload') }}
               </div>
               <div class="fineTune boxinput" @click="deleteOnFile" style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('file.delete')}}
+                {{ $t('file.delete') }}
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFile"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('file.retrieve')}}
+                {{ $t('file.retrieve') }}
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFileContent"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                {{$t('file.view')}}
+                {{ $t('file.view') }}
               </div>
             </div>
           </el-collapse-transition>
@@ -542,7 +549,7 @@
                     d="M716.801024 486.4a51.2 51.2 0 0 0-51.2 51.2 153.6 153.6 0 0 1-307.2 0 51.2 51.2 0 0 0-102.4 0 256 256 0 0 0 512 0 51.2 51.2 0 0 0-51.2-51.2z"
                     fill="#ffffff" p-id="3130"></path>
                 </svg>
-                {{$t('session.create')}}
+                {{ $t('session.create') }}
               </div>
               <!-- <div class="session boxinput" @click="clearCurrentContext">
                 清空当前会话内容
@@ -556,14 +563,16 @@
               </div> -->
               <div class="session boxinput" @click="exportObjArrAllToJson"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                <span class="iconfont icon-daochu" style="color: #fff; margin-right:10px;"></span> {{$t('session.export')}}
+                <span class="iconfont icon-daochu" style="color: #fff; margin-right:10px;"></span>
+                {{ $t('session.export') }}
               </div>
               <div class="session boxinput" @click="importFromJsonArrAll">
-                <span class="iconfont icon-daoru" style="color: #fff; margin-right:10px;"></span> {{$t('session.import')}}
+                <span class="iconfont icon-daoru" style="color: #fff; margin-right:10px;"></span> {{ $t('session.import') }}
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
               <div class="session boxinput" @click="clearAllContext">
-                <span class="iconfont icon-qingchu" style="color: #fff; margin-right:10px;"></span> {{$t('session.clear')}}
+                <span class="iconfont icon-qingchu" style="color: #fff; margin-right:10px;"></span>
+                {{ $t('session.clear') }}
               </div>
             </div>
           </el-collapse-transition>
@@ -589,10 +598,18 @@
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
                 <label>
                   <span class="iconfont">
-                    <svg t="1680840158581" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5743" id="mx_n_1680840158585" width="25" height="25"><path d="M424.7 343.4H386c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2zM296.7 343.4H258c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2z" fill="#76798a" p-id="5744"></path><path d="M896 130H128c-23.6 0-42.7 19.1-42.7 42.7v682.7c0 23.6 19.1 42.7 42.7 42.7h768c23.6 0 42.7-19.1 42.7-42.7V172.7c0-23.6-19.1-42.7-42.7-42.7zM170.6 471.4V300.7c0-23.5 19.2-42.7 42.7-42.7h85.3c0-23.5 19.2-42.7 42.7-42.7S384 234.5 384 258h85.3c23.5 0 42.7 19.2 42.7 42.7v170.6c0 23.5-19.2 42.7-42.7 42.7H384v42.8c0 23.5-19.2 42.7-42.7 42.7s-42.7-19.2-42.7-42.7v-42.7h-85.3c-23.5 0-42.7-19.2-42.7-42.7zM512 791.3c-93.1 0-179.6-46.3-231.1-124-6.5-9.7-3.8-23 6-29.5 9.7-6.5 23-3.9 29.5 6 43.7 65.7 116.8 104.9 195.6 104.9 11.8 0 21.3 9.5 21.3 21.3s-9.5 21.3-21.3 21.3z m65.3-525.8c3.9-11.1 16.2-16.9 27.2-13 56.3 19.9 105.6 58.3 138.7 108.2 6.5 9.7 3.8 23-6 29.5-3.6 2.4-7.7 3.6-11.8 3.6-6.9 0-13.7-3.3-17.8-9.5-28.1-42.2-69.8-74.8-117.3-91.6-11.1-3.9-16.9-16.1-13-27.2z m233.4 547.2H640c-23.5 0-42.7-19.2-42.7-42.7V471.5c0-23.5 19.2-42.7 42.7-42.7h169.9c23.8 0 43.7 19.4 43.4 43.2-0.4 23.2-19.4 42.1-42.7 42.1h-126c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h126c23.3 0 42.4 18.9 42.7 42.1 0.4 23.7-19.6 43.2-43.4 43.2H684.7c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h125.2c23.8 0 43.8 19.4 43.5 43.2-0.4 23.2-19.4 42.1-42.7 42.1z" fill="#76798a" p-id="5745"></path></svg>
+                    <svg t="1680840158581" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                      xmlns="http://www.w3.org/2000/svg" p-id="5743" id="mx_n_1680840158585" width="25" height="25">
+                      <path
+                        d="M424.7 343.4H386c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2zM296.7 343.4H258c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2z"
+                        fill="#76798a" p-id="5744"></path>
+                      <path
+                        d="M896 130H128c-23.6 0-42.7 19.1-42.7 42.7v682.7c0 23.6 19.1 42.7 42.7 42.7h768c23.6 0 42.7-19.1 42.7-42.7V172.7c0-23.6-19.1-42.7-42.7-42.7zM170.6 471.4V300.7c0-23.5 19.2-42.7 42.7-42.7h85.3c0-23.5 19.2-42.7 42.7-42.7S384 234.5 384 258h85.3c23.5 0 42.7 19.2 42.7 42.7v170.6c0 23.5-19.2 42.7-42.7 42.7H384v42.8c0 23.5-19.2 42.7-42.7 42.7s-42.7-19.2-42.7-42.7v-42.7h-85.3c-23.5 0-42.7-19.2-42.7-42.7zM512 791.3c-93.1 0-179.6-46.3-231.1-124-6.5-9.7-3.8-23 6-29.5 9.7-6.5 23-3.9 29.5 6 43.7 65.7 116.8 104.9 195.6 104.9 11.8 0 21.3 9.5 21.3 21.3s-9.5 21.3-21.3 21.3z m65.3-525.8c3.9-11.1 16.2-16.9 27.2-13 56.3 19.9 105.6 58.3 138.7 108.2 6.5 9.7 3.8 23-6 29.5-3.6 2.4-7.7 3.6-11.8 3.6-6.9 0-13.7-3.3-17.8-9.5-28.1-42.2-69.8-74.8-117.3-91.6-11.1-3.9-16.9-16.1-13-27.2z m233.4 547.2H640c-23.5 0-42.7-19.2-42.7-42.7V471.5c0-23.5 19.2-42.7 42.7-42.7h169.9c23.8 0 43.7 19.4 43.4 43.2-0.4 23.2-19.4 42.1-42.7 42.1h-126c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h126c23.3 0 42.4 18.9 42.7 42.1 0.4 23.7-19.6 43.2-43.4 43.2H684.7c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h125.2c23.8 0 43.8 19.4 43.5 43.2-0.4 23.2-19.4 42.1-42.7 42.1z"
+                        fill="#76798a" p-id="5745"></path>
+                    </svg>
                   </span>
                 </label>
-               {{$t('setting.Language')}}
+                {{ $t('setting.Language') }}
               </div>
 
             </div>
@@ -736,17 +753,17 @@ export default {
       showMainContent: true,
     };
   },
-  computed:{
+  computed: {
     // 把获取setting列表的操作放到computed计算属性里来，这样才能动态绑定i18n的值
-    getSettings(){
+    getSettings() {
       return [{ name: this.$t('model.talk'), active: true },
-       { name: this.$t('image.title'), active: false },
-       { name: this.$t('audio.title'), active: false },
-       { name: this.$t('slightly.title.abbreviation'), active: false },
-       { name: this.$t('file.title'), active: false },
-       { name: this.$t('session.title'), active: false },
-       { name: this.$t('role.title'), active: false },
-       { name: this.$t('setting.title'), active: false }
+      { name: this.$t('image.title'), active: false },
+      { name: this.$t('audio.title'), active: false },
+      { name: this.$t('slightly.title.abbreviation'), active: false },
+      { name: this.$t('file.title'), active: false },
+      { name: this.$t('session.title'), active: false },
+      { name: this.$t('role.title'), active: false },
+      { name: this.$t('setting.title'), active: false }
       ]
     }
   },
@@ -761,7 +778,7 @@ export default {
   mounted() {
     this.chatWindowInfo = {
       img: "",
-      name: "ChatGPT-3.5",
+      name: "ChatGPT",
       detail: this.$t('index.detail'),
       lastMsg: this.$t('index.lastMsg'),
       id: "gpt-3.5-turbo",
@@ -837,15 +854,8 @@ export default {
         if (newVal.KeyMsg && newVal !== oldVal) {
           //获取模型列表
           getModels(newVal).then((res) => {
-            //保存OpenAI key到session中
             this.personList = res;
             this.personListCache = res;
-            //获取余额信息
-            // getMoneyInfo(newVal).then((res) => {
-            //   this.moneryInfo.totalGranted = res.total_granted;
-            //   this.moneryInfo.totalUsed = res.total_used;
-            //   this.moneryInfo.totalAvailable = res.total_available;
-            // });
           }).catch(e => {
             this.$message.error(this.$t('message.get_model_fail'))
           })
@@ -858,8 +868,8 @@ export default {
     }
   },
   methods: {
-     // 切换语言
-     changeLanguage() {
+    // 切换语言
+    changeLanguage() {
       const lang = this.$i18n.locale === "zh" ? "en" : "zh";
       localStorage.setItem("lang", lang);
       this.$i18n.locale = lang;
@@ -889,28 +899,13 @@ export default {
       };
       reader.readAsText(file);
     },
-    // //导入当前内容json触发的方法
-    // importFromJsonArr() {
-    //   this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
-    // },
-    // handleFileUpload(event) {
-    //   const file = event.target.files[0];
-    //   const reader = new FileReader();
-
-    //   reader.onload = () => {
-    //     const fileContent = reader.result; // 文件内容
-    //     const parsed = JSON.parse(fileContent); // 转换为数组
-    //     this.$refs.chatWindow.assignmentMesList(parsed)
-    //   };
-    //   reader.readAsText(file);
-    // },
     //导出所有会话到json文件
     exportObjArrAllToJson() {
       let jsonString = JSON.stringify(this.sessionList); // 将数组转为JSON字符串
       let blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
       saveAs(blob, "data.json");
     },
- 
+
     //清除所有的会话内容
     clearAllContext() {
       this.sessionList = []
@@ -938,9 +933,10 @@ export default {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       if (isMobile && (this.showPersonList || this.showSetupList)) {
         this.showMainContent = false;
+        document.querySelectorAll('.chatLeft')[1].style.width = '100%';
       } else {
         this.showMainContent = true;
-        document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+        document.querySelectorAll('.chatLeft')[1].style.width = '22%';
       }
     },
     //获取模型列表
@@ -988,7 +984,7 @@ export default {
         this.showChatWindow = true;
         const info = {
           img: "",
-          name: "ChatGPT-3.5",
+          name: "ChatGPT",
           detail: "chatgpt v3.5 所基于的模型",
           lastMsg: "chatgpt v3.5 所基于的模型",
           id: "gpt-3.5-turbo",
@@ -1063,7 +1059,7 @@ export default {
       this.cutSetting = 1
       this.chatWindowInfo = {
         img: "",
-        name: "ChatGPT-3.5",
+        name: "ChatGPT",
         detail: "chatgpt v3.5 所基于的模型",
         lastMsg: "chatgpt v3.5 所基于的模型",
         id: "gpt-3.5-turbo",
