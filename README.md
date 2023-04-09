@@ -16,11 +16,18 @@
 ![webui4.5](https://i.328888.xyz/2023/04/07/iNgVGJ.jpeg)
 ## 文件
 ![webui4.5](https://i.328888.xyz/2023/04/07/iNgtmd.jpeg)
+## 中英文切换
+![webui4.5](https://i.328888.xyz/2023/04/09/iczmm8.jpeg)
+## 适配手机
+<div>
+  <img src="https://i.328888.xyz/2023/04/09/icz6PX.jpeg" alt="drawing" width="300px"/>
+  <img src="https://i.328888.xyz/2023/04/09/iczPWz.jpeg" alt="drawing" width="300px" />
+  <img src="https://i.328888.xyz/2023/04/09/iczTpw.jpeg" alt="drawing" width="300px" />
+</div>
 
+## 应用程序（2K的Star再更新）
 
 # 部署步骤
-
-## 应用程序（暂时不再提供，只提供给赞助者）
 
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
@@ -99,8 +106,8 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |
 | 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图（暂时取消） |
 | 更换聊天窗口背景    | 支持输入背景图片URL，暂时取消并保留此功能，没太大意义（暂时取消） |
+| 界面多语言    | 支持中英文语言 |
 | 更换主题    | 待开发 |
-| 界面多语言    | 待开发 |
 | 增加后端实现更多功能    | 待开发 |
 | More    | 待开发 |
 
