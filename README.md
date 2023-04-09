@@ -20,9 +20,9 @@
 ![webui4.5](https://i.328888.xyz/2023/04/09/iczmm8.jpeg)
 ## 适配手机
 <div>
-  <img src="https://i.328888.xyz/2023/04/09/icz6PX.jpeg" alt="drawing" width="300px"/>
-  <img src="https://i.328888.xyz/2023/04/09/iczPWz.jpeg" alt="drawing" width="300px" />
-  <img src="https://i.328888.xyz/2023/04/09/iczTpw.jpeg" alt="drawing" width="300px" />
+  <img src="https://i.328888.xyz/2023/04/09/icz6PX.jpeg" alt="drawing" width="250px"/>
+  <img src="https://i.328888.xyz/2023/04/09/iczPWz.jpeg" alt="drawing" width="250px" />
+  <img src="https://i.328888.xyz/2023/04/09/iczTpw.jpeg" alt="drawing" width="250px" />
 </div>
 
 ## 应用程序（2K的Star再更新）
