@@ -1389,7 +1389,7 @@ export default {
       }
     },
     personCardSort(id) {
-      if (id !== this.personList[0].id) {
+      if ( typeof this.personList[0] != 'undefined' && id !== this.personList[0].id) {
         console.log(id);
         let nowPersonInfo;
         for (let i = 0; i < this.personList.length; i++) {
