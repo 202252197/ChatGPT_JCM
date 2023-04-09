@@ -9,22 +9,26 @@
 > 🤭记得点个小星星Starred
 
 ## 会话
-![webui4.5](https://i.328888.xyz/2023/04/07/iNgA7o.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icM7uP.png)
 ## 模型
-![webui4.5](https://i.328888.xyz/2023/04/07/iNg0yq.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icMKez.png)
 ## 微调模型
-![webui4.5](https://i.328888.xyz/2023/04/07/iNgVGJ.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icM9Zb.png)
 ## 文件
-![webui4.5](https://i.328888.xyz/2023/04/07/iNgtmd.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icMdBA.png)
+## 多种prompt角色
+![webui4.5](https://i.328888.xyz/2023/04/09/icMO4p.png)
 ## 中英文切换
-![webui4.5](https://i.328888.xyz/2023/04/09/iczmm8.jpeg)
-## 适配手机
+![webui4.5](https://i.328888.xyz/2023/04/09/icMLaw.png)
+## 适配手机&平板
 <div>
-  <img src="https://i.328888.xyz/2023/04/09/icz6PX.jpeg" alt="drawing" width="250px"/>
-  <img src="https://i.328888.xyz/2023/04/09/iczPWz.jpeg" alt="drawing" width="250px" />
-  <img src="https://i.328888.xyz/2023/04/09/iczTpw.jpeg" alt="drawing" width="250px" />
+  <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="250px" />
+  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="250px"/>
+  <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="250px" />
 </div>
-
+<div>
+  <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
+</div>
 ## 应用程序（2K的Star再更新）
 
 # 部署步骤
