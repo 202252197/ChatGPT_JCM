@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
 
 const base = {
   axios: axios,
-  baseUrl: 'https://mychat.freechatgpt.cc'
+  baseUrl: 'https://api.openai.com'
 }
 
 export default base
