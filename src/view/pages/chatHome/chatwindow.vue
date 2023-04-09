@@ -127,12 +127,8 @@
           <Emoji v-show="showEmoji" @sendEmoji="sendEmoji" @closeEmoji="clickEmoji"></Emoji>
         </div>
         <!--输入框-->
-        <el-input type="textarea" id="textareaMsg" ref="textInput" :autosize="{}" class="textarea" v-model="inputMsg"
-          maxlength="2048"
-          style="margin-left: 2%;margin-top: 3px;min-height: 51px;max-height:400px;max-width: 80%;min-width: 45%;  height: auto;"
-          @keydown.enter.stop @keydown.enter.shift.prevent="insertLineBreak"
-          :placeholder="$t('placeholder.question')"></el-input>
-        <!--发送-->
+          <textarea id="textareaMsg"  :placeholder="$t('placeholder.question')" class="inputs" v-autoheight style="z-index: 9999999999;min-height: 50px;max-height:400px;max-width: 100%;min-width: 45%;"    maxlength="2048" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false" autocapitalize="off" autocomplete="off" v-model="inputMsg" @keyup.enter="handleKeyDown"  ></textarea>
+          <!--发送-->
         <div>
           <div class="send boxinput" @click="sendText">
             <img src="@/assets/img/emoji/rocket.png" alt="" />
@@ -156,6 +152,27 @@ import { AI_HEAD_IMG_URL, USER_HEAD_IMG_URL, USER_NAME } from '@/store/mutation-
 import { saveAs } from 'file-saver';
 
 export default {
+  directives: {
+      //用于自适应文本框的高度
+    autoheight: {
+      inserted: function (el) {
+        var Msg = document.getElementById("textareaMsg").value;
+        if (Msg == ""){
+          el.style.height = "26px"
+        }else{
+          el.style.height = el.scrollHeight + 'px'
+        }
+      },
+      update: function (el) {
+        var Msg = document.getElementById("textareaMsg").value;
+        if (Msg == ""){
+          el.style.height = "26px"
+        }else{
+          el.style.height = el.scrollHeight + 'px'
+        }
+      }
+    }
+  },
   components: {
     HeadPortrait,
     Emoji,
@@ -207,6 +224,36 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    handleKeyDown(event) {
+      if (event.keyCode === 13 && (!event.shiftKey)) {  // 按下回车键，没按shift
+        this.sendText()
+      }
+    },
+      readStream(reader,_this, currentResLocation) {
+        return reader.read().then(({ done, value }) => {
+          if ( done ) {
+            return;
+          }
+          if (!_this.chatList[currentResLocation].reminder) {
+            _this.chatList[currentResLocation].reminder = "";
+          }
+          let decoded = new TextDecoder().decode(value);
+          decoded = _this.chatList[currentResLocation].reminder + decoded;
+          let decodedArray = decoded.split("data: ");
+
+          decodedArray.forEach(decoded => {
+            if(decoded!==""){
+              if(decoded.trim()==="[DONE]"){
+                return;
+              }else{
+                const response = JSON.parse(decoded).choices[0].delta.content?JSON.parse(decoded).choices[0].delta.content:"";
+                _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+response
+              }
+            }
+          })
+          return this.readStream(reader,_this, currentResLocation);
+        });
+      },
     //导入当前内容json触发的方法
     importFromJsonArr() {
       this.$refs.onupdateJosnArr.click(); // 触发选择文件的弹框
@@ -576,9 +623,6 @@ export default {
               })
 
               itemContent.msg = noUrlNetMessage;
-              this.$nextTick(() => {
-                this.acqStatus = true
-              });
             });
       } else {
         let conversation = this.contextualAssemblyData();
@@ -588,70 +632,64 @@ export default {
             content: item.text
           }
         })
-        params.stream = true
+      }
         //新增一个空的消息
         this.sendMsg(chatBeforResMsg);
 
         const currentResLocation = this.chatList.length - 1
         let _this = this
-        try {
-          await fetch(
-            base.baseUrl + '/v1/chat/completions', {
-            method: "POST",
-            timeout: 10000,
-            body: JSON.stringify({
-              ...params
-            }),
-            headers: {
-              Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
-              "Content-Type": "application/json"
-            },
-          }
-          ).then(response => {
-            this.isAutoScroll = true;
-            const reader = response.body.getReader();
-            function readStream(reader) {
-              return reader.read().then(({ done, value }) => {
-                if (done) {
-                  return;
-                }
-                if (!_this.chatList[currentResLocation].reminder) {
-                  _this.chatList[currentResLocation].reminder = "";
-                }
 
-                let decoded = new TextDecoder().decode(value);
-                if (params.stream) {
-                  decoded = _this.chatList[currentResLocation].reminder + decoded;
-                  let decodedArray = decoded.split("data: ");
-
-                  decodedArray.forEach(decoded => {
-                    if (decoded !== "") {
-                      if (decoded.trim() === "[DONE]") {
-                        return;
-                      } else {
-                        const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
-                        _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                        _this.scrollBottom();
-                      }
-                    }
-                  });
-                  return readStream(reader);
-                } else {
-                  _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + JSON.parse(decoded).choices[0].message.content
+          try {
+            if ( this.settingInfo.chat.stream ){
+              await fetch(
+                base.baseUrl+'/v1/chat/completions',{
+                  method: "POST",
+                  body: JSON.stringify({
+                      ...params
+                  }),
+                  headers: {
+                      Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                  },
                 }
-
-              });
-            }
-            // _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
-            readStream(reader);
-            this.$nextTick(() => {
-              this.acqStatus = true
+            ).then(response=>{
+                const reader = response.body.getReader();
+                this.readStream(reader,_this, currentResLocation);
             });
-          });
+        }else{
+          await fetch(
+            base.baseUrl+'/v1/chat/completions',{
+              method: "POST",
+              body: JSON.stringify({
+                ...params
+              }),
+              headers: {
+                Authorization: 'Bearer ' + this.settingInfo.KeyMsg,
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            }
+          ).then(response => response.json())
+            .then(
+              data => {
+                const content = data.choices[0].message.content; // 获取"content"字段的值
+                let decodedArray = content.split("");
+                decodedArray.forEach(decoded => {
+                  _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+decoded
+                });
+              }
+            )
+          }
         } catch (error) {
+          const content ="网络不稳定或key余额不足，请重试或更换key"; // 获取"content"字段的值
+          let decodedArray = content.split("");
+          decodedArray.forEach(decoded => {
+              _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+decoded
+          });
           console.error(error);
         }
-      }
+        this.acqStatus = true;
     },
     async completion(params, chatBeforResMsg) {
       if (this.settingInfo.chat.suffix !== "") {
@@ -685,37 +723,11 @@ export default {
             return
           }
           const reader = response.body.getReader();
-
-          function readStream(reader) {
-            return reader.read().then(({ done, value }) => {
-              if (done) {
-                return;
-              }
-              let decodeds = new TextDecoder().decode(value);
-              if (params.stream) {
-                let decodedArray = decodeds.split("data: ")
-
-                decodedArray.forEach(decoded => {
-                  if (decoded !== "") {
-                    if (decoded.trim() === "[DONE]") {
-                      return;
-                    } else {
-                      const response = JSON.parse(decoded).choices[0].text;
-                      _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
-                    }
-                  }
-                });
-                return readStream(reader);
-              } else {
-                _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + JSON.parse(decodeds).choices[0].text
-              }
-            });
-          }
           this.$nextTick(() => {
             this.acqStatus = true
           });
           // _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
-          readStream(reader);
+            this.readStream(reader,_this, currentResLocation);
         })
       } catch (error) {
 
@@ -1104,6 +1116,7 @@ textarea::-webkit-scrollbar-thumb {
           float: left;
           max-width: 90%;
           padding: 15px;
+          max-width: 550px;
           border-radius: 20px 20px 20px 5px;
           background-color: #fff;
         }
@@ -1205,7 +1218,7 @@ textarea::-webkit-scrollbar-thumb {
       bottom: 0;
       margin: 3%;
       display: flex;
-
+      background-color: #323644;
       .boxinput {
         width: 50px;
         height: 50px;
