@@ -2,6 +2,7 @@ export default {
     placeholder: {
         question: "Enter your question here~",
         openai_key: "Please enter OpenAI KEY",
+        role_name: "role name",
         session_name: "session name",
         model_name: "model name",
         slightly_name: "fine-tuned model name",
@@ -148,7 +149,8 @@ export default {
         cancel_fail: "Failed to cancel the fine-tuned model~",
         only_model: "Can only search for fine-tuned models~",
         verify_model_fail: "Failed to search for fine-tuned models~",
-        get_files_fail:"Failed to get file list~"
+        get_files_fail:"Failed to get file list~",
+        get_roles_fail:"Failed to get role list~"
     },
     index: {
         detail: "The model behind ChatGPT v3.5",

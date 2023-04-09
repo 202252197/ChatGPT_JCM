@@ -955,7 +955,7 @@ export default {
     font-weight: 100;
     /* margin: 0 20px; */
     width: 98%;
-    height: 50px !important; 
+    height: 70px !important;
 
   }
 }
