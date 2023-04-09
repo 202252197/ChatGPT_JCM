@@ -97,6 +97,16 @@ export const getModels = token => {
     return modelsObj;
   })
 }
+// 获取角色列表
+export const getRoles = () => {
+  return axios({
+    method: 'get',
+    baseURL: `user_custom.json`,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
 
 // 根据提示创建图像
 export const createImage = (params, token) => {

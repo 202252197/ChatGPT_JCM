@@ -168,6 +168,12 @@
 
 
               <div class="block" v-show="SettingInfo.openNet">
+                <div class="block">
+                    <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
+                        <span class="demonstration">{{ $t('model.online_title') }}</span>
+                    </el-tooltip>
+                    <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                </div>
                 <el-tooltip class="item" effect="dark" :content="$t('model.max_results_title')" placement="top">
                   <span class="demonstration" style="">{{ $t('model.max_results') }}</span>
                 </el-tooltip>
@@ -580,6 +586,18 @@
           <!--角色-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 6">
+                <div class="block">
+                    <input class="weitiao" v-model="roleSearch" :placeholder="$t('placeholder.role_name')"  />
+                </div>
+                <div  class="personList"
+                        v-for="roleInfo in roleList"
+                        :key="roleInfo.act"
+                        @click="roleClick(roleInfo)" >
+                    <RoleCard
+                            :roleInfo="roleInfo"
+                            :prCurrent="prCurrent"
+                    ></RoleCard>
+                </div>
 
             </div>
           </el-collapse-transition>
@@ -627,13 +645,15 @@ import Session from "@/components/Session.vue";
 import File from "@/components/File.vue";
 import ChatWindow from "./chatwindow.vue";
 import { AI_HEAD_IMG_URL } from '@/store/mutation-types'
-import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel, retrieveFineTune, deleteFile, retrieveFile, retrieveFileContent } from "@/api/getData";
+import RoleCard from "@/components/RoleCard.vue";
+import { getModels, getMoneyInfo, getFineTunesList, getFilesList, uploadFile, createFineTune, cancelFineTune, deleteFineTuneModel, retrieveFineTune, deleteFile, retrieveFile, retrieveFileContent, getRoles } from "@/api/getData";
 
 import { getNowTime, JCMFormatDate, JCMFormatTimestamp } from "@/util/util";
 const { Configuration, OpenAIApi } = require("openai");
 export default {
   name: "App",
   components: {
+    RoleCard,
     PersonCard,
     ChatWindow,
     Session,
@@ -701,6 +721,8 @@ export default {
       fiCurrent: "",
       //当前点击的模型
       pcCurrent: "",
+      //当前点击的角色
+      prCurrent: "",
       //当前点击的会话
       sessionCurrent: "",
       //当前点击的微调模型
@@ -709,6 +731,8 @@ export default {
       fineTuningSearch: "",
       //模型搜索数据
       modelSearch: "",
+      //角色搜索数据
+      roleSearch: "",
       //文件列表
       fileList: [],
       //文件缓存列表
@@ -721,6 +745,8 @@ export default {
       personList: [],
       //会话列表
       sessionList: [],
+      //角色列表
+      roleList: [],
       //模型列表缓存
       personListCache: [],
       //是否显示聊天窗口
@@ -788,6 +814,7 @@ export default {
     if (this.SettingInfo.KeyMsg) {
       this.getModelList(this.SettingInfo.KeyMsg);
     }
+    this.getRolesList();
     this.$watch('fileSearch', this.watchFileSearch);
   },
   filters: {
@@ -830,6 +857,15 @@ export default {
           this.fileList = this.fileCacheList.filter(fileList => fileList.id.includes(newVal))
         } else {
           this.fileList = this.fileCacheList
+        }
+      }
+    },
+    roleSearch: {
+      handler: function (newVal, oldVal) {
+        if (this.roleList) {
+          this.roleList = this.roleCacheList.filter(fileList => fileList.act.toLowerCase().includes(newVal.toLowerCase()))
+        } else {
+          this.roleList = this.roleCacheList
         }
       }
     },
@@ -976,6 +1012,16 @@ export default {
         this.$message.error(this.$t('message.get_files_fail'))
       })
     },
+    //获取角色列表
+    getRolesList() {
+        getRoles().then((res) => {
+            let data = res.data
+            this.roleList = data
+            this.roleCacheList = data
+        }).catch(e => {
+            this.$message.error(this.$t('message.get_roles_fail'))
+        })
+    },
     //监听窗口尺寸的变化
     handleResize() {
       if (window.innerWidth <= 1150) {
@@ -1067,6 +1113,19 @@ export default {
         showHeadImg: true
       }
       // this.showChatWindow = true;
+    },
+    //角色列表被点击
+    roleClick(info) {
+        if ( !this.showChatWindow ){
+            this.$message({
+                message: "请选一个模型",
+                type: "error",
+            });
+        }else{
+            var chatWindow = this.$refs.chatWindow;
+            chatWindow.inputMsg=info.prompt;
+        }
+
     },
     //微调模型列表被点击
     fineTuningClick() {
