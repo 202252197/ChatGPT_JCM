@@ -1,6 +1,6 @@
 export default {
     placeholder: {
-        question: "输入您的问题~",
+        question: "在此输入您的问题~",
         openai_key: "请输入OpenAI KEY",
         session_name: "会话名称",
         model_name: "模型名称",
@@ -77,7 +77,7 @@ export default {
         title: "文件",
         upload: "上传文件",
         delete: "删除文件",
-        retrieve: "删除文件",
+        retrieve: "检索文件",
         view: "查看文件内容"
     },
     image: {
