@@ -22,13 +22,14 @@
 ![webui4.5](https://i.328888.xyz/2023/04/09/icMLaw.png)
 ## 适配手机&平板
 <div>
-  <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="250px" />
-  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="250px"/>
-  <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="250px" />
+  <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="260px" />
+  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="260px"/>
+  <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="260px" />
 </div>
 <div>
   <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
 </div>
+
 ## 应用程序（2K的Star再更新）
 
 # 部署步骤
