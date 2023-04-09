@@ -2,8 +2,8 @@
   <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
 </a>
 
-<div>
-  <img src="https://i.328888.xyz/2023/04/09/icPI3N.png"  align=center />
+<div align=center>
+  <img src="https://i.328888.xyz/2023/04/09/icPI3N.png"   />
 </div>
 
 声明：此项目只发布于 GitHub，基于 BSD-3-Clause license 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
