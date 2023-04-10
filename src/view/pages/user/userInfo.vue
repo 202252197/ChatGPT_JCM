@@ -1,16 +1,7 @@
 <template>
-    <div class="setting">
-      <el-container>
-        <el-row :gutter="24">
-            <el-col :span="6">
-            
-            </el-col>
-            <el-col :span="18">
-                
-            </el-col>
-        </el-row>
-      </el-container>
-    </div>
+    <el-container style="height: 94vh;">
+     
+    </el-container>
   </template>
   
   <script>

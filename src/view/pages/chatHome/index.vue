@@ -2,7 +2,7 @@
   <div class="chatHome">
     <div class="chatLeft" style="width:22%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
-        <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <!-- <svg t="1679634305168" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3634" width="40" height="40">
           <path
             d="M512 960.4c-23.2 0-46.5-6-67.2-17.9L173.5 785.8c-41.4-23.9-67.2-68.5-67.2-116.3V356.1c0-47.8 25.7-92.4 67.2-116.3L444.8 83.1c41.4-23.9 92.9-23.9 134.3 0l271.4 156.7c41.4 23.9 67.2 68.5 67.2 116.3v313.4c0 47.8-25.7 92.4-67.2 116.3L579.2 942.5c-20.7 11.9-44 17.9-67.2 17.9z m0-805.6c-7.7 0-15.4 2-22.3 6L218.3 317.5c-13.8 7.9-22.3 22.7-22.3 38.6v313.4c0 15.9 8.5 30.7 22.3 38.6l271.4 156.7c13.8 7.9 30.8 7.9 44.6 0l271.4-156.7c13.8-7.9 22.3-22.7 22.3-38.6V356.1c0-15.9-8.5-30.7-22.3-38.6L534.3 160.8c-6.9-4-14.6-6-22.3-6z"
@@ -13,7 +13,7 @@
           <path
             d="M512 805.8c-24.8 0-44.9-20.1-44.9-44.9V514.1c0-24.8 20.1-44.9 44.9-44.9s44.9 20.1 44.9 44.9V761c0 24.7-20.1 44.8-44.9 44.8z"
             fill="#ffffff" p-id="3637"></path>
-        </svg>
+        </svg> -->
         <h2>OpenAI Manager</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;">
@@ -383,6 +383,7 @@
                 {{ $t('slightly.showCanceledFineTuning') }}
               </div>
               <div class="fineTune boxinput" @click="deleteFine" style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                <span class="iconfont icon-shanchu" style="color: #fff; margin-right:10px;"></span>
                 {{ $t('slightly.deleteFineTuningModel') }}
               </div>
               <div class="fineTune boxinput" @click="showFineSetting = !showFineSetting"
@@ -529,6 +530,7 @@
                 {{ $t('file.upload') }}
               </div>
               <div class="fineTune boxinput" @click="deleteOnFile" style="margin-left: 0px;margin-right: 0px;width: 99%;">
+                <span class="iconfont icon-shanchu" style="color: #fff; margin-right:10px;"></span>
                 {{ $t('file.delete') }}
               </div>
               <div class="fineTune boxinput" @click="retrieveOnFile"
@@ -614,19 +616,7 @@
               </div> -->
               <div class="session boxinput" @click="changeLanguage"
                 style="margin-left: 0px;margin-right: 0px;width: 99%;">
-                <label>
-                  <span class="iconfont">
-                    <svg t="1680840158581" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                      xmlns="http://www.w3.org/2000/svg" p-id="5743" id="mx_n_1680840158585" width="25" height="25">
-                      <path
-                        d="M424.7 343.4H386c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2zM296.7 343.4H258c-1.1 0-2 0.9-2 2v81.3c0 1.1 0.9 2 2 2h38.7c1.1 0 2-0.9 2-2v-81.3c0-1.1-0.9-2-2-2z"
-                        fill="#76798a" p-id="5744"></path>
-                      <path
-                        d="M896 130H128c-23.6 0-42.7 19.1-42.7 42.7v682.7c0 23.6 19.1 42.7 42.7 42.7h768c23.6 0 42.7-19.1 42.7-42.7V172.7c0-23.6-19.1-42.7-42.7-42.7zM170.6 471.4V300.7c0-23.5 19.2-42.7 42.7-42.7h85.3c0-23.5 19.2-42.7 42.7-42.7S384 234.5 384 258h85.3c23.5 0 42.7 19.2 42.7 42.7v170.6c0 23.5-19.2 42.7-42.7 42.7H384v42.8c0 23.5-19.2 42.7-42.7 42.7s-42.7-19.2-42.7-42.7v-42.7h-85.3c-23.5 0-42.7-19.2-42.7-42.7zM512 791.3c-93.1 0-179.6-46.3-231.1-124-6.5-9.7-3.8-23 6-29.5 9.7-6.5 23-3.9 29.5 6 43.7 65.7 116.8 104.9 195.6 104.9 11.8 0 21.3 9.5 21.3 21.3s-9.5 21.3-21.3 21.3z m65.3-525.8c3.9-11.1 16.2-16.9 27.2-13 56.3 19.9 105.6 58.3 138.7 108.2 6.5 9.7 3.8 23-6 29.5-3.6 2.4-7.7 3.6-11.8 3.6-6.9 0-13.7-3.3-17.8-9.5-28.1-42.2-69.8-74.8-117.3-91.6-11.1-3.9-16.9-16.1-13-27.2z m233.4 547.2H640c-23.5 0-42.7-19.2-42.7-42.7V471.5c0-23.5 19.2-42.7 42.7-42.7h169.9c23.8 0 43.7 19.4 43.4 43.2-0.4 23.2-19.4 42.1-42.7 42.1h-126c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h126c23.3 0 42.4 18.9 42.7 42.1 0.4 23.7-19.6 43.2-43.4 43.2H684.7c-1.1 0-2 0.9-2 2v60c0 1.1 0.9 2 2 2h125.2c23.8 0 43.8 19.4 43.5 43.2-0.4 23.2-19.4 42.1-42.7 42.1z"
-                        fill="#76798a" p-id="5745"></path>
-                    </svg>
-                  </span>
-                </label>
+                <span class="iconfont icon-iconyuanbanben_fanyi" style="color: #fff; margin-right:10px;"></span>
                 {{ $t('setting.Language') }}
               </div>
 
