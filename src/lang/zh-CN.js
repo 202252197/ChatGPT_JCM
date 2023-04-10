@@ -21,9 +21,9 @@ export default {
     session: {
         title: "会话",
         create: "创建会话",
-        export: "导出会话",
-        import: "导入会话",
-        clear: "清除会话"
+        export: "导出会话列表",
+        import: "导入会话列表",
+        clear: "清除会话列表"
     },
     model: {
         title: "模型",

@@ -436,7 +436,6 @@ export default {
       //   return
       // }
       this.rows = 1;
-      // document.getElementById("textareaMsg").style.height = "26px";
       this.$nextTick(() => {
         this.acqStatus = false
       })
