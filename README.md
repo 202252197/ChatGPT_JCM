@@ -49,8 +49,8 @@ npm run serve
 npm run build
 ```
  
- # 在线免费体验地址 (需要使用自己的OpenAI KEY)
- 
+ # 在线体验地址 (需要使用自己的OpenAI KEY)
+
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
 
 ## OpenAI-Key设置以及自定义设置
