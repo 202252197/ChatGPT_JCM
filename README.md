@@ -122,8 +122,13 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | 增加后端实现更多功能    | 待开发 |
 | More    | 待开发 |
 
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
+# 贡献者
+<div>
+  <a href="https://github.com/202252197/ChatGPT_JCM/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=202252197/ChatGPT_JCM" />
+  </a>
+</div>
+
 
 # 赞助
 开源不易，有需要我帮助可以赞助一下(多少无所谓，看项目对大家有多大帮助🤭)
@@ -135,6 +140,9 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
   加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能，可以进入技术交流群。
   <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
+
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
