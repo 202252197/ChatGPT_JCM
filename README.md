@@ -28,7 +28,7 @@
 ## 适配手机&平板
 <div>
   <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="270px" />
-  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="270px"/>
+  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="280px"/>
   <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="270px" />
 </div>
 <div>
