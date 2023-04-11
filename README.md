@@ -130,14 +130,9 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 </div>
 
 
-# 赞助
-开源不易，有需要我帮助可以赞助一下(多少无所谓，看项目对大家有多大帮助🤭)
+# 进学习群加V
 <div>
-  <img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
-  <img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
-<div>
-  加一下V联系我，不解决其他项目问题，只针对本项目进行优化增加功能，可以进入技术交流群。
+  发广告秒踢，不解决其他项目问题，只针对本项目进行优化增加功能
   <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 

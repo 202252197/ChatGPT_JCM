@@ -8,7 +8,8 @@
         <el-row :gutter="24">
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">{{ $t('session.title') }}</span>
+              <span class="" @click="sessionClick" :class="{ whiteText: cutSetting === 1 }">{{ $t('session.title')
+              }}</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -18,8 +19,8 @@
           </el-col>
           <el-col :span="6">
             <div class="setting" style="text-align: center;">
-              <span class="" @click="fineTuningClick"
-                :class="{ whiteText: cutSetting === 2 }">{{ $t('slightly.title.whole') }}</span>
+              <span class="" @click="fineTuningClick" :class="{ whiteText: cutSetting === 2 }">{{
+                $t('slightly.title.whole') }}</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -135,9 +136,10 @@
 
       <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
         <div>
-            <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
-              style="width: 100%; margin-left: 0px;margin-right: 0px;" />
-          </div>
+          <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
+            auto-complete="new-password" autocomplete="new-password"
+            style="width: 100%; margin-left: 0px;margin-right: 0px;" />
+        </div>
       </el-card>
 
       <div class="online-person">
@@ -149,7 +151,7 @@
 
         <div class="s-wrapper" style="height: 75vh;">
 
-         
+
           <!--对话设置-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 0">
@@ -157,10 +159,10 @@
 
               <div class="block" v-show="SettingInfo.openNet">
                 <div class="block">
-                    <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
-                        <span class="demonstration">{{ $t('model.online_title') }}</span>
-                    </el-tooltip>
-                    <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
+                  <el-tooltip class="item" effect="dark" :content="$t('model.online')" placement="top">
+                    <span class="demonstration">{{ $t('model.online_title') }}</span>
+                  </el-tooltip>
+                  <el-switch v-model="SettingInfo.openNet" :width="defaulWidth" style="margin-left: 15%;"></el-switch>
                 </div>
                 <el-tooltip class="item" effect="dark" :content="$t('model.max_results_title')" placement="top">
                   <span class="demonstration" style="">{{ $t('model.max_results') }}</span>
@@ -563,7 +565,8 @@
                 {{ $t('session.export') }}
               </div>
               <div class="session boxinput" @click="importFromJsonArrAll">
-                <span class="iconfont icon-daoru" style="color: #fff; margin-right:10px;"></span> {{ $t('session.import') }}
+                <span class="iconfont icon-daoru" style="color: #fff; margin-right:10px;"></span> {{ $t('session.import')
+                }}
                 <input type="file" ref="onupdateJosnArrAll" @change="handleFileUploadAll" style="display: none;">
               </div>
               <div class="session boxinput" @click="clearAllContext">
@@ -576,18 +579,12 @@
           <!--角色-->
           <el-collapse-transition>
             <div v-show="SettingStatus == 6">
-                <div class="block">
-                    <input class="weitiao" v-model="roleSearch" :placeholder="$t('placeholder.role_name')"  />
-                </div>
-                <div  class="personList"
-                        v-for="roleInfo in roleList"
-                        :key="roleInfo.act"
-                        @click="roleClick(roleInfo)" >
-                    <RoleCard
-                            :roleInfo="roleInfo"
-                            :prCurrent="prCurrent"
-                    ></RoleCard>
-                </div>
+              <div class="block">
+                <input class="weitiao" v-model="roleSearch" :placeholder="$t('placeholder.role_name')" />
+              </div>
+              <div class="personList" v-for="roleInfo in roleList" :key="roleInfo.act" @click="roleClick(roleInfo)">
+                <RoleCard :roleInfo="roleInfo" :prCurrent="prCurrent"></RoleCard>
+              </div>
 
             </div>
           </el-collapse-transition>
@@ -992,13 +989,13 @@ export default {
     },
     //获取角色列表
     getRolesList() {
-        getRoles().then((res) => {
-            let data = res.data
-            this.roleList = data
-            this.roleCacheList = data
-        }).catch(e => {
-            this.$message.error(this.$t('message.get_roles_fail'))
-        })
+      getRoles().then((res) => {
+        let data = res.data
+        this.roleList = data
+        this.roleCacheList = data
+      }).catch(e => {
+        this.$message.error(this.$t('message.get_roles_fail'))
+      })
     },
     //监听窗口尺寸的变化
     handleResize() {
@@ -1094,15 +1091,15 @@ export default {
     },
     //角色列表被点击
     roleClick(info) {
-        if ( !this.showChatWindow ){
-            this.$message({
-                message: "请选一个模型",
-                type: "error",
-            });
-        }else{
-            var chatWindow = this.$refs.chatWindow;
-            chatWindow.inputMsg=info.prompt;
-        }
+      if (!this.showChatWindow) {
+        this.$message({
+          message: "请选一个模型",
+          type: "error",
+        });
+      } else {
+        var chatWindow = this.$refs.chatWindow;
+        chatWindow.inputMsg = info.prompt;
+      }
 
     },
     //微调模型列表被点击
@@ -1367,7 +1364,7 @@ export default {
       }
     },
     personCardSort(id) {
-      if ( typeof this.personList[0] != 'undefined' && id !== this.personList[0].id) {
+      if (typeof this.personList[0] != 'undefined' && id !== this.personList[0].id) {
         console.log(id);
         let nowPersonInfo;
         for (let i = 0; i < this.personList.length; i++) {
@@ -1654,4 +1651,5 @@ input[type=number]::-webkit-outer-spin-button {
       }
     }
   }
-}</style>
+}
+</style>
