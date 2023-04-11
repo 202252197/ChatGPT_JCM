@@ -229,7 +229,7 @@ export default {
         this.sendText()
       }
     },
-      readStream(reader,_this, currentResLocation) {
+    readStream(reader,_this, currentResLocation,type) {
         return reader.read().then(({ done, value }) => {
           if ( done ) {
             return;
@@ -246,12 +246,19 @@ export default {
               if(decoded.trim()==="[DONE]"){
                 return;
               }else{
-                const response = JSON.parse(decoded).choices[0].delta.content?JSON.parse(decoded).choices[0].delta.content:"";
-                _this.chatList[currentResLocation].msg=_this.chatList[currentResLocation].msg+response
+                console.log(type)
+                if(type==="chat"){
+                  const response = JSON.parse(decoded).choices[0].delta.content ? JSON.parse(decoded).choices[0].delta.content : "";
+                  _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
+                  _this.scrollBottom();
+                }else{
+                  const response = JSON.parse(decoded).choices[0].text;
+                  _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + response
+                }
               }
             }
           })
-          return this.readStream(reader,_this, currentResLocation);
+          return this.readStream(reader,_this, currentResLocation,type);
         });
       },
     //导入当前内容json触发的方法
@@ -532,14 +539,14 @@ export default {
         } else {
           //如果是文字模式则进入
           params.model = this.frinedInfo.id,
-            params.max_tokens = this.settingInfo.chat.MaxTokens,
-            params.temperature = this.settingInfo.chat.Temperature,
-            params.top_p = this.settingInfo.chat.TopP,
-            params.n = this.settingInfo.chat.n,
-            params.stream = this.settingInfo.chat.stream,
-            params.stop = this.settingInfo.chat.stop,
-            params.presence_penalty = this.settingInfo.chat.PresencePenalty,
-            params.frequency_penalty = this.settingInfo.chat.FrequencyPenalty
+          params.max_tokens = this.settingInfo.chat.MaxTokens,
+          params.temperature = this.settingInfo.chat.Temperature,
+          params.top_p = this.settingInfo.chat.TopP,
+          params.n = this.settingInfo.chat.n,
+          params.stream = this.settingInfo.chat.stream,
+          params.stop = this.settingInfo.chat.stop,
+          params.presence_penalty = this.settingInfo.chat.PresencePenalty,
+          params.frequency_penalty = this.settingInfo.chat.FrequencyPenalty
 
           let chatBeforResMsg = {
             headImg: AI_HEAD_IMG_URL,
@@ -552,7 +559,19 @@ export default {
           if (this.frinedInfo.id === "gpt-3.5-turbo" || this.frinedInfo.id === "gpt-3.5-turbo-0301") {
             this.chatCompletion(params, chatBeforResMsg)
           } else {
-            this.completion(params, chatBeforResMsg)
+            if(this.settingInfo.cutSetting===0){
+              if(this.frinedInfo.id === "text-davinci-003" ){
+                this.completion(params, chatBeforResMsg)
+              }else{
+                this.$message.error("暂时不支持gpt-3.5-turbo、gpt-3.5-turbo-0301、text-davinci-003以外的模型聊天~")
+                this.$nextTick(() => {
+                  this.acqStatus = true
+                })
+              }
+            }else{
+              this.completion(params, chatBeforResMsg)
+            }
+          
           }
         }
         if (this.storeStatu == 0) {
@@ -637,8 +656,7 @@ export default {
 
         const currentResLocation = this.chatList.length - 1
         let _this = this
-
-          try {
+         try {
             if ( this.settingInfo.chat.stream ){
               await fetch(
                 base.baseUrl+'/v1/chat/completions',{
@@ -654,7 +672,7 @@ export default {
                 }
             ).then(response=>{
                 const reader = response.body.getReader();
-                this.readStream(reader,_this, currentResLocation);
+                this.readStream(reader,_this, currentResLocation,"chat");
             });
         }else{
           await fetch(
@@ -726,7 +744,7 @@ export default {
             this.acqStatus = true
           });
           // _this.chatList[currentResLocation].msg = _this.chatList[currentResLocation].msg + ":grinning:"
-            this.readStream(reader,_this, currentResLocation);
+            this.readStream(reader,_this, currentResLocation,"completion");
         })
       } catch (error) {
 

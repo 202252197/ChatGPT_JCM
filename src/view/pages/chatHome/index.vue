@@ -656,6 +656,7 @@ export default {
       batch_sizeStr: "",
       //全部的设置参数
       SettingInfo: {
+        cutSetting : 1,
         KeyMsg: process.env.VUE_APP_OPENAI_API_KEY,
         readefile: false,
         inputStatus: true,
@@ -1019,16 +1020,6 @@ export default {
         this.showSetupList = true;
       };
     },
-    // // 更新当前余额
-    // updateMoneyInfo() {
-    //   getMoneyInfo(this.SettingInfo.KeyMsg).then((res) => {
-    //     this.$nextTick(() => {
-    //       this.moneryInfo.totalGranted = res.total_granted;
-    //       this.moneryInfo.totalUsed = res.total_used;
-    //       this.moneryInfo.totalAvailable = res.total_available;
-    //     })
-    //   })
-    // },
     //创建会话
     newSession() {
       //获取当前会话长度
@@ -1070,6 +1061,7 @@ export default {
       this.fineTuningInfo = {};
       this.SettingStatus = 0
       this.cutSetting = 0
+      this.SettingInfo.cutSetting = 0
       // this.showChatWindow = false;
     },
     //会话列表被点击
@@ -1078,6 +1070,7 @@ export default {
       this.clearCurrent()
       this.SettingStatus = 5
       this.cutSetting = 1
+      this.SettingInfo.cutSetting = 1
       this.chatWindowInfo = {
         img: "",
         name: "ChatGPT",
@@ -1107,6 +1100,7 @@ export default {
       this.clearCurrent()
       this.SettingStatus = 3;
       this.cutSetting = 2
+      this.SettingInfo.cutSetting = 2
       // this.showChatWindow = false;
       //获取微调模型列表
       this.getFineTunessList(this.SettingInfo.KeyMsg)
@@ -1128,6 +1122,7 @@ export default {
       this.fineTuningInfo = {};
       this.SettingStatus = 4;
       this.cutSetting = 3
+      this.SettingInfo.cutSetting = 3
       //获取微调模型列表
       this.getFilessList(this.SettingInfo.KeyMsg)
     },
