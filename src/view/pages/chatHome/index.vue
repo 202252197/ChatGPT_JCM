@@ -1,6 +1,6 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft" style="width:22%" v-show="showPersonList">
+    <div class="chatLeft" style="width:20%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
         <h2>OpenAI Manager</h2>
       </div>
@@ -933,10 +933,11 @@ export default {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       if (isMobile && (this.showPersonList || this.showSetupList)) {
         this.showMainContent = false;
+        this.showSetupList = !this.showPersonList;
         document.querySelectorAll('.chatLeft')[0].style.width = '100%';
       } else {
         this.showMainContent = true;
-        document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+        document.querySelectorAll('.chatLeft')[0].style.width = '20%';
       }
     },
     toggleRight() {
@@ -945,10 +946,11 @@ export default {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       if (isMobile && (this.showPersonList || this.showSetupList)) {
         this.showMainContent = false;
+        this.showPersonList = !this.showSetupList;
         document.querySelectorAll('.chatLeft')[1].style.width = '100%';
       } else {
         this.showMainContent = true;
-        document.querySelectorAll('.chatLeft')[1].style.width = '22%';
+        document.querySelectorAll('.chatLeft')[1].style.width = '20%';
       }
     },
     //获取模型列表
@@ -1593,7 +1595,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
 
   .chatLeft {
-    width: 17%;
+    width: 20%;
 
     .title {
       color: #fff;
