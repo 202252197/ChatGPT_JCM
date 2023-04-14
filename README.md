@@ -52,6 +52,10 @@ npm run build
  # 在线体验地址 (需要使用自己的OpenAI KEY)
 
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
+ 
+# 国内在线体验地址 (没kx再或者没有KEY--省点用)
+
+> https://175.178.88.119/learn.html
 
 ## OpenAI-Key设置以及自定义设置
 ### 在.env.serve中添加代码

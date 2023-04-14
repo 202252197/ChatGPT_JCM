@@ -1034,7 +1034,7 @@ textarea::-webkit-scrollbar-thumb {
 .chat-window {
   width: 100%;
   height: 100%;
-  margin-left: 20px;
+  margin-left: 0px;
   position: relative;
 
   .top {
@@ -1096,7 +1096,7 @@ textarea::-webkit-scrollbar-thumb {
     background-size: 100% 100%;
     // background-color: rgb(50, 54, 68);
     border-radius: 20px;
-    padding: 20px;
+    padding: 0px;
     box-sizing: border-box;
     position: relative;
 
@@ -1230,7 +1230,7 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     .chatInputs {
-      width: 90%;
+      width: 100%;
       position: absolute;
       bottom: 0;
       margin: 3%;
@@ -1377,6 +1377,21 @@ textarea::-webkit-scrollbar-thumb {
   50.1%,
   100% {
     transform: scaleX(0);
+  }
+}
+@media only screen and (min-width: 768px) { // 当屏幕宽度大于或等于768px时
+  .chat-window{
+    margin-left: 20px;
+    .botoom {
+      padding: 20px;
+    }
+  }
+  .chat-window {
+    .botoom {
+      .chatInputs{
+        width: 90%;
+      }
+    }
   }
 }
 </style>
