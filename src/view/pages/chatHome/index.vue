@@ -1631,7 +1631,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .chatRight {
     flex: 1;
-    padding-right: 30px;
+    padding-right: 0px;
 
     .showIcon {
       position: absolute;
@@ -1646,6 +1646,13 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 300px;
         // color: rgb(28, 30, 44);
       }
+    }
+  }
+}
+@media only screen and (min-width: 768px) { // 当屏幕宽度大于或等于768px时
+  .chatHome {
+    .chatRight {
+      padding-right: 30px;
     }
   }
 }
