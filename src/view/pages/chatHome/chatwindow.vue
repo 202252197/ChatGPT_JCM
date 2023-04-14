@@ -1230,7 +1230,7 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     .chatInputs {
-      width: 90%;
+      width: 100%;
       position: absolute;
       bottom: 0;
       margin: 3%;
@@ -1384,6 +1384,13 @@ textarea::-webkit-scrollbar-thumb {
     margin-left: 20px;
     .botoom {
       padding: 20px;
+    }
+  }
+  .chat-window {
+    .botoom {
+      .chatInputs{
+        width: 90%;
+      }
     }
   }
 }
