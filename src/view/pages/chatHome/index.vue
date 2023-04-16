@@ -753,6 +753,8 @@ export default {
       showPersonList: true,
       showSetupList: true,
       showMainContent: true,
+      firstSize: true,
+      width: 0
     };
   },
   computed: {
@@ -998,8 +1000,7 @@ export default {
         this.$message.error(this.$t('message.get_roles_fail'))
       })
     },
-    //监听窗口尺寸的变化
-    handleResize() {
+    resize(){
       if (window.innerWidth <= 1150) {
         this.showPersonList = false;
         this.showSetupList = false;
@@ -1018,7 +1019,19 @@ export default {
       } else {
         this.showPersonList = true;
         this.showSetupList = true;
-      };
+      }
+    },
+    //监听窗口尺寸的变化
+    handleResize() {
+      if ( this.firstSize ){
+        this.resize();
+        this.firstSize = false;
+        this.width = window.innerWidth;
+      }
+      if ( this.width != window.innerWidth ){
+        this.resize();
+        this.width = window.innerWidth;
+      }
     },
     //创建会话
     newSession() {
