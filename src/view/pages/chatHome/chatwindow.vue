@@ -240,8 +240,21 @@ export default {
           let decoded = new TextDecoder().decode(value);
           decoded = _this.chatList[currentResLocation].reminder + decoded;
           let decodedArray = decoded.split("data: ");
-
+          let longstr = "";
           decodedArray.forEach(decoded => {
+            try {
+              decoded = decoded.trim();
+              if ( longstr == "" ){
+                JSON.parse(decoded);
+              }else{
+                decoded = longstr + decoded;
+                longstr = "";
+                JSON.parse(decoded);
+              }
+            }catch ( e ){
+              longstr = decoded;
+              decoded = "";
+            }
             if(decoded!==""){
               if(decoded.trim()==="[DONE]"){
                 return;
