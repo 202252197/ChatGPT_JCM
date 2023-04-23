@@ -1593,7 +1593,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
 
   .chatLeft {
-    width: 17%;
+    width: 20%;
 
     .title {
       color: #fff;

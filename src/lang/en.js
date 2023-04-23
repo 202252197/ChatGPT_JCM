@@ -105,7 +105,7 @@ export default {
         title: "role"
     },
     setting: {
-        title: "settings",
+        title: "set",
         Language: "Chinese Language"
     },
     file_card: {
