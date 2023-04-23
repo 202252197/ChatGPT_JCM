@@ -35,7 +35,7 @@
   <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
 </div>
 
-## 应用程序（2K的Star再更新）
+## 应用程序（近期更新）
 
 # 部署步骤
 
@@ -48,8 +48,13 @@ npm install
 npm run serve
 npm run build
 ```
- 
- # 在线体验地址 (需要使用自己的OpenAI KEY)
+ # 免费Openai_Key
+<div>
+  <a href="https://freeopenai.xyz"><img src="https://i.imgur.com/Z1Kzd54.png" alt="drawing" width="470px" /></a>
+</div>
+这里有些<a href="https://freeopenai.xyz">免费的OpenAI Key</a>,大家可以测试使用。
+
+ # 在线体验地址 (需要使用OpenAI KEY)
 
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
  
@@ -134,9 +139,8 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 </div>
 
 
-# 进学习群加V
+# 进学习群加V&商务合作
 <div>
-  发广告秒踢，不解决其他项目问题，只针对本项目进行优化增加功能
   <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
 
