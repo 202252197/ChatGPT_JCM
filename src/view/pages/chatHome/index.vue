@@ -1,6 +1,6 @@
 <template>
   <div class="chatHome">
-    <div class="chatLeft" style="width:22%" v-show="showPersonList">
+    <div class="chatLeft" style="width:20%" v-show="showPersonList">
       <div class="title" style="text-align: center;">
         <h2>OpenAI Manager</h2>
       </div>
@@ -753,6 +753,8 @@ export default {
       showPersonList: true,
       showSetupList: true,
       showMainContent: true,
+      firstSize: true,
+      width: 0
     };
   },
   computed: {
@@ -933,10 +935,11 @@ export default {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       if (isMobile && (this.showPersonList || this.showSetupList)) {
         this.showMainContent = false;
+        this.showSetupList = !this.showPersonList;
         document.querySelectorAll('.chatLeft')[0].style.width = '100%';
       } else {
         this.showMainContent = true;
-        document.querySelectorAll('.chatLeft')[0].style.width = '22%';
+        document.querySelectorAll('.chatLeft')[0].style.width = '20%';
       }
     },
     toggleRight() {
@@ -945,10 +948,11 @@ export default {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       if (isMobile && (this.showPersonList || this.showSetupList)) {
         this.showMainContent = false;
+        this.showPersonList = !this.showSetupList;
         document.querySelectorAll('.chatLeft')[1].style.width = '100%';
       } else {
         this.showMainContent = true;
-        document.querySelectorAll('.chatLeft')[1].style.width = '22%';
+        document.querySelectorAll('.chatLeft')[1].style.width = '20%';
       }
     },
     //获取模型列表
@@ -998,8 +1002,7 @@ export default {
         this.$message.error(this.$t('message.get_roles_fail'))
       })
     },
-    //监听窗口尺寸的变化
-    handleResize() {
+    resize(){
       if (window.innerWidth <= 1150) {
         this.showPersonList = false;
         this.showSetupList = false;
@@ -1018,7 +1021,19 @@ export default {
       } else {
         this.showPersonList = true;
         this.showSetupList = true;
-      };
+      }
+    },
+    //监听窗口尺寸的变化
+    handleResize() {
+      if ( this.firstSize ){
+        this.resize();
+        this.firstSize = false;
+        this.width = window.innerWidth;
+      }
+      if ( this.width != window.innerWidth ){
+        this.resize();
+        this.width = window.innerWidth;
+      }
     },
     //创建会话
     newSession() {
@@ -1629,7 +1644,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .chatRight {
     flex: 1;
-    padding-right: 30px;
+    padding-right: 0px;
 
     .showIcon {
       position: absolute;
@@ -1644,6 +1659,13 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 300px;
         // color: rgb(28, 30, 44);
       }
+    }
+  }
+}
+@media only screen and (min-width: 768px) { // 当屏幕宽度大于或等于768px时
+  .chatHome {
+    .chatRight {
+      padding-right: 30px;
     }
   }
 }
