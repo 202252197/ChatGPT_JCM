@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{'is-pc':isPc}">
     <el-container height="100%">
       <el-aside width="100px" v-show="asideStatus">
         <Nav></Nav>
@@ -13,10 +13,15 @@
 
 <script>
 import Nav from "../components/Nav.vue";
+import { isPc } from '@/util/util.js'
+
 export default {
   name: "App",
   components: {
     Nav,
+  },
+  computed:{
+    isPc:()=>isPc()
   },
   data() {
     return {
@@ -68,5 +73,9 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.is-pc{
+  width: 100vw;
+  border-radius: unset;
 }
 </style>

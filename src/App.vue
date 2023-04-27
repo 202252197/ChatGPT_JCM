@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app"  @mousedown="windowMove(true)" @mouseup="windowMove(false)">
     <Home></Home>
   </div>
 </template>
@@ -7,11 +7,21 @@
 <script>
 import "@/assets/font/font.css"
 import Home from './view/home.vue'
+import { isPc } from '@/util/util.js'
 
 export default {
   name: 'App',
   components: {
     Home
+  }, 
+  methods:{
+    windowMove(canMove){
+      if (isPc()){
+        import("electron").then(({ ipcRenderer }) => {
+          ipcRenderer.send('window-move-open', canMove ?? false);
+        });
+      }
+    },
   }
 }
 </script>
@@ -33,18 +43,13 @@ export default {
   margin: 0;
   font-family: 'SSFY';
 }
-
-
 #app {
   width: 100vw;
   height: 100vh;
   background: url("@/assets/img/bj.png") no-repeat;
   background-size:cover;
   position:absolute;
-      
 }
-
-
 ::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }

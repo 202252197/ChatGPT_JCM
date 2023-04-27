@@ -193,3 +193,10 @@ export function generateUUID() {
   });
   return uuid;
 }
+
+/**
+ * 是否在pc端下
+ */
+ export function isPc(){
+  return navigator.userAgent.toLowerCase().indexOf(' electron/') > -1
+}
