@@ -1,65 +1,66 @@
+
+
+<div align=center>
+  <img src="https://i.328888.xyz/2023/04/09/icPI3N.png"   />
+</div>
 <a href="https://github.com/202252197">
   <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
 </a>
-
-# OpenAI Manage Web
+<div>
 声明：此项目只发布于 GitHub，基于 BSD-3-Clause license 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
 项目使用Vue2进行开发，给大家提供一个方便使用的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对openai进行入门了解使用，后期会接入后端，实现更丰富的功能。
+</div>
 
-> 🤭记得点个小星星
+> 🤭记得点个小星星Starred
 
 ## 会话
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIKfd.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icM7uP.png)
 ## 模型
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIvcN.jpeg)
-## 微调模型列表
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIsno.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icMKez.png)
+## 微调模型
+![webui4.5](https://i.328888.xyz/2023/04/09/icM9Zb.png)
 ## 文件
-![webui4.5](https://i.328888.xyz/2023/03/26/iDIEoE.jpeg)
+![webui4.5](https://i.328888.xyz/2023/04/09/icMdBA.png)
+## 多种prompt角色
+![webui4.5](https://i.328888.xyz/2023/04/09/icMO4p.png)
+## 中英文切换
+![webui4.5](https://i.328888.xyz/2023/04/09/icMLaw.png)
+## 适配手机&平板
+<div>
+  <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="270px" />
+  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="280px"/>
+  <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="270px" />
+</div>
+<div>
+  <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
+</div>
 
+## 应用程序（近期更新）
 
 # 部署步骤
-
-## 感觉麻烦的可以直接下载应用程序使用
-https://wweu.lanzoub.com/iSKF90rckdyh (蓝奏云下载地址)
 
 ## 参考视频
 https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
 
-
-# web端
-## 下载依赖包
+## 本地部署
 ```
 npm install
-```
-
-## 运行
-```
 npm run serve
-```
-
-## 编译
-```
 npm run build
-
 ```
+ # 免费Openai_Key
+<div>
+  <a href="https://freeopenai.xyz"><img src="https://i.imgur.com/Z1Kzd54.png" alt="drawing" width="470px" /></a>
+</div>
+这里有些<a href="https://freeopenai.xyz">免费的OpenAI Key</a>,大家可以测试使用。
+
+ # 在线体验地址 (需要使用OpenAI KEY)
+
+ > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
  
+# 国内在线体验地址 (没kx再或者没有KEY--省点用)
 
-# win/mac端
-## 下载依赖包
-```
-npm install
-```
-
-## 运行
-```
-npm run electron:serve
-```
-
-## 编译
-```
-npm run electron:build
-```
+> https://175.178.88.119/learn.html
 
 ## OpenAI-Key设置以及自定义设置
 ### 在.env.serve中添加代码
@@ -91,8 +92,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | vue  | 2.6.14 |
 | element-ui  | 2.15.12 |
 | NodeJS  | 14+ |
-| electron  | 11.5.0 |
-
 
 # 项目进度（对标OpenAI官方接口文档）
 
@@ -126,46 +125,31 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
 | 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |
 | 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图（暂时取消） |
 | 更换聊天窗口背景    | 支持输入背景图片URL，暂时取消并保留此功能，没太大意义（暂时取消） |
+| 角色扮演    | 内置多角色prompt |
+| 界面多语言    | 支持中英文语言 |
 | 更换主题    | 待开发 |
-| 界面多语言    | 待开发 |
 | 增加后端实现更多功能    | 待开发 |
 | More    | 待开发 |
 
-
-# 赞助
-实在是精力忙不过来了兄弟们，一边要处理上百人问的问题，还要一边更新，感谢大家支持（后面后端源码开源还要忙一些）以及要感谢贡献代码的所有大佬
-不需要梯子的方法也有，可以群里讨论一下
+# 贡献者
 <div>
-<img src="https://i.328888.xyz/2023/04/02/iHlzxb.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/04/02/iHldcw.jpeg" alt="drawing" width="300px" height="300px"/>
+  <a href="https://github.com/202252197/ChatGPT_JCM/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=202252197/ChatGPT_JCM" />
+  </a>
 </div>
 
 
-# OpenAI交流群
+# 进学习群加V&商务合作
 <div>
-<img src="https://i.328888.xyz/2023/03/25/iAi2Dd.jpeg" alt="drawing" width="300px" height="300px"/>
-<img src="https://i.328888.xyz/2023/03/28/iWUyDz.jpeg" alt="drawing" width="300px" height="300px"/>
+  <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
 </div>
-
-兄弟们如果群满的话加上方V拉进去
-
-
-# 个人说明
-14岁进入it行业，如今19了，时间过得太快了，从当初的html，css到java语言(gecco爬虫、ssm、springboot、dubbo、springCloud和Alibaba...)框架，然后到大数据(Hadoop、spark、flink...)的数据处理框架，学习真的学无止境，非常热爱编程，大家支持一下，你们的支持是我更新最大的动力，点个免费的小星星。
-我后期会录制一些大家提出的问题解决方案，热爱分享，热爱技术，更热爱大家。
 
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
-
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
 
-![FairyWorld's github stats](https://github-readme-stats.vercel.app/api?username=202252197&show_icons=true&include_all_commits=true&count_private=true&line_height=28&theme=vue-dark)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=202252197&layout=compact&langs_count=12&theme=vue-dark&line_height=28)
-
-[![FairyWorld's github activity graph](https://github-readme-activity-graph.cyclic.app/graph?username=202252197&theme=dracula)](https://github.com//202252197/ChatGPT_JCM)
-<p align="left">
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/stars/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/last-commit/202252197/ChatGPT_JCM" /></a>
 <a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/release/202252197/ChatGPT_JCM" /></a>
