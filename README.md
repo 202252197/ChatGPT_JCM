@@ -48,12 +48,6 @@ npm install
 npm run serve
 npm run build
 ```
- # 免费Openai_Key
-<div>
-  <a href="https://freeopenai.xyz"><img src="https://i.imgur.com/Z1Kzd54.png" alt="drawing" width="470px" /></a>
-</div>
-这里有些<a href="https://freeopenai.xyz">免费的OpenAI Key</a>,大家可以测试使用。
-
  # 在线体验地址 (需要使用OpenAI KEY)
 
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
