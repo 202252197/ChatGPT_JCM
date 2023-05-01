@@ -37,11 +37,15 @@
 
 ## 应用程序（近期更新）
 
-# 部署步骤
+
 
 ## 参考视频
-https://www.bilibili.com/video/BV1iL411k7pC  本地和云服务器部署视频
+https://www.bilibili.com/video/BV1BM4y187bp 使用API调用StableDiffusion生成图片简单案例
+https://www.bilibili.com/video/BV1iL411k7pC 本地+云服务器 部署此项目视频
+https://www.bilibili.com/video/BV1ss4y1d72g 此项目微调使用的简单案例
+关注我的B站，持续输出简单的入门案例
 
+# 部署步骤
 ## 本地部署
 ```
 npm install
