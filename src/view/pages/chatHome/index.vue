@@ -135,11 +135,11 @@
     <div class="chatLeft" v-show="showSetupList">
 
       <el-card shadow="hover" id="jianbian" style="line-height: 120%;text-align: center;">
-        <!-- <div>
+        <div>
           <input class="inputs" v-model="SettingInfo.KeyMsg" :placeholder="$t('placeholder.openai_key')" type="password"
             auto-complete="new-password" autocomplete="new-password"
             style="width: 100%; margin-left: 0px;margin-right: 0px;" />
-        </div> -->
+        </div>
       </el-card>
 
       <div class="online-person">
