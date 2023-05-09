@@ -35,8 +35,8 @@
   <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
 </div>
 
-## 应用程序（近期更新）
-
+## 应用程序
+https://wweu.lanzoub.com/ia2Zy0v2fxqd  蓝奏云下载地址
 
 
 ## 参考视频
