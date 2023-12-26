@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>666</title>
+		<style type="text/css">
+			.div1{
+				width: 500px;
+				height: 300px;
+				overflow-y: scroll;
+				margin: auto;
+				border: 1px solid red;
+			}
+			.div2{
+				width: 200px;
+				height: 50px;
+				border: 1px solid red;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="div1">
+			666
+		</div>
+		
+		<button type="button" id="btn">添加</button>
+		
+		<script type="text/javascript">
+			var div1 = document.querySelector('.div1');
+			var btn = document.querySelector('#btn');
+			btn.addEventListener('click',function(){
+				console.log('66')
+				var k = div1.innerHTML;
+				div1.innerHTML = k+"<br/>66";
+	
+				div1.scrollTop = div1.scrollHeight;
+				
+			})
+		</script>
+	</body>
+</html>
