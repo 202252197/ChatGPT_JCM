@@ -12,34 +12,23 @@
 </div>
 
 > 🤭记得点个小星星Starred
-<<<<<<< HEAD
-=======
-
->>>>>>> 1606e6e78c27f8fae38d21b6ff9e4b63f99618c4
 ## 会话
-![webui4.5](https://i.328888.xyz/2023/04/09/icM7uP.png)
+![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a737bec9c4.jpeg)
 ## 模型
-![webui4.5](https://i.328888.xyz/2023/04/09/icMKez.png)
+![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a7358e83b7.jpeg)
 ## 微调模型
-![webui4.5](https://i.328888.xyz/2023/04/09/icM9Zb.png)
+![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a74002da34.jpeg)
 ## 文件
-![webui4.5](https://i.328888.xyz/2023/04/09/icMdBA.png)
-<<<<<<< HEAD
-=======
-## 多种prompt角色
-![webui4.5](https://i.328888.xyz/2023/04/09/icMO4p.png)
->>>>>>> 1606e6e78c27f8fae38d21b6ff9e4b63f99618c4
+![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a73b451da1.jpeg)
 ## 中英文切换
-![webui4.5](https://i.328888.xyz/2023/04/09/icMLaw.png)
-## 适配手机&平板
+![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a73e2c8945.jpeg)
+## 适配手机
 <div>
-  <img src="https://i.328888.xyz/2023/04/09/icMzet.png" alt="drawing" width="270px" />
-  <img src="https://i.328888.xyz/2023/04/09/icMeHX.png" alt="drawing" width="280px"/>
-  <img src="https://i.328888.xyz/2023/04/09/icMGkc.png" alt="drawing" width="270px" />
+  <img src="https://www.freeimg.cn/i/2023/12/26/658a7444f169c.jpeg" alt="drawing" width="270px"/>
+  <img src="https://www.freeimg.cn/i/2023/12/26/658a7456ade1e.jpeg" alt="drawing" width="280px"/>
+  <img src="https://www.freeimg.cn/i/2023/12/26/658a74685a4e4.jpeg" alt="drawing" width="270px"/>
 </div>
-<div>
-  <img src="https://i.328888.xyz/2023/04/09/icMh9o.png" alt="drawing" />
-</div>
+
 
 ## 应用程序
 https://wweu.lanzoub.com/ia2Zy0v2fxqd  蓝奏云下载地址
@@ -61,14 +50,6 @@ npm run build
  # 在线体验地址 (需要使用OpenAI KEY)
 
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
-<<<<<<< HEAD
-
-=======
- 
-# 国内在线体验地址 (没kx再或者没有KEY--省点用)
-
-> https://175.178.88.119/learn.html
->>>>>>> 1606e6e78c27f8fae38d21b6ff9e4b63f99618c4
 
 ## OpenAI-Key设置以及自定义设置
 ### 在.env.serve中添加代码
@@ -80,22 +61,6 @@ VUE_APP_OPENAI_API_KEY='你的openai api key'
 可以在此文件中设置AI头像+用户头像+用户名称
 
 
-<<<<<<< HEAD
-=======
-# Docker部署(暂时不是最新的镜像)
-
-## 构建镜像
-使用以下命令构建镜像，其中 "jcm-chatgpt" 是您想要给镜像取的名称，"." 表示 Dockerfile 在当前目录中。
-```
-docker build -t jcm-chatgpt .
-```
-## 运行镜像
-构建完成后，可以使用以下命令运行镜像，其中 "my-container" 是您想要给容器取的名称。该命令会将容器端口 80 映射到本地机器的端口 80。
-```
-docker run --name my-chatgpt -p 80:80 jcm-chatgpt
-```
-
->>>>>>> 1606e6e78c27f8fae38d21b6ff9e4b63f99618c4
 # 技术栈
 
 |  名称   | 版本  |
@@ -149,11 +114,6 @@ docker run --name my-chatgpt -p 80:80 jcm-chatgpt
   </a>
 </div>
 
-
-# 进学习群加V&商务合作
-<div>
-  <img src="https://i.328888.xyz/2023/04/03/iHKA4H.jpeg" alt="drawing" width="300px" height="300px"/>
-</div>
 
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)

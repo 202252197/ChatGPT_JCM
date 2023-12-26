@@ -13,9 +13,9 @@
         </li>
       </ul>
     </div>
-    <div class="own-pic" @click="userInfoShow">
+    <!-- <div class="own-pic" @click="userInfoShow">
         <HeadImg ></HeadImg>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -58,12 +58,13 @@ export default {
       }
 
       this.current = index;
-    },
-    userInfoShow(){
-      this.$router.push({
-            name: "UserInfo",
-          }, () => {});
     }
+    // ,
+    // userInfoShow(){
+    //   this.$router.push({
+    //         name: "UserInfo",
+    //       }, () => {});
+    // }
   },
 };
 </script>
