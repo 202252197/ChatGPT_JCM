@@ -188,7 +188,7 @@ export const createTranslation = (formData, token) => {
 export const createFineTune = (formData, token) => {
   return axios({
     method: 'post',
-    baseURL: `${baseUrl}/v1/fine-tunes`,
+    baseURL: `${baseUrl}/v1/fine_tuning/jobs`,
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type':  'application/json'
@@ -206,7 +206,7 @@ export const createFineTune = (formData, token) => {
 export const getFineTunesList = token => {
   return axios({
     method: 'get',
-    baseURL: `${baseUrl}/v1/fine-tunes`,
+    baseURL: `${baseUrl}/v1/fine_tuning/jobs`,
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -238,7 +238,7 @@ export const getFineTunesList = token => {
 export const retrieveFineTune = (fineTuneId, token) => {
   return axios({
     method: 'get',
-    baseURL: `${baseUrl}/v1/fine-tunes/` + fineTuneId,
+    baseURL: `${baseUrl}/v1/fine-tunes/jobs/` + fineTuneId,
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -254,7 +254,7 @@ export const retrieveFineTune = (fineTuneId, token) => {
 export const cancelFineTune = (fineTuneId, token) => {
   return axios({
     method: 'post',
-    baseURL: `${baseUrl}/v1/fine-tunes/` + fineTuneId + '/cancel',
+    baseURL: `${baseUrl}/v1/fine_tuning/jobs/` + fineTuneId + '/cancel',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -268,7 +268,7 @@ export const cancelFineTune = (fineTuneId, token) => {
 export const getFineTuneEventsList = (fineTuneId, token) => {
   return axios({
     method: 'get',
-    baseURL: `${baseUrl}/v1/fine-tunes/` + fineTuneId + '/events',
+    baseURL: `${baseUrl}/v1/fine_tuning/jobs/` + fineTuneId + '/events',
     headers: {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'multipart/form-data'
