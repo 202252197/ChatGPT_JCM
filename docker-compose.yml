@@ -1,0 +1,19 @@
+version: "3.6"
+
+services:
+  chatgpt:
+    container_name: chatgpt
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - OPENAI_API_KEY=""
+        - OPENAI_API_URL="http://baidu.com"
+    ports:
+      - 8090:80
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "1"

@@ -42,24 +42,36 @@ https://www.bilibili.com/video/BV1ss4y1d72g 此项目微调使用的简单案例
 
 # 部署步骤
 ## 本地部署
-```
+
+```sh
 npm install
 npm run serve
 npm run build
 ```
- # 在线体验地址 (需要使用OpenAI KEY)
+
+# 在线体验地址 (需要使用OpenAI KEY)
 
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
 
 ## OpenAI-Key设置以及自定义设置
+
 ### 在.env.serve中添加代码
-```
+
+```env
 VUE_APP_OPENAI_API_KEY='你的openai api key'
 ```
+
+### 配置使用自定义的 OpenAI proxy
+
+在 .env.serve 中添加代码
+
+```env
+VUE_APP_OPENAI_API_URL='你的openai api proxy'
+```
+
 ### 在/src/store/mutation-types.js
 
 可以在此文件中设置AI头像+用户头像+用户名称
-
 
 # 技术栈
 
