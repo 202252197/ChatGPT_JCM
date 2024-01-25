@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: ./Dockerfile
       args:
-        - OPENAI_API_KEY=""
-        - OPENAI_API_URL="http://baidu.com"
+        # - OPENAI_API_KEY=xx-xxx
+        # - OPENAI_API_URL=http://baidu.com
     ports:
       - 8090:80
     restart: unless-stopped
