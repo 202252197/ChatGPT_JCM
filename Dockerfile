@@ -5,6 +5,11 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 
+ARG OPENAI_API_KEY=""
+ARG OPENAI_API_URL=""
+ENV VUE_APP_OPENAI_API_KEY="${OPENAI_API_KEY}"
+ENV VUE_APP_OPENAI_API_URL="${OPENAI_API_URL}"
+
 COPY . .
 RUN npm run build
 

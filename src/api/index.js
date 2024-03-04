@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
 
 const base = {
   axios: axios,
-  baseUrl: 'https://api.openai.com'
+  baseUrl: process.env.VUE_APP_OPENAI_API_URL || 'https://api.openai.com'
 }
 
 export default base
