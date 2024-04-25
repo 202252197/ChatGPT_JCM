@@ -29,11 +29,6 @@
   <img src="https://www.freeimg.cn/i/2023/12/26/658a74685a4e4.jpeg" alt="drawing" width="270px"/>
 </div>
 
-
-## 应用程序
-https://wweu.lanzoub.com/ia2Zy0v2fxqd  蓝奏云下载地址
-
-
 ## 参考视频
 https://www.bilibili.com/video/BV1BM4y187bp 使用API调用StableDiffusion生成图片简单案例
 https://www.bilibili.com/video/BV1iL411k7pC 本地+云服务器 部署此项目视频
@@ -60,15 +55,6 @@ npm run build
 ```env
 VUE_APP_OPENAI_API_KEY='你的openai api key'
 ```
-
-### 配置使用自定义的 OpenAI proxy
-
-在 .env.serve 中添加代码
-
-```env
-VUE_APP_OPENAI_API_URL='你的openai api proxy'
-```
-
 ### 在/src/store/mutation-types.js
 
 可以在此文件中设置AI头像+用户头像+用户名称
@@ -115,9 +101,6 @@ VUE_APP_OPENAI_API_URL='你的openai api proxy'
 | 更换聊天窗口背景    | 支持输入背景图片URL，暂时取消并保留此功能，没太大意义（暂时取消） |
 | 角色扮演    | 内置多角色prompt |
 | 界面多语言    | 支持中英文语言 |
-| 更换主题    | 待开发 |
-| 增加后端实现更多功能    | 待开发 |
-| More    | 待开发 |
 
 # 贡献者
 <div>
