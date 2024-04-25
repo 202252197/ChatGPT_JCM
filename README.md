@@ -29,11 +29,6 @@
   <img src="https://www.freeimg.cn/i/2023/12/26/658a74685a4e4.jpeg" alt="drawing" width="270px"/>
 </div>
 
-
-## 应用程序
-https://wweu.lanzoub.com/ia2Zy0v2fxqd  蓝奏云下载地址
-
-
 ## 参考视频
 https://www.bilibili.com/video/BV1BM4y187bp 使用API调用StableDiffusion生成图片简单案例
 https://www.bilibili.com/video/BV1iL411k7pC 本地+云服务器 部署此项目视频
@@ -54,12 +49,6 @@ npm run build
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
 
 ## OpenAI-Key设置以及自定义设置
-
-### 在.env.serve中添加代码
-
-```env
-VUE_APP_OPENAI_API_KEY='你的openai api key'
-```
 
 ### 配置使用自定义的 OpenAI proxy
 
