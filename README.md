@@ -1,7 +1,7 @@
 
 
 <div align=center>
-  <img src="https://i.imgur.com/coZ9g2r.png"   />
+  <img src="https://i.imgur.com/FSoxQAC.png"   />
 </div>
 <a href="https://github.com/202252197">
   <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
