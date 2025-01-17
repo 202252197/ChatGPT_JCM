@@ -4,7 +4,7 @@
   <img src="https://i.imgur.com/FSoxQAC.png"   />
 </div>
 </p>
-<h4 align="center">基于Vue2+ElementUI构建的OpenAI系统</h4>
+<h4 align="center">基于Vue2+ElementUI构建的OpenAI管理系统</h4>
 <p align="center">
 	<a href="https://github.com/202252197/ChatGPT_JCM"><img src="http://badge.devlive.org/api/badge/github/202252197/ChatGPT_JCM.svg?type=stars&style=minimal"></a>
 	<a href="https://github.com/202252197/ChatGPT_JCM"><img src="https://img.shields.io/badge/OpenAI%20Manager-1.0.0-brightgreen.svg"></a>
