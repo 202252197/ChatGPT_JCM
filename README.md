@@ -16,11 +16,13 @@
 项目使用Vue2进行开发，给大家提供一个方便使用的OpenAI Web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对OpenAI API进行入门了解使用，后期会接入后端，实现更丰富的功能。
 </div>
 <br/>
-<div>
-  欢迎访问gitcode: <a  href="https://gitcode.com/2022521971/ChatGPT_JCM">https://gitcode.com/2022521971/ChatGPT_JCM</a>
-</div>
 
 > 🤭记得点个小星星Starred
+
+> gitcode:https://gitcode.com/2022521971/ChatGPT_JCM
+> github:https://github.com/202252197/ChatGPT_JCM
+
+
 
 ## 会话
 ![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a737bec9c4.jpeg)
