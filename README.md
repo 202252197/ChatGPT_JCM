@@ -3,18 +3,22 @@
 <div align=center>
   <img src="https://i.imgur.com/FSoxQAC.png"   />
 </div>
-<a href="https://github.com/202252197">
-  <img width=800 src="https://github-profile-trophy.vercel.app/?username=202252197&column=7&theme=gruvbox&no-frame=true"/>
-</a>
+</p>
+<h4 align="center">基于Vue2+ElementUI构建的OpenAI系统</h4>
+<p align="center">
+	<a href="https://github.com/202252197/ChatGPT_JCM"><img src="http://badge.devlive.org/api/badge/github/202252197/ChatGPT_JCM.svg?type=stars&style=minimal"></a>
+	<a href="https://github.com/202252197/ChatGPT_JCM"><img src="https://img.shields.io/badge/OpenAI%20Manager-1.0.0-brightgreen.svg"></a>
+	<a href="https://github.com/202252197/ChatGPT_JCM/main/LICENSE"><img src="https://img.shields.io/badge/license-BSD_3Clause-brightgreen.svg"></a>
+</p>
+
 <div>
-声明：此项目只发布于 GitHub，基于 BSD-3-Clause license 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、卖key等行为。谨防受骗。
-项目使用Vue2进行开发，给大家提供一个方便使用的OpenAI web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对openai进行入门了解使用，后期会接入后端，实现更丰富的功能。
+声明：免费且作为开源学习使用。
+项目使用Vue2进行开发，给大家提供一个方便使用的OpenAI Web 管理界面，有好的建议和bug欢迎大家提出来，项目会一直开源和代码优化，方便对OpenAI API进行入门了解使用，后期会接入后端，实现更丰富的功能。
 </div>
 <br/>
 <div>
   欢迎访问gitcode: <a  href="https://gitcode.com/2022521971/ChatGPT_JCM">https://gitcode.com/2022521971/ChatGPT_JCM</a>
 </div>
-
 > 🤭记得点个小星星Starred
 ## 会话
 ![webui4.5](https://www.freeimg.cn/i/2023/12/26/658a737bec9c4.jpeg)
@@ -43,9 +47,9 @@ https://www.bilibili.com/video/BV1ss4y1d72g 此项目微调使用的简单案例
 ## 本地部署
 
 ```sh
-npm install
-npm run serve
-npm run build
+npm install 安装依赖
+npm run serve 运行项目
+npm run build 构建项目
 ```
 
 # 在线体验地址 (需要使用OpenAI KEY)
@@ -53,16 +57,10 @@ npm run build
  > https://huggingface.co/spaces/junchenmo/OpenAI-Manager
 
 ## OpenAI-Key设置以及自定义设置
+#### 只需要在界面输入openai官方key即可
+注意：如果是错误的key或者是没有额度的key不会输出任何内容
 
-### 配置使用自定义的 OpenAI proxy
-
-在 .env.serve 中添加代码
-
-```env
-VUE_APP_OPENAI_API_URL='你的openai api proxy'
-```
-
-### 在/src/store/mutation-types.js
+#### 在/src/store/mutation-types.js
 
 可以在此文件中设置AI头像+用户头像+用户名称
 
@@ -79,8 +77,8 @@ VUE_APP_OPENAI_API_URL='你的openai api proxy'
 |  接口   | 描述  | 
 |  ----  | ----  |
 | List Models  | 获取模型列表 | 
-| Completion  | text-davinci-003, text-davinci-002, text-curie-001, text-babbage-001, text-ada-001, davinci, curie, babbage, ada模型 |
-| Chat Completion  | gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301模型 |
+| Completion  | text-davinci-003, text-davinci-002, text-curie-001, text-babbage-001, text-ada-001, davinci, curie, babbage, ada等模型 |
+| Chat Completion  | gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301等最新模型 |
 | Create edit  | 创建编辑(待..) |
 | Create Image  | 根据描述生成图片 |
 | Create image edit  | 根据上传的图片结合输入的描述生成图片 |
@@ -103,9 +101,7 @@ VUE_APP_OPENAI_API_URL='你的openai api proxy'
 | List engines | 引擎列表(已弃用) |
 | Retrieve engine | 检索引擎信息(已弃用) |
 | 多会话储存和上下文逻辑    | GPT3.5模型支持上下文逻辑,多窗口上下文对话 |
-| 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |
-| 聊天截图到本地图片    | 截图功能，有缺陷只能截图当前窗口的图片，建议QQ长截图（暂时取消） |
-| 更换聊天窗口背景    | 支持输入背景图片URL，暂时取消并保留此功能，没太大意义（暂时取消） |
+| 导出导入数据   | 支持导出当前会话，导出全部会话，导入当前会话，导出当前会话，清除当前会话，清除全部会话 |x
 | 角色扮演    | 内置多角色prompt |
 | 界面多语言    | 支持中英文语言 |
 
@@ -117,18 +113,10 @@ VUE_APP_OPENAI_API_URL='你的openai api proxy'
 </div>
 
 
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=202252197/ChatGPT_JCM&type=Timeline)](https://star-history.com/#202252197/ChatGPT_JCM&Timeline)
 
 # 免责声明
 这不是官方的OpenAI产品。这是一个个人项目，与OpenAI没有任何关系。不要起诉我。
 
-<a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/stars/202252197/ChatGPT_JCM" /></a>
-<a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/last-commit/202252197/ChatGPT_JCM" /></a>
-<a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/release/202252197/ChatGPT_JCM" /></a>
-<a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/downloads/202252197/ChatGPT_JCM/total" /></a>
-<a href="https://github.com/202252197/ChatGPT_JCM" ><img src="https://img.shields.io/github/license/202252197/ChatGPT_JCM" /></a>
-</p>
 
 ![Visitor Count](https://profile-counter.glitch.me/202252197/count.svg)
 
