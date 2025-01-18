@@ -1,7 +1,8 @@
 <template>
   <div class="chatHome">
     <div class="chatLeft" style="width:20%" v-show="showPersonList">
-      <div class="title" style="text-align: center;">
+      <div class="title" style="text-align: center;display: flex;align-items: center;justify-content: center;">
+        <img src="@/assets/logo.png" style="width: 33px; height: 33px;margin-right: 5px;" />
         <h2>OpenAI Manager</h2>
       </div>
       <div class="online-person" style="margin-top: 5%;">
